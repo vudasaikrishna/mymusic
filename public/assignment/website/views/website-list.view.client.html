@@ -1,0 +1,77 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-text pull-left">
+            <a href="#/user/{{model.userId}}"> <span class="glyphicon glyphicon-chevron-left"></span></a>
+        </div>
+        <div class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}/website/new"> <span class="glyphicon glyphicon-plus"></span></a>
+        </div>
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="#/user/{{model.userId}}/website">Websites</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <ul class="list-group">
+        <li class="list-group-item">
+            <!--Header Row-->
+            <div class="row">
+                <div class="col-xs-6">
+                    <strong>Name</strong>
+                    <a>
+                        <span class="glyphicon glyphicon-triangle-top"></span>
+                    </a>
+                </div>
+                <div class="col-xs-3 hidden-xs">
+                    <strong>Last Updated</strong>
+                    <a>
+                        <span class="glyphicon glyphicon-triangle-top"></span>
+                    </a>
+                </div>
+                <div class="col-xs-2 hidden-xs">
+                    <strong>Created By</strong>
+                    <a>
+                        <span class="glyphicon glyphicon-triangle-top"></span>
+                    </a>
+                </div>
+                <!--<div class="col-xs-6 col-sm-1">
+                    <a href="website-new.view.client.html" class="pull-right">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>-->
+            </div>
+        </li>
+        <li ng-repeat="website in model.websites" class="list-group-item">
+            <div class="row">
+                <div class="col-xs-6">
+                    <a href="#/user/{{website._user._id}}/website/{{website._id}}/page">
+                        {{website.name}}
+                    </a>
+                </div>
+                <div class="col-xs-3 hidden-xs small">
+                    {{website.lastUpdated | date:'MMM dd, yyyy h:mm a'}}
+                </div>
+                <div class="col-xs-2 hidden-xs small">
+                    {{website._user.username}}
+                </div>
+                <div class="col-sm-1 col-xs-6">
+                    <a href="#/user/{{website._user._id}}/website/{{website._id}}" class="pull-right">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-header pull-right">
+            <a class="navbar-brand" href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user"> </span></a>
+        </div>
+    </div>
+</nav>

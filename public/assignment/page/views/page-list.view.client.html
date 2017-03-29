@@ -1,0 +1,73 @@
+<nav class="navbar vsk-page-navbar navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-text pull-left">
+            <a href="#/user/{{model.userId}}/website"> <span class="glyphicon glyphicon-chevron-left vsk-glyphicon"></span></a>
+        </div>
+        <div class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new"> <span class="glyphicon glyphicon-plus vsk-glyphicon"></span></a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#/user/{{model.userId}}/website/{{model.websiteId}}/page">Pages</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <ul class="list-group">
+        <li class="list-group-item">
+            <!--Header Row-->
+            <div class="row">
+                <div class="col-xs-6">
+                    <strong>Name</strong>
+                    <a>
+                        <span class="glyphicon glyphicon-triangle-top"></span>
+                    </a>
+                </div>
+                <div class="col-xs-3 hidden-xs">
+                    <strong>Last Updated</strong>
+                    <a>
+                        <span class="glyphicon glyphicon-triangle-top"></span>
+                    </a>
+                </div>
+                <div class="col-xs-2 hidden-xs">
+                    <strong>Created By</strong>
+                    <a>
+                        <span class="glyphicon glyphicon-triangle-top"></span>
+                    </a>
+                </div>
+                <!--<div class="col-xs-6 col-sm-1">
+                    <a href="page-new.view.client.html" class="pull-right">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>-->
+            </div>
+        </li>
+        <!--Item 1-->
+        <li ng-repeat="page in model.pages" class="list-group-item">
+            <div class="row">
+                <div class="col-xs-6">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget">
+                        {{page.name}}
+                    </a>
+                </div>
+                <div class="col-xs-3 hidden-xs small"><em>{{page.lastUpdated | date:'MMM dd, yyyy h:mm a'}}</em></div>
+                <div class="col-xs-2 hidden-xs small"><em>{{page._website._user.username}}</em></div>
+                <div class="col-sm-1 col-xs-6">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}" class="pull-right">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+<nav class="navbar vsk-page-navbar navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-header pull-right">
+            <a class="navbar-brand" href="#/user/{{model.userId}}"><span class="glyphicon glyphicon-user vsk-glyphicon-page"> </span></a>
+        </div>
+    </div>
+</nav>
