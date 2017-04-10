@@ -1,37 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="MyMusic">
 <head>
+
     <meta charset="UTF-8">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Web Dev Course Home Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    <title>MyMusic</title>
+
+    <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet" />-->
+    <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>-->
+    <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>-->
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet"/>
+    <!--<link href="css/textAngular.css" rel="stylesheet"/>-->
+
+    <!--// JQuery-->
+    <!--<script src="https://code.jquery.com/jquery-3.1.1.js"></script>-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>-->
+    <!--// JQuery UI-->
+    <!--<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <!--<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>-->
+    <script src="js/bootstrap.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <!--<script src="js/angular.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+    <!--<script src="js/angular-route.js"></script>-->
+    <!--Text Angular Scripts-->
+    <script src="js/textAngular-rangy.min.js"></script>
+    <script src="js/textAngular-sanitize.min.js"></script>
+    <script src="js/textAngular.min.js"></script>
+
+    <script src="directives/wbdv-sortable.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+
+    <!-- controllers -->
+    <!--User Controllers-->
+    <script src="user/controllers/login.controller.client.js"></script>
+    <script src="user/controllers/register.controller.client.js"></script>
+    <script src="user/controllers/profile.controller.client.js"></script>
+    <!--Website Controllers-->
+    <script src="website/controllers/website-list.controller.client.js"></script>
+    <script src="website/controllers/website-new.controller.client.js"></script>
+    <script src="website/controllers/website-edit.controller.client.js"></script>
+    <!--Page Controllers-->
+    <script src="page/controllers/page-edit.controller.client.js"></script>
+    <script src="page/controllers/page-list.controller.client.js"></script>
+    <script src="page/controllers/page-new.controller.client.js"></script>
+    <!--Widget Controllers-->
+    <script src="widget/controllers/widget-list.controller.client.js"></script>
+    <script src="widget/controllers/widget-edit.controller.client.js"></script>
+    <script src="widget/controllers/widget-new.controller.client.js"></script>
+    <script src="widget/controllers/widget-flickr-search.controller.client.js"></script>
+
+    <!-- services -->
+    <script src="services/user.service.client.js"></script>
+    <script src="services/website.service.client.js"></script>
+    <script src="services/page.service.client.js"></script>
+    <script src="services/widget.service.client.js"></script>
+    <script src="services/flickr.service.client.js"></script>
+
 </head>
 <body>
-<div id='top' style='width=100;height=100;position=absolute;top=10;left=10'>
-</div>
-<div id='middle' style='width=100;height=100;position=absolute;top=20;left=20'>
-</div>
-<div id='bottom' style='width=100;height=100;position=absolute;top=30;left=30'>
-</div>
-<div class="container">
-    <h1>Web Dev Course Home Page</h1>
-
-    <h2>Required links</h2>
-    <ul>
-        <li>
-            <a href="project/index.html">Project</a>
-        </li>
-        <li>
-            <a href="assignment/#/login">Assignment</a>
-        </li>
-        <li>
-            <a href="test/index.html">Test MongoDB</a>
-        </li>
-        <li>
-            <a href="https://github.com/vudasaikrishna/vuda-saikrishna-webdev">My public repository at GitHub.com</a>
-        </li>
-    </ul>
-</div>
+<div ng-view></div>
 </body>
 </html>
