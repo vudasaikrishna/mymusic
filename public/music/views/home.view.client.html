@@ -1,60 +1,93 @@
-<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
-    <div class="container-fluid">
-        <a class="top-15 pull-left r-15 navbar-link vsk-ngclick-a">
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </a>
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-123">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">MyMusic</a>
-        </div>
-        <a class="navbar-link pull-right top-15" href="#"><span class="fa fa-user-circle"></span></a>
-        <div class="collapse navbar-collapse navbar-right" id="navbar-collapse-123">
-            <ul class="nav navbar-nav">
-                <li class="navbar-link active"><a href="#">Home</a></li>
-                <li class="navbar-link"><a href="#">Login</a></li>
+<nav class="navbar navbar-toggleable-md navbar-default navbar-inverse">
+    <!--Menu on the navbar-->
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <!--Menu in the body-->
+    <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">MyMusic</a>
 
-            </ul>
-        </div>
-
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Playlists</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control my-2 mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
     </div>
 </nav>
 
-<div class="row row-margin container-fluid">
-<div class="col-xs-2 no-padding">
-    <nav class="navbar navbar-sidebar sidebar" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                <li class="navbar-link active"><a href="#">Home</a></li><br>
-                <li class="navbar-link"><a href="#">Playlists</a></li>
+<div class="row container-fluid">
+<div class="col-sm-2 neg-left-margin">
+    <nav class="navbar navbar-toggleable-md navbar-default navbar-inverse sidebar">
+        <!--<a class="navbar-brand" href="#">MyMusic</a>-->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav d-block">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="#">Playlists</a>
+                </li>
+               <!-- <li class="nav-item d-block">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item d-block">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>-->
             </ul>
-
-        </div><!-- /.navbar-collapse -->
+        </div>
     </nav>
 </div>
 
-    <div class="col-xs-10 top-15 col-centered">
-        <form class="form-horizontal">
-            <div class="col-sm-10">
-            <input class="form-control" type="text" placeholder="Search">
+    <div class="col-sm-10">
+        <div class="form-group row hidden-lg-up">
+            <div class="col-8">
+                <input class="form-control my-2" type="text" placeholder="Search" id="searchText">
             </div>
-            <button class="btn btn-primary col-sm-2 pull-right" type="submit">Search</button>
-        </form>
-    </div>
+            <button class="btn btn-primary col-2 my-2" type="submit">Search</button>
+        </div>
 
+        <div class="card-group">
+        <div class="card card-home my-4">
+            <img class="card-img-top" src="https://lastfm-img2.akamaized.net/i/u/174s/c85ce7042b4b4327abb0e3111a100f2c.png"
+                 alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Party</h4>
+                <p class="card-text">Rock, Pop, Disco, Rock and Roll</p>
+                <a href="#" class="btn btn-primary">Browse</a>
+            </div>
+        </div>
+
+        <div class="card card-home my-4">
+            <img class="card-img-top" src="https://lastfm-img2.akamaized.net/i/u/174s/c85ce7042b4b4327abb0e3111a100f2c.png"
+                 alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Party</h4>
+                <p class="card-text">Rock, Pop, Disco, Rock and Roll</p>
+                <a href="#" class="btn btn-primary">Browse</a>
+            </div>
+        </div>
+            <div class="card card-home my-4">
+                <img class="card-img-top" src="https://lastfm-img2.akamaized.net/i/u/174s/c85ce7042b4b4327abb0e3111a100f2c.png"
+                     alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">Party</h4>
+                    <p class="card-text">Rock, Pop, Disco, Rock and Roll</p>
+                    <a href="#" class="btn btn-primary">Browse</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

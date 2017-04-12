@@ -6,7 +6,9 @@
     function configuration($routeProvider, $locationProvider) {
         $routeProvider
             .when("/home", {
-                templateUrl: "music/views/home.view.client.html"
+                templateUrl: "music/views/home.view.client.html",
+                controller: "MoodController",
+                controllerAs: "model"
             })
             .when("/login", {
                 templateUrl: "user/views/login.view.client.html",
