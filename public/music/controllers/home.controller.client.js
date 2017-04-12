@@ -3,8 +3,10 @@
         .module("MyMusic")
         .controller("MoodController", MoodController);
 
-    function MoodController($routeParams, $location) {
+    function MoodController($routeParams, MusicService, $location) {
         var vm = this;
+        vm.test = "hello world";
+        vm.tracks = [];
 
         console.log("Mood");
         /*vm.userId = $routeParams.uid;
@@ -18,23 +20,29 @@
                 .success(function (widget) {
                     vm.widget = widget;
                 });*/
-
+            vm.test = "initialized";
         }
         init();
 
         //event handlers
-        vm.searchPhotos = searchPhotos;
+        vm.searchTracks = searchTracks;
         vm.selectPhoto = selectPhoto;
 
-        function searchPhotos(searchTerm) {
+        function searchTracks(searchTerm) {
+            console.log(searchTerm);
+            vm.test = "searched";
             //console.log("Searching for photos");
-            FlickrService
-                .searchPhotos(searchTerm)
+            MusicService
+                .searchTracks(searchTerm)
                 .then(function(response) {
-                    data = response.data.replace("jsonFlickrApi(","");
-                    data = data.substring(0,data.length - 1);
-                    data = JSON.parse(data);
-                    vm.photos = data.photos;
+                    //console.log(response);
+                    data = response.data;
+                    //console.log(data);
+                    //data = JSON.parse(data);
+                    data = data.results.trackmatches.track;
+                    vm.tracks = data;
+                    console.log(vm.tracks[0].image[2]);
+                    $location.url('/track');
                 });
 
         }

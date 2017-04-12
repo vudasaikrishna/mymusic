@@ -20,15 +20,28 @@
         //console.log(urlBase);
         var api = {
             "searchMusic": searchMusic,
+            "searchTracks": searchTracks,
             "getMoods": getMoods
         };
         return api;
 
+        /*
+        * http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=disco&api_key=YOUR_API_KEY&format=json
+        * mood based top charts
+        * */
         function getMoods() {
-            var url = urlBase.replace("API_KEY", key).replace()
+            var url = urlBase.replace("API_KEY", key);
         }
+
+        function searchTracks(searchTerm) {
+            //console.log(urlBase);
+            var url = urlBase.replace("API_KEY", key).replace("TEXT", searchTerm);
+            return $http.get(url);
+        }
+
         function searchMusic(searchTerm) {
             //console.log(urlBase);
+            // search tracks, artists and albums.
             var url = urlBase.replace("API_KEY", key).replace("TEXT", searchTerm);
             return $http.get(url);
         }

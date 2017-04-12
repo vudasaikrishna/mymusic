@@ -6,9 +6,14 @@
     function configuration($routeProvider, $locationProvider) {
         $routeProvider
             .when("/home", {
-                templateUrl: "music/views/home.view.client.html",
-                controller: "MoodController",
-                controllerAs: "model"
+                templateUrl: "music/views/home.view.client.html"
+                /*controller: "MoodController",
+                controllerAs: "model"*/
+            })
+            .when("/track", {
+                templateUrl: "music/views/track.view.client.html"
+                /*controller: "MoodController",
+                controllerAs: "model"*/
             })
             .when("/login", {
                 templateUrl: "user/views/login.view.client.html",

@@ -1,0 +1,13 @@
+<!--{{model.tracks}}-->
+<div class="card-columns my-5" ng-controller="MoodController">
+    <!--{{model.test}}-->
+    <div class="card" ng-repeat="track in model.tracks">
+        <img class="card-img-top img-fluid" src="{{track.image[2]['#text']}}"
+             alt="{{track.name}}">
+        <div class="card-block">
+            <h4 class="card-title">{{track.name}}</h4>
+            <p class="card-text">Artist: {{track.artist}}</p>
+            <a href="{{track.url}}" class="btn btn-primary">Browse</a>
+        </div>
+    </div>
+</div>
