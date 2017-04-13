@@ -8,7 +8,7 @@
         vm.test = "hello world";
         vm.tracks = [];
 
-        console.log("Mood");
+        //console.log("Mood");
         /*vm.userId = $routeParams.uid;
         vm.websiteId = $routeParams.wid;
         vm.pageId = $routeParams.pid;
@@ -26,7 +26,7 @@
 
         //event handlers
         vm.searchTracks = searchTracks;
-        vm.selectPhoto = selectPhoto;
+
 
         function searchTracks(searchTerm) {
             console.log(searchTerm);
@@ -41,13 +41,13 @@
                     //data = JSON.parse(data);
                     data = data.results.trackmatches.track;
                     vm.tracks = data;
-                    console.log(vm.tracks[0].image[2]);
+                    //console.log(vm.tracks[0].image[2]);
                     $location.url('/track');
                 });
 
         }
 
-        function selectPhoto(photo) {
+        /*function selectPhoto(photo) {
             var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server;
             url += "/" + photo.id + "_" + photo.secret + "_b.jpg";
             vm.widget.url = url;
@@ -60,6 +60,6 @@
                 }, function (err) {
                     vm.error = "Unable to add Image";
                 });
-        }
+        }*/
     }
 })();

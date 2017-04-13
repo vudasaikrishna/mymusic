@@ -1,5 +1,5 @@
 <!--{{model.tracks}}-->
-<div class="card-columns my-5" ng-controller="MoodController">
+<div class="card-columns d-inline-block" ng-controller="MoodController">
     <!--{{model.test}}-->
     <div class="card" ng-repeat="track in model.tracks">
         <img class="card-img-top img-fluid" src="{{track.image[2]['#text']}}"
@@ -7,7 +7,8 @@
         <div class="card-block">
             <h4 class="card-title">{{track.name}}</h4>
             <p class="card-text">Artist: {{track.artist}}</p>
-            <a href="{{track.url}}" class="btn btn-primary">Browse</a>
+            <a href="{{track.url}}" class="btn btn-primary">Play</a>
+            <a href="#" class="btn btn-primary">View</a>
         </div>
     </div>
 </div>
