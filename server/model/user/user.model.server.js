@@ -16,9 +16,14 @@ module.exports = function (model) {
         deleteUser: deleteUser,
         addWebsite: addWebsite,
         removeWebsite: removeWebsite,
-        findUserByGoogleId: findUserByGoogleId
+        findUserByGoogleId: findUserByGoogleId,
+        findAllUsers: findAllUsers
     };
     return api;
+
+    function findAllUsers() {
+        return userModel.find();
+    }
 
     function findUserByGoogleId(googleId) {
         return userModel.findOne({

@@ -2,12 +2,13 @@
 <div class="card-columns my-4" ng-controller="MoodController">
     <!--{{model.test}}-->
     <div class="card" ng-repeat="track in model.tracks">
-        <img class="card-img-top card-img-cus" src="{{track.image[2]['#text']}}"
-             alt="../../uploads/default_track.png">
+        <img class="card-img-top card-img-cus" src="{{model.getImage(track)}}"
+             alt="{{track.name}}">
         <div class="card-block">
             <h4 class="card-title">{{track.name}}</h4>
             <p class="card-text">Artist: {{track.artist}}</p>
-            <a href="{{track.url}}" class="btn btn-primary">Play</a>
+            <a ng-show="{{track.streamable['#text']}}" href="{{track.streamable['#text']}}" class="btn btn-primary">Play</a>
+            <a ng-show="{{!track.streamable['#text']}}" href="{{track.url}}" class="btn btn-primary">Get</a>
             <a href="#" class="btn btn-primary float-right">View</a>
         </div>
     </div>

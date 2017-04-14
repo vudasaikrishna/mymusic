@@ -18,7 +18,7 @@ module.exports = function (app, model) {
     app.post('/api/logout', logout);
     app.post('/api/isAdmin', isAdmin);
     app.post("/api/register", register);
-    app.get("/api/user", findUser);
+    app.get("/api/user", findAllUsers);
     app.get("/api/user/:userId", findUserById);
     app.put("/api/profile/:userId", updateProfile);
     app.put("/api/user/:userId", updateUser);
@@ -33,9 +33,9 @@ module.exports = function (app, model) {
 
 
     var googleConfig = {
-        clientID     : process.env.GOOGLE_CLIENT_ID, //|| "312560962266-cjg8lvsncngp420upkjqbsbo9s3lbcso.apps.googleusercontent.com",
-        clientSecret : process.env.GOOGLE_CLIENT_SECRET, // || "3EvjPnLR-9xpZS76dO-_f920",
-        callbackURL  : process.env.GOOGLE_CALLBACK_URL, // || "http://127.0.0.1:3000/google/callback"
+        clientID     : process.env.GOOGLE_CLIENT_ID || "312560962266-cjg8lvsncngp420upkjqbsbo9s3lbcso.apps.googleusercontent.com",
+        clientSecret : process.env.GOOGLE_CLIENT_SECRET || "3EvjPnLR-9xpZS76dO-_f920",
+        callbackURL  : process.env.GOOGLE_CALLBACK_URL || "http://127.0.0.1:3000/google/callback"
     };
 
 
@@ -140,13 +140,16 @@ module.exports = function (app, model) {
     }
 
     function findAllUsers(req, res) {
+        console.log("trying to find");
         if(req.user && req.user.role=='ADMIN') {
+            console.log("finding users");
             userModel
                 .findAllUsers()
                 .then(function (users) {
                     res.json(users);
                 });
         } else {
+            console.log("Failed")
             res.json({});
         }
     }

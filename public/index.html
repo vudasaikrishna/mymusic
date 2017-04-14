@@ -16,6 +16,7 @@
     <!--<link href="css/bootstrap.min.css" rel="stylesheet" />-->
     <link href="css/bootstrap4/bootstrap.min.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet"/>
+    <link href="css/profile-picture.css" rel="stylesheet"/>
 
     <!--<link href="css/textAngular.css" rel="stylesheet"/>-->
 
@@ -104,8 +105,13 @@
     <a class="navbar-brand d-flex hidden-md-up mx-auto" href="#">MyMusic</a>
     <div class="navbar-collapse collapse dual-collapse">
         <ul class="navbar-nav ml-auto">
+            <!--<li class="nav-item">
+                <a ng-if="!model.currentUser" class="nav-link" href="#/login">Login</a>
+            </li>-->
             <li class="nav-item">
-                <a class="nav-link" href="#/login">Login</a>
+                <a class="nav-link" href="#/profile">
+                            <img class="img-prof" src="uploads/default-profile.png" />
+                </a>
             </li>
             <!--<li class="nav-item">
                 <a class="nav-link" href="#">Link</a>

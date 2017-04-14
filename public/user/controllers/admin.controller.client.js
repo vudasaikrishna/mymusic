@@ -3,7 +3,7 @@
         .module('MyMusic')
         .controller('AdminController', adminController);
 
-    function adminController($location, userService) {
+    function adminController($location, UserService) {
         var model = this;
 
         model.deleteUser = deleteUser;
@@ -15,21 +15,22 @@
         init();
         
         function updateUser(user) {
-            userService
+            UserService
                 .updateUser(user)
                 .then(findAllUsers);
         }
 
         function deleteUser(userId) {
-            userService
+            UserService
                 .deleteUser(userId)
                 .then(findAllUsers);
         }
         
         function findAllUsers() {
-            userService
+            UserService
                 .findAllUsers()
                 .then(function (users) {
+                    console.log("Done");
                     model.users = users;
                 }, function (err) {
                     model.error = err;

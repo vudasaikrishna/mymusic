@@ -6,14 +6,20 @@
     function configuration($routeProvider) {
         $routeProvider
             .when("/home", {
-                templateUrl: "music/views/home.view.client.html"
-                /*controller: "MoodController",
-                controllerAs: "model"*/
+                templateUrl: "music/views/home.view.client.html",
+                controller: "MoodController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkUser
+                }
             })
             .when("/track", {
-                templateUrl: "music/views/track.view.client.html"
+                templateUrl: "music/views/track.view.client.html",
                 /*controller: "MoodController",
                 controllerAs: "model"*/
+                resolve: {
+                    currentUser: checkUser
+                }
             })
             .when("/login", {
                 templateUrl: "user/views/login.view.client.html",
@@ -109,11 +115,30 @@
             .then(function (user) {
                 if(user != '0') {
                     console.log("LoggedIn");
-                    console.log(user);
+                    //console.log(user);
                     defer.resolve(user);
                 } else {
                     defer.reject();
                     $location.url('/login');
+                }
+            });
+        return defer.promise;
+    }
+
+    function checkUser($q, UserService, $location) {
+        console.log("Checking User...");
+        var defer = $q.defer();
+        UserService
+            .loggedin()
+            .then(function (user) {
+                if(user != '0') {
+                    //console.log("LoggedIn");
+                    console.log(user);
+                    defer.resolve(user);
+                } else {
+                    console.log("rejected")
+                    defer.resolve({error: "0"});
+                    //$location.url('/login');
                 }
             });
         return defer.promise;

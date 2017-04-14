@@ -10,6 +10,7 @@
         vm.updateProfile = updateProfile;
         vm.deleteUser = deleteUser;
         vm.logout = logout;
+        vm.getPhoto = getPhoto;
 
         function init() {
             /*var promise = UserService.findUserById(userId);
@@ -17,12 +18,21 @@
                 vm.user = user;
             });*/
             vm.currentUser = currentUser;
+            vm.user = currentUser;
             var userId = vm.currentUser._id;
         }
         init();
 
+        function getPhoto() {
+            if (vm.user){
+                return vm.user.photo;
+            }else {
+                return "uploads/default-profile.png";
+            }
+        }
+
         function updateProfile(user) {
-            userService
+            UserService
                 .updateProfile(user)
                 .then(function () {
                     vm.message = "User Successfully Updated!"
@@ -33,7 +43,7 @@
         }
 
         function logout() {
-            userService
+            UserService
                 .logout()
                 .then(function () {
                     $location.url('/login');
