@@ -3,33 +3,41 @@
         .module("MyMusic")
         .controller("ProfileController", ProfileController);
     
-    function ProfileController($routeParams, $location, UserService) {
+    function ProfileController(currentUser, $location, UserService) {
         var vm = this;
 
         // event handlers
-        vm.updateUser = updateUser;
+        vm.updateProfile = updateProfile;
         vm.deleteUser = deleteUser;
-
-        var userId = $routeParams['uid'];
+        vm.logout = logout;
 
         function init() {
-            var promise = UserService.findUserById(userId);
+            /*var promise = UserService.findUserById(userId);
             promise.success(function (user) {
                 vm.user = user;
-            });
+            });*/
+            vm.currentUser = currentUser;
+            var userId = vm.currentUser._id;
         }
         init();
 
-        function updateUser(newUser) {
-            var promise = UserService.updateUser(userId, newUser);
-            promise.success(function (user) {
-                if(user != null) {
+        function updateProfile(user) {
+            userService
+                .updateProfile(user)
+                .then(function () {
                     vm.message = "User Successfully Updated!"
-                } else {
+                }, function (err) {
                     vm.error = "Unable to update user";
-                }
-            });
+                });
 
+        }
+
+        function logout() {
+            userService
+                .logout()
+                .then(function () {
+                    $location.url('/login');
+                });
         }
         
         function deleteUser() {

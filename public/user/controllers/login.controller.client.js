@@ -22,16 +22,15 @@
                 vm.error = "Password cannot be empty"
                 return;
             }
-            var promise = UserService
-                .findUserByCredentials(user.username, user.password);
-            promise.success(function (user) {
-                if(user) {
-                    $location.url("/user/"+user._id);
+            UserService
+                .login(user)
+                .then(function (user) {
+                    if(user) {
+                    $location.url("/profile");
                 } else {
                     vm.error = "User not found";
                 }
-            })
-                .error(function (err) {
+            }, function (err) {
                     vm.error = "User not found";
                 });
         }

@@ -123,6 +123,7 @@ body {
 
 .vsk-ngclick-a {
     cursor: pointer;
+    /*text-decoration-color: white;*/
 }
 
 .vsk-glyphicon-pad{

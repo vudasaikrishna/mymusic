@@ -9,11 +9,59 @@
             "findUserByCredentials": findUserByCredentials,
             "findUserByUsername": findUserByUsername,
             "findUserById": findUserById,
-            "updateUser": updateUser,
-            "createUser": createUser,
-            "deleteUser": deleteUser
+            "updateProfile": updateProfile,
+            "register": register,
+            "deleteUser": deleteUser,
+            "login": login,
+            "loggedin": loggedin,
+            "logout": logout,
+            "isAdmin": isAdmin,
+            "findAllUsers": findAllUsers,
+            "updateUser": updateUser
         };
         return api;
+
+        function logout() {
+            return $http.post('/api/logout')
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function loggedin() {
+            return $http.post('/api/loggedin')
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function login(user) {
+            return $http.post('/api/login', user)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function findAllUsers() {
+            return $http.get('/api/user')
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function isAdmin() {
+            return $http.post('/api/isAdmin')
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function updateProfile(user) {
+            return $http.put('/api/profile/' + user._id, user)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
 
         function deleteUser(userId) {
             return $http.delete("/api/user/"+userId);
@@ -23,8 +71,8 @@
             return $http.get("/api/user?username="+username);
         }
 
-        function createUser(user) {
-            return $http.post("/api/user", user);
+        function register(user) {
+            return $http.post("/api/register", user);
         }
 
         function updateUser(userId, newUser) {

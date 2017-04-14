@@ -4,7 +4,6 @@ var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-/*
 var passport      = require('passport');
 var cookieParser  = require('cookie-parser');
 var session       = require('express-session');
@@ -16,7 +15,7 @@ app.use(session({
 }));
 app.use(cookieParser());
 app.use(passport.initialize());
-app.use(passport.session());*/
+app.use(passport.session());
 
 app.set('view engine', 'ejs');
 
@@ -24,7 +23,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 require ("./test/app.js")(app);
-require ("./assignment/app.js")(app);
+require ("./server/app.js")(app);
 
 console.log("Starting Server...");
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP;

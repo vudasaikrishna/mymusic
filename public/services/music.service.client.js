@@ -9,7 +9,7 @@
         // Last.Fm API
         var key = "82d41887eded3508556137889b65f14e";
         var secret = "fb228a0b77eec1eed2c24ff9a6f5cee8";
-        var urlBase = "http://ws.audioscrobbler.com/2.0/?method=track.search&track=TEXT&api_key=API_KEY&format=json";
+        var urlBase = "http://ws.audioscrobbler.com/2.0/?method=track.search&track=TEXT&page=PAGE&api_key=API_KEY&format=json";
 
 
         /*// Musikki API
@@ -33,9 +33,10 @@
             var url = urlBase.replace("API_KEY", key);
         }
 
-        function searchTracks(searchTerm) {
+        function searchTracks(searchTerm, page) {
             //console.log(urlBase);
-            var url = urlBase.replace("API_KEY", key).replace("TEXT", searchTerm);
+            console.log(page);
+            var url = urlBase.replace("API_KEY", key).replace("TEXT", searchTerm).replace("PAGE", page);
             return $http.get(url);
         }
 

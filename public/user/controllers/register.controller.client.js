@@ -27,24 +27,28 @@
                 return;
             }
 
-            var promise = UserService
+            console.log(user);
+           /* var promise = UserService
                 .findUserByUsername(user.username);
             promise
                 .success(function (u) {
                     vm.error = "Username already taken";
                 })
-                .error(function (u) {
+                .error(function (u) {*/
                     UserService
-                        .createUser(user)
-                        .success(function (u) {
+                        .register(user)
+                        .then(function (u) {
+                            console.log("recevied success!");
                             if (u){
                                 vm.message = "Registered Successfully";
-                                $location.url("/user/"+u._id);
+                                $location.url("/profile");
                             } else{
                                 vm.error = "Unable to Register";
                             }
-                    });
-                });
+                    }, function (err) {
+                            vm.error = err;
+                        });
+               /* });*/
         }
     }
 })();

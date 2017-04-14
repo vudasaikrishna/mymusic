@@ -3,7 +3,7 @@
         <div class="navbar-text pull-right">
             <span ng-click="model.deleteUser()"
                   class="glyphicon glyphicon-remove vsk-ngclick-a vsk-glyphicon-pad"></span>
-            <span ng-click="model.updateUser(model.user)"
+            <span ng-click="model.updateProfile(model.user)"
                   class="glyphicon glyphicon-ok vsk-ngclick-a vsk-glyphicon-pad"></span>
         </div>
         <div class="navbar-header">
@@ -55,12 +55,3 @@
     <a href="#/user/{{model.user._id}}/website" class="btn btn-primary btn-block">Websites</a>
     <a href="#/login" class="btn btn-danger btn-block">Logout</a>
 </div>
-
-<!--
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="navbar-header pull-right">
-            <a class="navbar-brand" href="#/user/{{model.user._id}}"><span class="glyphicon glyphicon-user"> </span></a>
-        </div>
-    </div>
-</nav>-->

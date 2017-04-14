@@ -3,7 +3,7 @@
         .module("MyMusic")
         .config(configuration);
 
-    function configuration($routeProvider, $locationProvider) {
+    function configuration($routeProvider) {
         $routeProvider
             .when("/home", {
                 templateUrl: "music/views/home.view.client.html"
@@ -20,15 +20,26 @@
                 controller: "LoginController",
                 controllerAs: "model"
             })
+            .when('/admin', {
+                templateUrl: 'user/views/admin.view.client.html',
+                resolve: {
+                    adminUser: checkAdmin
+                },
+                controller: 'AdminController',
+                controllerAs: 'model'
+            })
             .when("/register", {
                 templateUrl: "user/views/register.view.client.html",
                 controller: "RegisterController",
                 controllerAs: "model"
             })
-            .when("/user/:uid", {
+            .when("/profile", {
                 templateUrl: "user/views/profile.view.client.html",
                 controller: "ProfileController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
             })
             // Website Routes
             .when("/user/:uid/website", {
@@ -87,7 +98,39 @@
             })
             .otherwise({
                 redirectTo: "/home"
-            });
+            })
         // $locationProvider.html5Mode(true);
+    }
+    function checkLoggedIn($q, UserService, $location) {
+        console.log("Checking login...");
+        var defer = $q.defer();
+        UserService
+            .loggedin()
+            .then(function (user) {
+                if(user != '0') {
+                    console.log("LoggedIn");
+                    console.log(user);
+                    defer.resolve(user);
+                } else {
+                    defer.reject();
+                    $location.url('/login');
+                }
+            });
+        return defer.promise;
+    }
+
+    function checkAdmin($q, UserService, $location) {
+        var defer = $q.defer();
+        UserService
+            .isAdmin()
+            .then(function (user) {
+                if(user != '0') {
+                    defer.resolve(user);
+                } else {
+                    defer.reject();
+                    $location.url('/user/'+user._id);
+                }
+            });
+        return defer.promise;
     }
 })();
