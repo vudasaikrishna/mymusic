@@ -19,7 +19,8 @@
                 .success(function (widget) {
                     vm.widget = widget;
                 });*/
-            //vm.currentUser = currentUser;
+            //vm.currentUser = currUser;
+            //console.log(vm.currentUser);
             vm.test = "initialized";
             /*if($location.path() == '/track' && vm.tracks.length == 0)
                 $location.url('/home');*/

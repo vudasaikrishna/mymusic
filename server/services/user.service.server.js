@@ -3,6 +3,8 @@ module.exports = function (app, model) {
     //var userModel = require('./../model/user/user.model.server')();
 
     var userModel = model.userModel;
+    var bcrypt = require("bcrypt-nodejs");
+
 
     var passport      = require('passport');
     var LocalStrategy = require('passport-local').Strategy;
@@ -79,20 +81,25 @@ module.exports = function (app, model) {
 
     function localStrategy(username, password, done) {
         //console.log(username);
-        //console.log(password);
+        console.log(password);
+        //password = bcrypt.hashSync(password);
+        // console.log(password);
         userModel
-            .findUserByCredentials(username, password)
+            .findUserByUsername(username)
             .then(
                 function(user) {
-                    //console.log('[0]');
+                    console.log('[0]');
                     //console.log(user);
                     if (!user) {
                         //console.log('[1]');
                         return done(null, false);
                     }
                     //console.log('[2]');
-                    //console.log(user);
-                    return done(null, user);
+                    console.log(user);
+                    if (bcrypt.compareSync(password, user.password))
+                        return done(null, user);
+                    else
+                        return done(null, false);
                 },
                 function(err) {
                     if (err) { return done(err); }
@@ -173,14 +180,15 @@ module.exports = function (app, model) {
     }
 
     function register(req, res) {
-        //console.log(req.body);
+        console.log(req.body);
+        req.body.password = bcrypt.hashSync(req.body.password);
         userModel
             .createUser(req.body)
             .then(function (user) {
                 if(user) {
-                    console.log("Registered.. logging in.");
+                    //console.log("Registered.. logging in.");
                     req.login(user, function (err) {
-                        console.log("Guess an error logging in.");
+                        //console.log("Guess an error logging in.");
                         console.log(user);
                         res.json(user);
                     });

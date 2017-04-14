@@ -6,20 +6,20 @@
     function configuration($routeProvider) {
         $routeProvider
             .when("/home", {
-                templateUrl: "music/views/home.view.client.html",
-                controller: "MoodController",
+                templateUrl: "music/views/home.view.client.html"
+                /*controller: "MoodController",
+                controllerAs: "model",
+                resolve: {
+                    currUser: checkUser
+                }*/
+            })
+            .when("/track", {
+                templateUrl: "music/views/track.view.client.html"
+                /*controller: "MoodController",
                 controllerAs: "model",
                 resolve: {
                     currentUser: checkUser
-                }
-            })
-            .when("/track", {
-                templateUrl: "music/views/track.view.client.html",
-                /*controller: "MoodController",
-                controllerAs: "model"*/
-                resolve: {
-                    currentUser: checkUser
-                }
+                }*/
             })
             .when("/login", {
                 templateUrl: "user/views/login.view.client.html",
@@ -125,13 +125,15 @@
         return defer.promise;
     }
 
-    function checkUser($q, UserService, $location) {
+    function checkUser($q, UserService) {
         console.log("Checking User...");
         var defer = $q.defer();
         UserService
             .loggedin()
             .then(function (user) {
-                if(user != '0') {
+                console.log(user);
+                defer.resolve(user);
+                /*if(user != '0') {
                     //console.log("LoggedIn");
                     console.log(user);
                     defer.resolve(user);
@@ -139,7 +141,7 @@
                     console.log("rejected")
                     defer.resolve({error: "0"});
                     //$location.url('/login');
-                }
+                }*/
             });
         return defer.promise;
     }

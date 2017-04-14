@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<!--<nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-text pull-right">
             <span ng-click="model.deleteUser()"
@@ -10,9 +10,15 @@
             <a class="navbar-brand" href="#/user/{{model.user._id}}">Profile</a>
         </div>
     </div>
-</nav>
+</nav>-->
 
-<div class="container-fluid">
+<div class="container-fluid col-lg-5 col-md-7">
+    <h1 class="text-center mb-sm-2">Profile</h1>
+
+    <a ng-if="model.currentUser.role=='ADMIN'" href="#/admin" class="btn btn-danger mb-sm-2 float-right">
+        Manage
+    </a>
+
     <div class="alert alert-danger" ng-show="model.error">
         {{model.error}}
     </div>
@@ -21,37 +27,55 @@
         {{model.message}}
     </div>
 
-    <label for="username">Username</label>
-    <input ng-model="model.user.username"
-           id="username"
-           value="john.diggle"
-           class="form-control"
-           placeholder="john123"/>
+    <label class="sr-only" for="username">Username</label>
+    <div class="input-group mb-2 mr-sm-2 mb-sm-2">
+        <div class="input-group-addon"><span class="fa fa-user"></span> </div>
+        <input ng-model="model.user.username"
+               id="username"
+               class="form-control"
+               placeholder="username" readonly/>
+    </div>
 
+    <label class="sr-only" for="fname">First Name</label>
+    <div class="input-group mb-2 mr-sm-2 mb-sm-2">
+        <div class="input-group-addon"><span class="fa fa-user"></span> </div>
+        <input type="text"
+               ng-model="model.user.firstName"
+               class="form-control"
+               id="fname"
+               placeholder="First Name">
+    </div>
 
-    <label for="email">Email</label>
-    <input ng-model="model.user.email"
-           id="email"
-           type="email"
-           value="john@diggle.com"
-           class="form-control"
-           placeholder="john@doe.com"/>
+    <label class="sr-only" for="lname">Last Name</label>
+    <div class="input-group mb-2 mr-sm-2 mb-sm-2">
+        <div class="input-group-addon"><span class="fa fa-user"></span> </div>
+        <input type="text"
+               ng-model="model.user.lastName"
+               class="form-control"
+               id="lname"
+               placeholder="Last Name">
+    </div>
 
+    <label class="sr-only" for="email">Email</label>
+    <div class="input-group mb-2 mr-sm-2 mb-sm-2">
+        <div class="input-group-addon">@</div>
+        <input type="email"
+               ng-model="model.user.email"
+               class="form-control"
+               id="email"
+               placeholder="john@wick.com">
+    </div>
 
-    <label for="first">First Name</label>
-    <input ng-model="model.user.firstName"
-           id="first"
-           value="John"
-           class="form-control"
-           placeholder="John"/>
+    <label class="sr-only" for="userRole">UserType</label>
+    <div class="input-group mb-2 mr-sm-2 mb-sm-2">
+        <div class="input-group-addon">UserType</div>
+        <input type="text"
+               ng-model="model.user.role"
+               class="form-control"
+               id="userRole"
+               placeholder="Last Name" readonly>
+    </div>
 
-    <label for="last">Last Name</label>
-    <input ng-model="model.user.lastName"
-           id="last"
-           value="Diggle"
-           class="form-control"
-           placeholder="Doe"/>
-
-    <a href="#/user/{{model.user._id}}/website" class="btn btn-primary btn-block">Websites</a>
-    <a href="#/login" class="btn btn-danger btn-block">Logout</a>
+    <a href="#/user/{{model.user._id}}/website" class="btn btn-primary">Update</a>
+    <a ng-click="model.logout()" class="btn btn-danger vsk-ngclick-a">Logout</a>
 </div>
