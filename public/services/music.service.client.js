@@ -7,8 +7,8 @@
     function MusicService($http) {
 
         // Last.Fm API
-        var key = "82d41887eded3508556137889b65f14e";
-        var secret = "fb228a0b77eec1eed2c24ff9a6f5cee8";
+        var key = /*process.env.API_KEY ||*/ "82d41887eded3508556137889b65f14e";
+        var secret = /*process.env.API_SECRET// ||*/ "fb228a0b77eec1eed2c24ff9a6f5cee8";
         var urlBase = "http://ws.audioscrobbler.com/2.0/?method=track.search&track=TEXT&page=PAGE&api_key=API_KEY&format=json";
 
 

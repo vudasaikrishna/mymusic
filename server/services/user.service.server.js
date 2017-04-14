@@ -27,30 +27,32 @@ module.exports = function (app, model) {
     app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
     app.get('/google/callback',
         passport.authenticate('google', {
-            successRedirect: '/#!/profile',
-            failureRedirect: '/#!/login'
+            successRedirect: '/#/profile',
+            failureRedirect: '/#/login'
         }));
 
 
     var googleConfig = {
-        clientID     : process.env.GOOGLE_CLIENT_ID, // || "312560962266-cjg8lvsncngp420upkjqbsbo9s3lbcso.apps.googleusercontent.com",
+        clientID     : process.env.GOOGLE_CLIENT_ID, //|| "312560962266-cjg8lvsncngp420upkjqbsbo9s3lbcso.apps.googleusercontent.com",
         clientSecret : process.env.GOOGLE_CLIENT_SECRET, // || "3EvjPnLR-9xpZS76dO-_f920",
-        callbackURL  : process.env.GOOGLE_CALLBACK_URL //|| "http://127.0.0.1:3000/google/callback"
+        callbackURL  : process.env.GOOGLE_CALLBACK_URL, // || "http://127.0.0.1:3000/google/callback"
     };
+
 
     passport.use(new GoogleStrategy(googleConfig, googleStrategy));
 
     function googleStrategy(token, refreshToken, profile, done) {
-        console.log(profile.id);
+        //console.log("Google Strategy");
+        //console.log(profile.id);
         userModel
             .findUserByGoogleId(profile.id)
             .then(function (user) {
-                console.log(user);
+                //console.log(user);
                 if(user) {
-                    console.log(111);
+                    //console.log(111);
                     done(null, user);
                 } else {
-                    console.log(222);
+                    //console.log(222);
                     var user = {
                         username: profile.emails[0].value,
                         photo: profile.photos[0].value,
@@ -61,23 +63,23 @@ module.exports = function (app, model) {
                             id:    profile.id
                         }
                     };
-                    return userModel.register(user);
+                    return userModel.createUser(user);
                 }
             }, function (err) {
-                console.log(err);
+                //console.log(err);
                 done(err, null);
             })
             .then(function (user) {
                 done(null, user);
             }, function (err) {
-                console.log(err);
+                //console.log(err);
                 done(err, null);
             });
     }
 
     function localStrategy(username, password, done) {
-        console.log(username);
-        console.log(password);
+        //console.log(username);
+        //console.log(password);
         userModel
             .findUserByCredentials(username, password)
             .then(
@@ -111,7 +113,7 @@ module.exports = function (app, model) {
     }
 
     function login(req, res) {
-        console.log('[login]');
+        //console.log('[login]');
         var user = req.user;
         res.json(user);
     }
