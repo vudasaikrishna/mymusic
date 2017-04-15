@@ -21,6 +21,7 @@
                 });*/
             //vm.currentUser = currUser;
             //console.log(vm.currentUser);
+            topTracks();
             vm.test = "initialized";
             /*if($location.path() == '/track' && vm.tracks.length == 0)
                 $location.url('/home');*/
@@ -30,9 +31,10 @@
         //event handlers
         vm.searchTracks = searchTracks;
         vm.getImage = getImage;
+        vm.topTracks = topTracks;
 
         function searchTracks(searchTerm) {
-            //console.log(searchTerm);
+            console.log(searchTerm);
             vm.test = "searched";
             vm.tracks = [];
             var count  = 0;
@@ -63,6 +65,21 @@
                     });
             // }
             $location.url('/track');
+        }
+        
+        function topTracks() {
+            vm.tracks = [];
+            MusicService
+                .topTracks()
+                .then(function (response) {
+                    //console.log(response);
+                    data = response.data;
+                    //console.log(data);
+                    //data = JSON.parse(data);
+                    data = data.tracks.track;
+                    //console.log("pushed");
+                    vm.tracks = data;
+                });
         }
 
         function getImage(track) {

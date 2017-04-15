@@ -1,33 +1,13 @@
-<div>
-    <div class="card-columns my-5">
-        <div class="card">
-            <img class="card-img-top img-fluid" src="https://lastfm-img2.akamaized.net/i/u/174s/c85ce7042b4b4327abb0e3111a100f2c.png"
-                 alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Party</h4>
-                <p class="card-text">Rock, Pop, Hip hop</p>
-                <a href="#" class="btn btn-primary">Browse</a>
-            </div>
-        </div>
-
-        <div class="card">
-            <img class="card-img-top img-fluid" src="https://lastfm-img2.akamaized.net/i/u/174s/c85ce7042b4b4327abb0e3111a100f2c.png"
-                 alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Card title that wraps to a new line</h4>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <a href="#" class="btn btn-primary">Browse</a>
-            </div>
-        </div>
-
-        <div class="card">
-            <img class="card-img-top img-fluid" src="https://lastfm-img2.akamaized.net/i/u/174s/c85ce7042b4b4327abb0e3111a100f2c.png"
-                 alt="Card image cap">
-            <div class="card-block">
-                <h4 class="card-title">Card title that wraps to a new line</h4>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <a href="#" class="btn btn-primary">Browse</a>
-            </div>
+<div class="card-columns my-4">
+    <div class="card" ng-repeat="track in model.tracks">
+        <img class="card-img-top card-img-cus" src="{{model.getImage(track)}}"
+             alt="{{track.name}}">
+        <div class="card-block">
+            <h4 class="card-title">{{track.name}}</h4>
+            <p class="card-text">Artist: <a href="{{track.artist.url}}" target="_blank"> {{track.artist.name}} </a></p>
+            <a ng-show="{{track.streamable.fulltrack}}" href="{{track.streamable['#text']}}" class="btn btn-primary">Play</a>
+            <a ng-hide="{{track.streamable.fulltrack}}" href="{{track.url}}" target="_blank" class="btn btn-primary">Get</a>
+            <a href="#" class="btn btn-primary float-right">View</a>
         </div>
     </div>
 </div>

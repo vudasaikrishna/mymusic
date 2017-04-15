@@ -37,7 +37,7 @@ module.exports = function (app, model) {
     var googleConfig = {
         clientID     : process.env.GOOGLE_CLIENT_ID || "312560962266-cjg8lvsncngp420upkjqbsbo9s3lbcso.apps.googleusercontent.com",
         clientSecret : process.env.GOOGLE_CLIENT_SECRET || "3EvjPnLR-9xpZS76dO-_f920",
-        callbackURL  : process.env.GOOGLE_CALLBACK_URL || "http://127.0.0.1:3000/google/callback"
+        callbackURL  : /*process.env.GOOGLE_CALLBACK_URL ||*/ "http://127.0.0.1:3000/google/callback"
     };
 
 

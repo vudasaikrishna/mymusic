@@ -12,7 +12,8 @@ body {
 }
 
 .img-prof {
-    width: 50px;
+    width: 25px;
+    height: 25px;
 }
 @media (max-width: 576px) {
     .full-width {

@@ -21,7 +21,8 @@
         var api = {
             "searchMusic": searchMusic,
             "searchTracks": searchTracks,
-            "getMoods": getMoods
+            "getMoods": getMoods,
+            "topTracks": topTracks
         };
         return api;
 
@@ -29,8 +30,15 @@
         * http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=disco&api_key=YOUR_API_KEY&format=json
         * mood based top charts
         * */
+
         function getMoods() {
             var url = urlBase.replace("API_KEY", key);
+        }
+
+        function topTracks() {
+            var urlBase = "http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=disco&api_key=API_KEY&format=json";
+            var url = urlBase.replace("API_KEY", key);
+            return $http.get(url);
         }
 
         function searchTracks(searchTerm, page) {
