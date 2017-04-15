@@ -88,18 +88,21 @@ module.exports = function (app, model) {
             .findUserByUsername(username)
             .then(
                 function(user) {
-                    console.log('[0]');
+                    console.log('db success');
                     //console.log(user);
                     if (!user) {
-                        //console.log('[1]');
+                        //console.log('no user found');
                         return done(null, false);
                     }
                     //console.log('[2]');
                     console.log(user);
-                    if (bcrypt.compareSync(password, user.password))
+                    if (bcrypt.compareSync(password, user.password)) {
+                        console.log("Success")
                         return done(null, user);
-                    else
+                    } else {
+                        console.log("Error");
                         return done(null, false);
+                    }
                 },
                 function(err) {
                     if (err) { return done(err); }

@@ -48,8 +48,11 @@
     <script src="config.js"></script>
 
     <!-- controllers -->
+    <!--Home Controllers-->
+    <script src="home/controllers/header.controller.client.js"></script>
+    <script src="home/controllers/home.controller.client.js"></script>
     <!--Music Controllers-->
-    <script src="music/controllers/home.controller.client.js"></script>
+    <script src="music/controllers/track.controller.client.js"></script>
     <!--User Controllers-->
     <script src="user/controllers/login.controller.client.js"></script>
     <script src="user/controllers/register.controller.client.js"></script>
@@ -78,7 +81,7 @@
     <script src="services/music.service.client.js"></script>
 
 </head>
-<body ng-controller="MoodController as model">
+<body ng-controller="HeaderController as model">
 <nav class="navbar navbar-toggleable-sm navbar-inverse navbar-default">
     <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target=".dual-collapse">
         <span class="navbar-toggler-icon"></span>
@@ -105,118 +108,41 @@
     <a class="navbar-brand d-flex hidden-md-up mx-auto" href="#">MyMusic</a>
     <div class="navbar-collapse collapse dual-collapse">
         <ul class="navbar-nav ml-auto">
-            <!--<li class="nav-item">
-                <a ng-if="!model.currentUser" class="nav-link" href="#/login">Login</a>
-            </li>-->
             <li class="nav-item">
                 <a class="nav-link" href="#/profile">
-                            <img class="img-prof" src="uploads/default-profile.png" />
+                    {{model.currentUser.username}}
                 </a>
             </li>
-            <!--<li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>-->
+            <li class="nav-item">
+                <a class="nav-link" href="#/profile">
+                    <img class="img-prof" src="uploads/default-profile.png" />
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
-<!--<nav class="navbar navbar-toggleable-md navbar-default navbar-inverse">
-    &lt;!&ndash;Menu on the navbar&ndash;&gt;
-    <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    &lt;!&ndash;Menu in the body&ndash;&gt;
-    &lt;!&ndash;<button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>&ndash;&gt;
-    <div class="collapse navbar-collapse mr-auto" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Playlists</a>
-            </li>
-        </ul>
-        &lt;!&ndash;<form class="form-inline my-2 my-lg-0 hidden-md-down">
-            <input ng-model="model.input" class="form-control my-2 mr-sm-2" type="text" placeholder="Search">
-            <a ng-click="model.searchTracks(model.input)" class="btn btn-primary my-2 my-sm-0 vsk-ngclick-a" type="submit">Search</a>
-        </form>&ndash;&gt;
-    </div>
-    <a class="navbar-brand d-flex" href="#">MyMusic</a>
-    <a class="ml-auto" href="#"><span class="fa fa-user"></span> </a>
 
-
-</nav>-->
 <nav class="navbar  navbar-default navbar-inverse sticky-top">
     <div class="row row-margin">
-    <a class="navbar-brand d-flex mr-auto hidden-sm-down" href="#">MyMusic</a>
-        <!--<div class="form-group row ml-auto mr-auto full-width">
-            <div class="col-sm-10">
-                <input ng-model="model.input" class="form-control my-2" type="text" placeholder="Search">
-            </div>
-            <button ng-click="model.searchTracks(model.input, 1)"
-                    class="btn btn-primary my-2 col-sm-2 vsk-ngclick-a btn-max-width"
-                    type="submit">Search</button>
-        </div>-->
+        <a class="navbar-brand d-flex mr-auto hidden-sm-down" href="#">MyMusic</a>
         <label class="sr-only" for="search">Search</label>
         <div class="input-group mb-2 mr-sm-2 mb-sm-2 full-width mx-auto">
             <input type="text"
-                   ng-model="model.input"
+                   ng-model="model.searchTerm"
                    class="form-control"
                    id="search"
                    placeholder="Search">
-            <div ng-click="model.searchTracks(model.input, 1)" class="input-group-addon mr-2">
+            <div ng-click="model.searchTracks()" class="input-group-addon vsk-ngclick-a mr-2">
                 <span class="fa fa-search"></span> </div>
         </div>
     </div>
-        <!--<div class="form-group form-inline">
-            <div class="col-8">
-                <input ng-model="model.input" class="form-control my-2" type="text" placeholder="Search">
-            </div>
-            <div class="col-2">
-            <a ng-click="model.searchTracks(model.input)" class="btn btn-primary my-2 vsk-ngclick-a" type="submit">Search</a>
-            </div>
-        </div>-->
+
 </nav>
-
 <div class="container-fluid">
-    <!--<div class="col-sm-2 neg-left-margin">
-        <nav class="navbar navbar-toggleable-md navbar-default navbar-inverse sidebar">
-            &lt;!&ndash;<a class="navbar-brand" href="#">MyMusic</a>&ndash;&gt;
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav d-block">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="#">Playlists</a>
-                    </li>
-                    &lt;!&ndash; <li class="nav-item d-block">
-                         <a class="nav-link" href="#">Pricing</a>
-                     </li>
-                     <li class="nav-item d-block">
-                         <a class="nav-link disabled" href="#">Disabled</a>
-                     </li>&ndash;&gt;
-                </ul>
-            </div>
-        </nav>
-    </div>-->
-    <!--<div class="col-sm-10 pad-left-30">-->
-    <!--<div class="form-group row my-4 hidden-lg-up">
-        <div class="col-8">
-            <input ng-model="model.input" class="form-control my-2" type="text" placeholder="Search" id="searchText">
-        </div>
-        <a ng-click="model.searchTracks(model.input)" class="btn btn-primary col-2 my-2 vsk-ngclick-a" type="submit">Search</a>
-    </div>-->
-
     <div ng-view>
 
     </div>
 
-    <!--</div>-->
 </div>
 
 <!--<nav class="navbar navbar-default navbar-inverse fixed-bottom">

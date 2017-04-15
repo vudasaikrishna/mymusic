@@ -1,4 +1,5 @@
 <div class="card-columns my-4">
+    {{model.searchTerm}}
     <div class="card" ng-repeat="track in model.tracks">
         <img class="card-img-top card-img-cus" src="{{model.getImage(track)}}"
              alt="{{track.name}}">

@@ -1,0 +1,54 @@
+<div ng-controller="HeaderController as model">
+<nav class="navbar navbar-toggleable-sm navbar-inverse navbar-default">
+    <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target=".dual-collapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse dual-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#features">Playlists</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Trending</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Artists</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Albums</a>
+            </li>
+        </ul>
+    </div>
+    <a class="navbar-brand d-flex hidden-md-up mx-auto" href="#">MyMusic</a>
+    <div class="navbar-collapse collapse dual-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#/profile">
+                    <img class="img-prof" src="uploads/default-profile.png" />
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<nav class="navbar  navbar-default navbar-inverse sticky-top">
+    <div class="row row-margin">
+        <a class="navbar-brand d-flex mr-auto hidden-sm-down" href="#">MyMusic</a>
+        <label class="sr-only" for="search">Search</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-2 full-width mx-auto">
+            <input type="text"
+                   ng-model="model.input"
+                   class="form-control"
+                   id="search"
+                   placeholder="Search">
+            <div ng-click="model.searchTracks(model.input, 1)" class="input-group-addon mr-2">
+                <span class="fa fa-search"></span> </div>
+        </div>
+    </div>
+
+</nav>
+</div>

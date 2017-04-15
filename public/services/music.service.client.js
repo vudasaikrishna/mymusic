@@ -11,6 +11,9 @@
         var secret = /*process.env.API_SECRET// ||*/ "fb228a0b77eec1eed2c24ff9a6f5cee8";
         var urlBase = "http://ws.audioscrobbler.com/2.0/?method=track.search&track=TEXT&page=PAGE&api_key=API_KEY&format=json";
 
+        var searchKey = null;
+
+
 
         /*// Musikki API
         var key = "c3d9202718f7d6ba72e6acbe806edd79";
@@ -22,7 +25,11 @@
             "searchMusic": searchMusic,
             "searchTracks": searchTracks,
             "getMoods": getMoods,
-            "topTracks": topTracks
+            "topTracks": topTracks,
+            /*"setTracks": setTracks,
+            "getTracks": getTracks,
+            "tracks": tracks*/
+            "searchKey": searchKey
         };
         return api;
 
@@ -30,6 +37,14 @@
         * http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=disco&api_key=YOUR_API_KEY&format=json
         * mood based top charts
         * */
+
+        function setTracks (val) {
+            tracks = val;
+        }
+
+        function getTracks() {
+            return tracks;
+        }
 
         function getMoods() {
             var url = urlBase.replace("API_KEY", key);

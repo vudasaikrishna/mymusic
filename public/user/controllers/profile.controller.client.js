@@ -46,6 +46,8 @@
             UserService
                 .logout()
                 .then(function () {
+                    UserService.currentUser.username = null;
+                    UserService.currentUser._id = null;
                     $location.url('/login');
                 });
         }

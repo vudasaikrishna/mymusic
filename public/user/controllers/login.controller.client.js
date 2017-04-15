@@ -28,10 +28,10 @@
                     if(user) {
                     $location.url("/profile");
                 } else {
-                    vm.error = "User not found";
+                    vm.error = "Username or Password is invalid";
                 }
             }, function (err) {
-                    vm.error = "User not found";
+                    vm.error = "Username or Password is invalid";
                 });
         }
     }

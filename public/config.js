@@ -6,18 +6,18 @@
     function configuration($routeProvider) {
         $routeProvider
             .when("/home", {
-                templateUrl: "music/views/home.view.client.html"
-                /*controller: "MoodController",
-                controllerAs: "model",
-                resolve: {
+                templateUrl: "home/views/home.view.client.html",
+                controller: "HomeController",
+                controllerAs: "model"
+                /*resolve: {
                     currUser: checkUser
                 }*/
             })
             .when("/track", {
-                templateUrl: "music/views/track.view.client.html"
-                /*controller: "MoodController",
+                templateUrl: "music/views/track.view.client.html",
+                controller: "TrackController",
                 controllerAs: "model",
-                resolve: {
+                /*resolve: {
                     currentUser: checkUser
                 }*/
             })
@@ -116,8 +116,14 @@
                 if(user != '0') {
                     console.log("LoggedIn");
                     //console.log(user);
+                    // $rootScope.currentUser = user;
+                    UserService.currentUser.username = user.username;
+                    UserService.currentUser._id = user._id;
+                    console.log(UserService.currentUser);
                     defer.resolve(user);
                 } else {
+                    UserService.currentUser.username = null;
+                    UserService.currentUser._id = null;
                     defer.reject();
                     $location.url('/login');
                 }

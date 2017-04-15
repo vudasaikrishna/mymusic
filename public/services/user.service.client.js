@@ -5,6 +5,8 @@
 
     function userService($http) {
 
+        var currentUser = {};
+
         var api = {
             "findUserByCredentials": findUserByCredentials,
             "findUserByUsername": findUserByUsername,
@@ -17,7 +19,8 @@
             "logout": logout,
             "isAdmin": isAdmin,
             "findAllUsers": findAllUsers,
-            "updateUser": updateUser
+            "updateUser": updateUser,
+            "currentUser": currentUser
         };
         return api;
 
