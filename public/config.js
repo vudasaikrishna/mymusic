@@ -8,23 +8,20 @@
             .when("/home", {
                 templateUrl: "home/views/home.view.client.html",
                 controller: "HomeController",
-                controllerAs: "model"
-                /*resolve: {
-                    currUser: checkUser
-                }*/
-            })
-            .when("/track", {
-                templateUrl: "music/views/track.view.client.html",
-                controller: "TrackController",
                 controllerAs: "model",
-                /*resolve: {
-                    currentUser: checkUser
-                }*/
+                resolve: {
+                    currUser: checkUser
+                }
             })
             .when("/login", {
                 templateUrl: "user/views/login.view.client.html",
                 controller: "LoginController",
                 controllerAs: "model"
+            })
+            .when("/logout", {
+                resolve: {
+                    logout: logout
+                }
             })
             .when('/admin', {
                 templateUrl: 'user/views/admin.view.client.html',
@@ -47,66 +44,74 @@
                     currentUser: checkLoggedIn
                 }
             })
-            // Website Routes
-            .when("/user/:uid/website", {
-                templateUrl: "website/views/website-list.view.client.html",
-                controller: "WebsiteListController",
-                controllerAs: "model"
+            .when("/playlist", {
+                templateUrl: "user/views/profile.view.client.html",
+                controller: "ProfileController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
             })
-            .when("/user/:uid/website/new", {
-                templateUrl: "website/views/website-new.view.client.html",
-                controller: "WebsiteNewController",
-                controllerAs: "model"
+            .when("/trending", {
+                templateUrl: "user/views/profile.view.client.html",
+                controller: "ProfileController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
             })
-            .when("/user/:uid/website/:wid", {
-                templateUrl: "website/views/website-edit.view.client.html",
-                controller: "WebsiteEditController",
-                controllerAs: "model"
+            .when("/artist", {
+                templateUrl: "user/views/profile.view.client.html",
+                controller: "ProfileController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
             })
-            // Page Routes
-            .when("/user/:uid/website/:wid/page", {
-                templateUrl: "page/views/page-list.view.client.html",
-                controller: "PageListController",
-                controllerAs: "model"
+            .when("/album", {
+                templateUrl: "user/views/profile.view.client.html",
+                controller: "ProfileController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
             })
-            .when("/user/:uid/website/:wid/page/new", {
-                templateUrl: "page/views/page-new.view.client.html",
-                controller: "PageNewController",
-                controllerAs: "model"
+            .when("/track", {
+                templateUrl: "music/views/track.view.client.html",
+                controller: "TrackController",
+                controllerAs: "model",
+                /*resolve: {
+                 currentUser: checkUser
+                 }*/
             })
-            .when("/user/:uid/website/:wid/page/:pid", {
-                templateUrl: "page/views/page-edit.view.client.html",
-                controller: "PageEditController",
-                controllerAs: "model"
-            })
-            // TODO: complete website routes
-            // TODO: create page routes
-            // Widget Routes
-            .when("/user/:uid/website/:wid/page/:pid/widget", {
-                templateUrl: "widget/views/widget-list.view.client.html",
-                controller: "WidgetListController",
-                controllerAs: "model"
-            })
-            .when("/user/:uid/website/:wid/page/:pid/widget/new", {
-                templateUrl: "widget/views/widget-chooser.view.client.html",
-                controller: "WidgetNewController",
-                controllerAs: "model"
-            })
-            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid", {
-                templateUrl: "widget/views/widget-edit.view.client.html",
-                controller: "WidgetEditController",
-                controllerAs: "model"
-            })
-            .when("/user/:uid/website/:wid/page/:pid/widget/:wgid/flickr", {
-                templateUrl: "widget/views/widget-flickr-search.view.client.html",
-                controller: "FlickrImageSearchController",
-                controllerAs: "model"
+            .when("/track/:tid", {
+                templateUrl: "music/views/track.view.client.html",
+                controller: "TrackController",
+                controllerAs: "model",
+                /*resolve: {
+                 currentUser: checkUser
+                 }*/
             })
             .otherwise({
                 redirectTo: "/home"
             })
         // $locationProvider.html5Mode(true);
     }
+
+    function logout($q, UserService, $location) {
+        var defer = $q.defer();
+        UserService
+            .logout()
+            .then(function () {
+                UserService.currentUser.username = null;
+                UserService.currentUser._id = null;
+                UserService.currentUser.photo = null;
+                defer.reject();
+                $location.url('/login');
+            });
+        return defer.promise;
+    }
+
     function checkLoggedIn($q, UserService, $location) {
         console.log("Checking login...");
         var defer = $q.defer();
@@ -119,11 +124,13 @@
                     // $rootScope.currentUser = user;
                     UserService.currentUser.username = user.username;
                     UserService.currentUser._id = user._id;
+                    UserService.currentUser.photo = user.photo;
                     console.log(UserService.currentUser);
                     defer.resolve(user);
                 } else {
                     UserService.currentUser.username = null;
                     UserService.currentUser._id = null;
+                    UserService.currentUser.photo = null;
                     defer.reject();
                     $location.url('/login');
                 }

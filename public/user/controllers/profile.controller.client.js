@@ -48,6 +48,7 @@
                 .then(function () {
                     UserService.currentUser.username = null;
                     UserService.currentUser._id = null;
+                    UserService.currentUser.photo = null;
                     $location.url('/login');
                 });
         }

@@ -88,34 +88,27 @@
     </button>
     <div class="navbar-collapse collapse dual-collapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home</a>
+            <!--User Menu-->
+            <li ng-if="model.currentUser._id" class="nav-item" ng-repeat="m in model.userMenu" ng-class="m.current?'active':''">
+                <a class="nav-link" href="{{m.url}}">{{m.title}}</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#features">Playlists</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Trending</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Artists</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Albums</a>
+            <!--Guest Menu-->
+            <li ng-if="!model.currentUser._id" class="nav-item" ng-repeat="m in model.guestMenu" ng-class="m.current?'active':''">
+                <a class="nav-link" href="{{m.url}}">{{m.title}}</a>
             </li>
         </ul>
     </div>
     <a class="navbar-brand d-flex hidden-md-up mx-auto" href="#">MyMusic</a>
-    <div class="navbar-collapse collapse dual-collapse">
+    <div class="navbar">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+            <li class="nav-item navbar-collapse collapse dual-collapse">
                 <a class="nav-link" href="#/profile">
                     {{model.currentUser.username}}
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#/profile">
-                    <img class="img-prof" src="uploads/default-profile.png" />
+                    <img class="img-prof" src="{{model.currentUser.photo||'uploads/default-profile.png'}}" />
                 </a>
             </li>
         </ul>
