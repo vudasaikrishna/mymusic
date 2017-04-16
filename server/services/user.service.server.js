@@ -168,15 +168,20 @@ module.exports = function (app, model) {
     }
 
     function removeTrack(req, res) {
+        console.log(req.user);
+        console.log(req.params.trackId);
         if(req.isAuthenticated()) {
             userModel
                 .removeTrack(req.user._id, req.params.trackId)
                 .then(function (success) {
+                    //console.log(success);
                     res.sendStatus(200);
                 }, function (err) {
+                    console.log(err);
                     res.sendStatus(500).send(err);
                 });
         } else {
+            console.log("error 401");
             res.sendStatus(401);
         }
     }

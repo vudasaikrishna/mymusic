@@ -1,0 +1,24 @@
+<!--Success and Error Messages-->
+<div ng-show="model.success" class="alert alert-success">{{model.success}}</div>
+<div ng-show="model.error" class="alert alert-danger">{{model.error}}</div>
+
+<!--No Favorites Message-->
+<div ng-show="model.favorites.length==0" class="alert alert-success my-2">
+    You don't have any favorites saved.
+    <a href="#/home"> Start adding tracks</a>
+</div>
+
+<!--List of Favorites-->
+<div class="card-columns my-4">
+    <div class="card" ng-repeat="track in model.favorites" ng-if="track.mbid!=''">
+        <img class="card-img-top card-img-cus" src="{{track.image}}"
+             alt="{{track.title}}">
+        <div class="card-block">
+            <h4 class="card-title">{{track.title}}</h4>
+            <p class="card-text">Artist: {{track.artist.screenName}}</p>
+            <!--<a ng-show="{{track.streamable.fulltrack}}" href="{{track.streamable['#text']}}" class="btn btn-primary">Play</a>-->
+            <a ng-click="model.unLove(track._id)" class="btn btn-danger" role="button">Unlove</a>
+            <a href="#/track/{{track.mbid}}" class="btn btn-primary float-right">View</a>
+        </div>
+    </div>
+</div>

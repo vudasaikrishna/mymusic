@@ -20,8 +20,8 @@
         <a ng-hide="{{model.track.streamable.fulltrack}}" href="{{model.track.url}}" target="_blank" class="btn btn-primary">View on Last.Fm</a>
         <!--<a href="#/track/{{track.mbid}}" class="btn btn-primary float-right">View</a>-->
         <div class="my-2">
-        <span class="badge badge-default">Listeners: {{model.track.listeners}}</span>
-        <span class="badge badge-default">PlayCount: {{model.track.playcount}}</span>
+        <span class="badge badge-default">Listeners: {{model.track.listeners | number}}</span>
+        <span class="badge badge-default">PlayCount: {{model.track.playcount | number}}</span>
         </div>
         <div>
             Tags:
@@ -30,13 +30,15 @@
         </div>
 
         <!--Love-->
-        <div>
-
+        <div class="my-2">
+            <button ng-click="model.toggleLove()" class="btn" role="button" ng-class="model.love?'btn-outline-danger':'btn-danger'">
+                {{model.love?'UnLove':'Love'}}
+            </button>
         </div>
         <!--Comments-->
 
         <button ng-click="model.wikiToggle()"
-                class="btn btn-outline-info my-4 vsk-ngclick-a"
+                class="btn btn-outline-info my-4" role="button"
                 type="button">{{model.showWiki?'Hide Wiki':'Show Wiki'}}</button>
     </div>
         <div ng-show="model.showWiki" class="card-block">

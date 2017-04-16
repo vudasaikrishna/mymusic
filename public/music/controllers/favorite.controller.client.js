@@ -1,53 +1,24 @@
 (function(){
     angular
         .module("MyMusic")
-        .controller("TrackController", TrackController);
+        .controller("FavoriteController", FavoriteController);
 
-    function TrackController(MusicService, UserService, $location, $routeParams, $sce) {
+    function FavoriteController(currentUser, MusicService, UserService, $location, $routeParams, $sce) {
         var vm = this;
         vm.test = "hello world";
         vm.track = {};
         // vm.love = false;
 
         function init() {
-            vm.currentUser = UserService.currentUser;
+            vm.currentUser = currentUser;
             console.log(vm.currentUser);
-            // topTracks();
-            var trackId = $routeParams.tid;
-            vm.showWiki = false;
-            //console.log(trackId);
-            MusicService
-                .findTrackById(trackId)
-                .then(function (response) {
-                    data = response.data;
-                    vm.track = data.track;
-                    //console.log(vm.track);
-                    console.log("track from api.");
-                    return MusicService
-                        .getTrackInfo(vm.track)
+            UserService
+                .getFavorites()
+                .then(function (favorites) {
+                    console.log(favorites);
+                    vm.favorites = favorites;
                 }, function (err) {
-                    vm.error = "Error loading track data";
-                })
-                .then(function (track) {
-                    console.log("fetching track id...");
-                    console.log(track._id);
-                    vm.track._id = track._id;
-                    if (vm.currentUser._id) {
-                        UserService
-                            .loggedin()
-                            .then(function (user) {
-                                console.log(user.favorites);
-                                if (user._id) {
-                                    if(user.favorites.find(function (t) {
-                                            return t == track._id;
-                                        })) {
-                                        vm.love = true;
-                                    }
-                                }
-                            })
-                    }
-                }, function (err) {
-                    vm.error = "Error loading track data";
+                    vm.error = "Error loading favorites";
                 })
         }
         init();
@@ -56,29 +27,25 @@
         vm.getImage = getImage;
         vm.doYouTrustHTML = doYouTrustHTML;
         vm.wikiToggle = wikiToggle;
-        vm.toggleLove = toggleLove;
+        vm.unLove = unLove;
 
-        function toggleLove() {
+        function unLove(trackId) {
             if(vm.currentUser._id){
-                if(vm.love) {
-                    UserService
-                        .removeTrack(vm.track._id)
-                        .then(function (success) {
-                            vm.success = "Removed from your favorites";
-                            vm.love = false;
-                        }, function (err) {
-                            vm.error = "Unable to remove from favorites. Please try after sometime";
-                        });
-                } else {
-                    UserService
-                        .addTrack(vm.track._id)
-                        .then(function (success) {
-                            vm.success = "Added to your favorites";
-                            vm.love = true;
-                        }, function (err) {
-                            vm.error = "Unable to add to favorites. Please try after sometime";
-                        });
-                }
+                UserService
+                    .removeTrack(trackId)
+                    .then(function (user) {
+                        vm.success = "Removed from your favorites";
+                        console.log(trackId);
+                        console.log(vm.favorites[0]._id);
+                        for(var t in vm.favorites) {
+                            if (vm.favorites[t]._id == trackId) {
+                                console.log("removeFavorite");
+                                vm.favorites.splice(t,1);
+                            }
+                        }
+                    }, function (err) {
+                        vm.error = "Unable to remove from favorites. Please try after sometime";
+                    });
             } else {
                 vm.error = "Please login to use this feature.";
             }

@@ -28,7 +28,10 @@ module.exports = function (model) {
     function getFavorites(userId) {
         var deferred = q.defer();
         userModel
-            .findOne(userId, function (err, user) {
+            .findOne(userId)
+            .populate({path:'favorites',
+                populate: {path:'artist', select:'screenName'}})
+            .exec(function (err, user) {
                 if(err)
                     deferred.reject(err);
                 else {
@@ -63,7 +66,7 @@ module.exports = function (model) {
                     deferred.reject(err);
                 else {
                     for(var t in user.favorites) {
-                        if (user.favorites[t]._id == trackId) {
+                        if (user.favorites[t] == trackId) {
                             console.log("removeFavorite");
                             user.favorites.splice(t,1);
                             user.save();

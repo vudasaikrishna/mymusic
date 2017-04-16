@@ -26,6 +26,7 @@ module.exports = function (app, model) {
                     // track already exists. send it back
                     console.log("Track already exists");
                     res.json(track);
+
                 } else {
                     // track doesn't exist, so add one
                     console.log("Track doesn't exist");

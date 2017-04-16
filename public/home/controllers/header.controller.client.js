@@ -29,11 +29,6 @@
                 current: false
             },
             {
-                title: "Albums",
-                url: "#/album",
-                current: false
-            },
-            {
                 title: "Logout",
                 url: "#/logout",
                 current: false
@@ -52,11 +47,6 @@
             {
                 title: "Artists",
                 url: "#/artist",
-                current: false
-            },
-            {
-                title: "Albums",
-                url: "#/album",
                 current: false
             },
             {

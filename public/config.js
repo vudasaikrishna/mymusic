@@ -45,8 +45,8 @@
                 }
             })
             .when("/favorite", {
-                templateUrl: "user/views/profile.view.client.html",
-                controller: "ProfileController",
+                templateUrl: "music/views/favorite.view.client.html",
+                controller: "FavoriteController",
                 controllerAs: "model",
                 resolve: {
                     currentUser: checkLoggedIn

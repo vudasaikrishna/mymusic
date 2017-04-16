@@ -6,7 +6,7 @@ module.exports = function () {
         password: String,
         firstName: String,
         lastName: String,
-        screenName: String,
+        screenName: {type: String, unique: true},
         external: Boolean,
         email: String,
         phone: String,
