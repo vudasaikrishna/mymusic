@@ -23,42 +23,60 @@ module.exports = function (app, model) {
             .getTrackInfo(req.body.mbid)
             .then(function (track) {
                 if(track) {
+                    // track already exists. send it back
                     console.log("Track already exists");
                     res.json(track);
                 } else {
                     // track doesn't exist, so add one
                     console.log("Track doesn't exist");
-                    return createTrack(req.body);
+                    // check if the aritst already exists
+                    userModel
+                        .findUserByScreenName(req.body.artist)
                 }
             }, function (err) {
                 res.sendStatus(500).send(err);
             })
-            /*.then(function (user) {
+            // Create or Fetch Artist
+            // ----------------------
+            .then(function (user) {
                 if(user){
+                    // artist exists. just create the track
                     console.log("Artist exists!");
-                    return userModel.findUserByScreenName(user)
+                    // returning a promise for the next call.
+                    return userModel.findUserByScreenName(user.screenName)
                 } else {
+                    // create a new user with the artist details
                     user = {
                         screenName: req.body.artist,
                         firstName: req.body.artist,
                         external: true,
                         role: 'ARTIST'
                     };
+                    console.log("Creating Artist");
                     return userModel
                         .createUser(user)
                 }
             })
+            // Create Track
+            // ------------
             .then(function (user) {
-                trackModel
+                req.body.artist = user._id;
+                return trackModel
                     .createTrack(req.body)
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500).send(err);
             })
+            // Respond
+            // -------
             .then(function (track) {
                 console.log("Track added now.");
+                //console.log(track);
                 res.json(track);
             }, function (err) {
                 console.log(err);
                 res.sendStatus(500).send(err);
-            })*/
+            })
     }
 
     function createTrack(track) {
@@ -76,6 +94,7 @@ module.exports = function (app, model) {
                         external: true,
                         role: 'ARTIST'
                     };
+                    console.log("Creating Artist");
                     return userModel
                         .createUser(user)
                 }
@@ -84,9 +103,13 @@ module.exports = function (app, model) {
                 track.artist = user._id;
                 return trackModel
                     .createTrack(track)
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500).send(err);
             })
             .then(function (track) {
                 console.log("Track added now.");
+                console.log(track);
                 res.json(track);
             }, function (err) {
                 console.log(err);

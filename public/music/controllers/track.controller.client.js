@@ -22,12 +22,14 @@
                     data = response.data;
                     vm.track = data.track;
                     //console.log(vm.track);
+                    console.log("track from api.");
                     return MusicService
                         .getTrackInfo(vm.track)
                 }, function (err) {
                     vm.error = "Error loading track data";
                 })
                 .then(function (track) {
+                    console.log("fetching track id...");
                     console.log(track._id);
                     vm.track._id = track._id;
                     if (vm.currentUser._id) {

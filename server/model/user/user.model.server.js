@@ -46,7 +46,7 @@ module.exports = function (model) {
                     deferred.reject(err);
                 else {
                     // add it
-                    console.log("add");
+                    console.log("addFavorite");
                     user.favorites.push(trackId);
                     user.save();
                     deferred.resolve(user);
@@ -64,7 +64,7 @@ module.exports = function (model) {
                 else {
                     for(var t in user.favorites) {
                         if (user.favorites[t]._id == trackId) {
-                            console.log("remove");
+                            console.log("removeFavorite");
                             user.favorites.splice(t,1);
                             user.save();
                         }
