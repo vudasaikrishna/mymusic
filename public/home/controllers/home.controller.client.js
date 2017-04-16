@@ -13,6 +13,7 @@
             vm.test = "initialized";
             if(currUser){
                 UserService.currentUser.username = currUser.username;
+                UserService.currentUser.firstName = currUser.firstName;
                 UserService.currentUser._id = currUser._id;
                 UserService.currentUser.photo = currUser.photo;
             }

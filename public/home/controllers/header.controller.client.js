@@ -3,7 +3,7 @@
         .module("MyMusic")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController(UserService, MusicService, $location) {
+    function HeaderController(UserService, MusicService, $location, $route) {
         var vm = this;
         // vm.test = "hello world";
         vm.currentUser = UserService.currentUser;
@@ -14,8 +14,8 @@
                 current: true
             },
             {
-                title: "Playlists",
-                url: "#/playlist",
+                title: "Favorites",
+                url: "#/favorite",
                 current: false
             },
             {
@@ -96,10 +96,14 @@
         }
 
         function searchTracks() {
-            //console.log(vm.searchTerm);
+            console.log(vm.searchTerm);
             MusicService.searchKey = vm.searchTerm;
 
-            $location.url('/track');
+            if ($location.path() == '/track') {
+                console.log("already on track")
+                $route.reload();
+            } else
+                $location.url('/track');
             // this.$apply();
         }
 

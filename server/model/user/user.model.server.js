@@ -11,15 +11,69 @@ module.exports = function (model) {
         createUser: createUser,
         findUserById: findUserById,
         findUserByUsername: findUserByUsername,
+        findUserByScreenName: findUserByScreenName,
         findUserByCredentials: findUserByCredentials,
         updateProfile: updateProfile,
         deleteUser: deleteUser,
         addWebsite: addWebsite,
         removeWebsite: removeWebsite,
         findUserByGoogleId: findUserByGoogleId,
-        findAllUsers: findAllUsers
+        findAllUsers: findAllUsers,
+        addTrack: addTrack,
+        removeTrack: removeTrack,
+        getFavorites: getFavorites
     };
     return api;
+
+    function getFavorites(userId) {
+        var deferred = q.defer();
+        userModel
+            .findOne(userId, function (err, user) {
+                if(err)
+                    deferred.reject(err);
+                else {
+                    deferred.resolve(user.favorites);
+                }
+            });
+        return deferred.promise;
+    }
+
+    function addTrack(userId, trackId) {
+        var deferred = q.defer();
+        userModel
+            .findById(userId, function (err, user) {
+                if(err)
+                    deferred.reject(err);
+                else {
+                    // add it
+                    console.log("add");
+                    user.favorites.push(trackId);
+                    user.save();
+                    deferred.resolve(user);
+                }
+            });
+        return deferred.promise;
+    }
+
+    function removeTrack(userId, trackId) {
+        var deferred = q.defer();
+        userModel
+            .findById(userId, function (err, user) {
+                if(err)
+                    deferred.reject(err);
+                else {
+                    for(var t in user.favorites) {
+                        if (user.favorites[t]._id == trackId) {
+                            console.log("remove");
+                            user.favorites.splice(t,1);
+                            user.save();
+                        }
+                    }
+                    deferred.resolve(user);
+                }
+            });
+        return deferred.promise;
+    }
 
     function findAllUsers() {
         return userModel.find();
@@ -114,6 +168,20 @@ module.exports = function (model) {
         userModel
             .findOne({username: username}, function (err, user) {
             //console.log([err,user]);
+                if(err){
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(user);
+                }
+            });
+        return deferred.promise;
+    }
+
+    function findUserByScreenName(screenName) {
+        var deferred = q.defer();
+        userModel
+            .findOne({screenName: screenName}, function (err, user) {
+                //console.log([err,user]);
                 if(err){
                     deferred.reject(err);
                 } else {

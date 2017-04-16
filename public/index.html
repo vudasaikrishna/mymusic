@@ -53,32 +53,34 @@
     <script src="home/controllers/home.controller.client.js"></script>
     <!--Music Controllers-->
     <script src="music/controllers/track.controller.client.js"></script>
+    <script src="music/controllers/track-list.controller.client.js"></script>
     <!--User Controllers-->
     <script src="user/controllers/login.controller.client.js"></script>
     <script src="user/controllers/register.controller.client.js"></script>
     <script src="user/controllers/profile.controller.client.js"></script>
     <script src="user/controllers/admin.controller.client.js"></script>
-    <!--Website Controllers-->
+    <!--&lt;!&ndash;Website Controllers&ndash;&gt;
     <script src="website/controllers/website-list.controller.client.js"></script>
     <script src="website/controllers/website-new.controller.client.js"></script>
     <script src="website/controllers/website-edit.controller.client.js"></script>
-    <!--Page Controllers-->
+    &lt;!&ndash;Page Controllers&ndash;&gt;
     <script src="page/controllers/page-edit.controller.client.js"></script>
     <script src="page/controllers/page-list.controller.client.js"></script>
     <script src="page/controllers/page-new.controller.client.js"></script>
-    <!--Widget Controllers-->
+    &lt;!&ndash;Widget Controllers&ndash;&gt;
     <script src="widget/controllers/widget-list.controller.client.js"></script>
     <script src="widget/controllers/widget-edit.controller.client.js"></script>
     <script src="widget/controllers/widget-new.controller.client.js"></script>
-    <script src="widget/controllers/widget-flickr-search.controller.client.js"></script>
+    <script src="widget/controllers/widget-flickr-search.controller.client.js"></script>-->
 
     <!-- services -->
     <script src="services/user.service.client.js"></script>
-    <script src="services/website.service.client.js"></script>
+    <script src="services/music.service.client.js"></script>
+<!--    <script src="services/website.service.client.js"></script>
     <script src="services/page.service.client.js"></script>
     <script src="services/widget.service.client.js"></script>
-    <script src="services/flickr.service.client.js"></script>
-    <script src="services/music.service.client.js"></script>
+    <script src="services/flickr.service.client.js"></script>-->
+
 
 </head>
 <body ng-controller="HeaderController as model">
@@ -99,16 +101,25 @@
         </ul>
     </div>
     <a class="navbar-brand d-flex hidden-md-up mx-auto" href="#">MyMusic</a>
-    <div class="navbar">
+    <div class="navbar-collapse collapse dual-collapse">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item navbar-collapse collapse dual-collapse">
-                <a class="nav-link" href="#/profile">
-                    {{model.currentUser.username}}
-                </a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="#/profile">
+                    <strong>{{model.currentUser.firstName || model.currentUser.username}}</strong>
+                </a>
+            </li>
+            <!--<li class="nav-item">
+                <a class="nav-link" href="#/profile">
                     <img class="img-prof" src="{{model.currentUser.photo||'uploads/default-profile.png'}}" />
+                </a>
+            </li>-->
+        </ul>
+    </div>
+    <div class="navbar no-padding">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#/profile">
+                    <img class="img-prof-large" src="{{model.currentUser.photo||'uploads/default-profile.png'}}" />
                 </a>
             </li>
         </ul>

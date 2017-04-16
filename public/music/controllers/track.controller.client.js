@@ -3,28 +3,87 @@
         .module("MyMusic")
         .controller("TrackController", TrackController);
 
-    function TrackController(MusicService, $location) {
+    function TrackController(MusicService, UserService, $location, $routeParams, $sce) {
         var vm = this;
         vm.test = "hello world";
-        vm.tracks = [];
+        vm.track = {};
+        // vm.love = false;
 
         function init() {
-            //vm.currentUser = currUser;
-            //console.log(vm.currentUser);
+            vm.currentUser = UserService.currentUser;
+            console.log(vm.currentUser);
             // topTracks();
-            if (MusicService.searchKey)
-                searchTracks();
-            else
-                $location.url('/home');
-            vm.test = "initialized";
-            /*if($location.path() == '/track' && vm.tracks.length == 0)
-                $location.url('/home');*/
+            var trackId = $routeParams.tid;
+            vm.showWiki = false;
+            //console.log(trackId);
+            MusicService
+                .findTrackById(trackId)
+                .then(function (response) {
+                    data = response.data;
+                    vm.track = data.track;
+                    //console.log(vm.track);
+                    return MusicService
+                        .getTrackInfo(vm.track)
+                }, function (err) {
+                    vm.error = "Error loading track data";
+                })
+                .then(function (track) {
+                    console.log(track._id);
+                    vm.track._id = track._id;
+                    if (vm.currentUser._id) {
+                        UserService
+                            .getFavorites()
+                            .then(function (favorites) {
+                                console.log(favorites);
+                                if(favorites.find(function (t) {
+                                        return t == track._id;
+                                    })) {
+                                    vm.love = true;
+                                }
+                            })
+                    }
+                }, function (err) {
+                    vm.error = "Error loading track data";
+                })
         }
         init();
 
         //event handlers
-        vm.searchTracks = searchTracks;
         vm.getImage = getImage;
+        vm.doYouTrustHTML = doYouTrustHTML;
+        vm.wikiToggle = wikiToggle;
+        vm.toggleLove = toggleLove;
+
+        function toggleLove() {
+            if(vm.currentUser._id){
+                if(vm.love) {
+                    UserService
+                        .removeTrack(vm.track._id)
+                        .then(function (success) {
+                            vm.success = "Removed from your favorites";
+                            vm.love = false;
+                        }, function (err) {
+                            vm.error = "Unable to add to favorites. Please try after sometime";
+                        });
+                } else {
+                    UserService
+                        .addTrack(vm.track._id)
+                        .then(function (success) {
+                            vm.success = "Added to your favorites";
+                            vm.love = true;
+                        }, function (err) {
+                            vm.error = "Unable to add to favorites. Please try after sometime";
+                        });
+                }
+            } else {
+                vm.error = "Please login to use this feature.";
+            }
+
+        }
+
+        function wikiToggle() {
+            vm.showWiki = !vm.showWiki;
+        }
 
         function searchTracks() {
             vm.searchTerm = MusicService.searchKey;
@@ -55,7 +114,7 @@
                             break;
                         }*/
                         vm.tracks = data;
-                        MusicService.searchTerm = null;
+                        //MusicService.searchTerm = null;
                         //console.log(vm.tracks[0].image[2]);
                     });
             // }
@@ -63,15 +122,18 @@
         }
 
         function getImage(track) {
-            return track.image[2]['#text']?track.image[2]['#text']:'../../uploads/default_track.png';
+            if(!track.name)
+                return '../../uploads/default_track.png';
+            return track.album.image[3]['#text']?track.album.image[3]['#text']:'../../uploads/default_track.png';
         }
 
-        /*function getStreaming(track) {
-            if (data[t].streamable['#text']) {
-                return data[t].streamable['#text'];
-            } else {
-            }
-        }*/
-
+        function doYouTrustHTML(text) {
+            if(!text)
+                return;
+            text = text.replace("Read more on Last.fm.","Read more");
+            text = text.replace("href", "target='_blank' href");
+            //console.log(text);
+            return $sce.trustAsHtml(text);
+        }
     }
 })();

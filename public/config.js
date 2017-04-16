@@ -44,7 +44,7 @@
                     currentUser: checkLoggedIn
                 }
             })
-            .when("/playlist", {
+            .when("/favorite", {
                 templateUrl: "user/views/profile.view.client.html",
                 controller: "ProfileController",
                 controllerAs: "model",
@@ -77,8 +77,8 @@
                 }
             })
             .when("/track", {
-                templateUrl: "music/views/track.view.client.html",
-                controller: "TrackController",
+                templateUrl: "music/views/track-list.view.client.html",
+                controller: "TrackListController",
                 controllerAs: "model",
                 /*resolve: {
                  currentUser: checkUser
@@ -106,6 +106,7 @@
                 UserService.currentUser.username = null;
                 UserService.currentUser._id = null;
                 UserService.currentUser.photo = null;
+                UserService.currentUser.firstName = null;
                 defer.reject();
                 $location.url('/login');
             });
@@ -123,12 +124,14 @@
                     //console.log(user);
                     // $rootScope.currentUser = user;
                     UserService.currentUser.username = user.username;
+                    UserService.currentUser.firstName = user.firstName;
                     UserService.currentUser._id = user._id;
                     UserService.currentUser.photo = user.photo;
                     console.log(UserService.currentUser);
                     defer.resolve(user);
                 } else {
                     UserService.currentUser.username = null;
+                    UserService.currentUser.firstName = null;
                     UserService.currentUser._id = null;
                     UserService.currentUser.photo = null;
                     defer.reject();

@@ -26,7 +26,7 @@
                 .login(user)
                 .then(function (user) {
                     if(user) {
-                    $location.url("/profile");
+                    $location.url("/home");
                 } else {
                     vm.error = "Username or Password is invalid";
                 }

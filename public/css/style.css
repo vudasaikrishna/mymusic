@@ -11,6 +11,10 @@ body {
     /*font-family: 'Josefin Sans', sans-serif;*/
 }
 
+.img-prof-large {
+    width: 50px;
+    height: 50px;
+}
 
 .img-prof {
     width: 25px;
@@ -129,6 +133,14 @@ body {
 .vsk-ngclick-a {
     cursor: pointer;
     /*text-decoration-color: white;*/
+}
+
+a:not([href]):not([tabindex]) {
+    color: white;
+}
+
+.love {
+    color: #ce1139;
 }
 
 .vsk-glyphicon-pad{

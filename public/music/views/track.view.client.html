@@ -1,13 +1,51 @@
-<div class="card-columns my-4">
-    <div class="card" ng-repeat="track in model.tracks">
-        <img class="card-img-top card-img-cus" src="{{model.getImage(track)}}"
-             alt="{{track.name}}">
-        <div class="card-block">
-            <h4 class="card-title">{{track.name}}</h4>
-            <p class="card-text">Artist: {{track.artist.name? track.artist.name: track.artist}}</p>
-            <a ng-show="{{track.streamable.fulltrack}}" href="{{track.streamable['#text']}}" class="btn btn-primary">Play</a>
-            <a ng-hide="{{track.streamable.fulltrack}}" href="{{track.url}}" target="_blank" class="btn btn-primary">Get</a>
-            <a href="#" class="btn btn-primary float-right">View</a>
+<div class="my-4">
+    <!--{{model.details}}-->
+
+    <div ng-show="model.success" class="alert alert-success">{{model.success}}</div>
+    <div ng-show="model.error" class="alert alert-danger">{{model.error}}</div>
+
+    <img class="card-img img-fluid float-right" src="{{model.getImage(model.track)}}"
+         alt="{{model.track.name}}">
+
+    <div>
+    <div class="card-block">
+        <h4 class="card-title">
+            {{model.track.name}}
+            <a ng-click="model.toggleLove()" role="button">
+                <span class="fa love" ng-class="model.love?'fa-heart':'fa-heart-o'"></span>
+            </a>
+        </h4>
+        <p class="card-text"><a href="{{model.track.artist.url}}" target="_blank"> {{model.track.artist.name}} </a></p>
+        <a ng-show="{{model.track.streamable.fulltrack}}" href="{{model.track.streamable['#text']}}" class="btn btn-primary">Play</a>
+        <a ng-hide="{{model.track.streamable.fulltrack}}" href="{{model.track.url}}" target="_blank" class="btn btn-primary">View on Last.Fm</a>
+        <!--<a href="#/track/{{track.mbid}}" class="btn btn-primary float-right">View</a>-->
+        <div class="my-2">
+        <span class="badge badge-default">Listeners: {{model.track.listeners}}</span>
+        <span class="badge badge-default">PlayCount: {{model.track.playcount}}</span>
+        </div>
+        <div>
+            Tags:
+        <span ng-repeat="tag in model.track.toptags.tag"
+              class="badge badge-default mr-2">{{tag.name}}</span>
+        </div>
+
+        <!--Love-->
+        <div>
+
+        </div>
+        <!--Comments-->
+
+        <button ng-click="model.wikiToggle()"
+                class="btn btn-outline-info my-4 vsk-ngclick-a"
+                type="button">{{model.showWiki?'Hide Wiki':'Show Wiki'}}</button>
+    </div>
+        <div ng-show="model.showWiki" class="card-block">
+            <h6 class="card-title" ng-bind-html="model.doYouTrustHTML(model.track.wiki.summary)"></h6>
+            <p class="card-text" ng-bind-html="model.doYouTrustHTML(model.track.wiki.content)"></p>
+            <p class="card-text"><small class="text-muted">Published: {{model.track.wiki.published}}</small></p>
         </div>
     </div>
+
+
+
 </div>

@@ -17,6 +17,9 @@ module.exports = function (app, model) {
 
     app.post('/api/login', passport.authenticate('local'), login);
     app.post('/api/loggedin', loggedin);
+    app.post('/api/user/favorite', getFavorites);
+    app.post('/api/user/addtrack/:trackId', addTrack);
+    app.post('/api/user/removetrack/:trackId', removeTrack);
     app.post('/api/logout', logout);
     app.post('/api/isAdmin', isAdmin);
     app.post("/api/register", register);
@@ -95,7 +98,7 @@ module.exports = function (app, model) {
                         return done(null, false);
                     }
                     //console.log('[2]');
-                    console.log(user);
+                    //console.log(user);
                     if (bcrypt.compareSync(password, user.password)) {
                         console.log("Success")
                         return done(null, user);
@@ -133,6 +136,48 @@ module.exports = function (app, model) {
             res.json(req.user);
         } else {
             res.send('0');
+        }
+    }
+
+    function getFavorites(req, res) {
+        if(req.isAuthenticated()) {
+            userModel
+                .getFavorites(req.user._id)
+                .then(function (favorites) {
+                    res.json(favorites);
+                }, function (err) {
+                    res.sendStatus(500).send(err);
+                });
+        } else {
+            res.sendStatus(401);
+        }
+    }
+
+    function addTrack(req, res) {
+        if(req.isAuthenticated()) {
+            userModel
+                .addTrack(req.user._id, req.params.trackId)
+                .then(function (success) {
+                    res.sendStatus(200);
+                }, function (err) {
+                    res.sendStatus(500).send(err);
+                });
+        } else {
+            res.sendStatus(401);
+        }
+    }
+
+    function removeTrack(req, res) {
+        if(req.isAuthenticated()) {
+            userModel
+                .removeTrack(req.user._id, req.params.trackId)
+                .then(function (success) {
+                    res.sendStatus(200);
+                }, function (err) {
+                    res.sendStatus(500).send(err);
+                });
+        } else {
+            res.sendStatus(401);
         }
     }
 

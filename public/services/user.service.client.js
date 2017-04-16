@@ -20,9 +20,33 @@
             "isAdmin": isAdmin,
             "findAllUsers": findAllUsers,
             "updateUser": updateUser,
-            "currentUser": currentUser
+            "currentUser": currentUser,
+            "addTrack": addTrack,
+            "removeTrack": removeTrack,
+            "getFavorites": getFavorites
         };
         return api;
+
+        function getFavorites() {
+            return $http.post('/api/user/favorite')
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function removeTrack(trackId) {
+            return $http.post('/api/user/removetrack/'+trackId)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function addTrack(trackId) {
+            return $http.post('/api/user/addtrack/'+trackId)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
 
         function logout() {
             return $http.post('/api/logout')
