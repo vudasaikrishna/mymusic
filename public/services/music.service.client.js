@@ -7,13 +7,12 @@
     function MusicService($http) {
 
         // Last.Fm API
+        // API KEy and Secret
         var key = /*process.env.API_KEY ||*/ "82d41887eded3508556137889b65f14e";
         var secret = /*process.env.API_SECRET// ||*/ "fb228a0b77eec1eed2c24ff9a6f5cee8";
-        var urlBase = "http://ws.audioscrobbler.com/2.0/?method=track.search&track=TEXT&page=PAGE&api_key=API_KEY&format=json";
+        var urlBase = "http://ws.audioscrobbler.com/2.0/?method=METHOD&PARAMS&api_key=API_KEY&format=json";
 
         var searchKey = null;
-
-
 
         /*// Musikki API
         var key = "c3d9202718f7d6ba72e6acbe806edd79";
@@ -29,7 +28,9 @@
             /*"setTracks": setTracks,
             "getTracks": getTracks,
             "tracks": tracks*/
-            "searchKey": searchKey
+            "searchKey": searchKey,
+            "findTrackById":findTrackById,
+            "getTrackInfo": getTrackInfo
         };
         return api;
 
@@ -38,12 +39,29 @@
         * mood based top charts
         * */
 
-        function setTracks (val) {
-            tracks = val;
+        function getTrackInfo(track) {
+            track = {
+                mbid: track.mbid,
+                title: track.name,
+                artist: track.artist.name,
+                url: track.url,
+                image: track.album.image[3]['#text']
+            }
+            console.log(track);
+            return $http.post('/api/track',track)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
-        function getTracks() {
-            return tracks;
+        function findTrackById(trackId) {
+            var method = "track.getInfo";
+            var params = "mbid="+trackId;
+            var url = urlBase
+                .replace("API_KEY", key)
+                .replace("METHOD", method)
+                .replace("PARAMS", params);
+            return $http.get(url);
         }
 
         function getMoods() {
@@ -59,7 +77,12 @@
         function searchTracks(searchTerm, page) {
             //console.log(urlBase);
             console.log(page);
-            var url = urlBase.replace("API_KEY", key).replace("TEXT", searchTerm).replace("PAGE", page);
+            var method = "track.search";
+            var params = "track="+searchTerm+"&page="+page;
+            var url = urlBase
+                .replace("API_KEY", key)
+                .replace("METHOD", method)
+                .replace("PARAMS", params);
             return $http.get(url);
         }
 
