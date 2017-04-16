@@ -46,9 +46,7 @@
             UserService
                 .logout()
                 .then(function () {
-                    UserService.currentUser.username = null;
-                    UserService.currentUser._id = null;
-                    UserService.currentUser.photo = null;
+                    UserService.updateCurrentUser({});
                     $location.url('/login');
                 });
         }

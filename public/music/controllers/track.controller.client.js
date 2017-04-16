@@ -3,16 +3,17 @@
         .module("MyMusic")
         .controller("TrackController", TrackController);
 
-    function TrackController(MusicService, UserService, $location, $routeParams, $sce) {
+    function TrackController(MusicService, UserService, currentUser, $routeParams, $sce) {
         var vm = this;
         vm.test = "hello world";
         vm.track = {};
         // vm.love = false;
 
         function init() {
-            vm.currentUser = UserService.currentUser;
+            vm.currentUser = currentUser;
             console.log(vm.currentUser);
-            // topTracks();
+            UserService.updateCurrentUser(currentUser);
+
             var trackId = $routeParams.tid;
             vm.showWiki = false;
             //console.log(trackId);
@@ -33,18 +34,11 @@
                     console.log(track._id);
                     vm.track._id = track._id;
                     if (vm.currentUser._id) {
-                        UserService
-                            .loggedin()
-                            .then(function (user) {
-                                console.log(user.favorites);
-                                if (user._id) {
-                                    if(user.favorites.find(function (t) {
-                                            return t == track._id;
-                                        })) {
-                                        vm.love = true;
-                                    }
-                                }
-                            })
+                        if(vm.currentUser.favorites.find(function (t) {
+                                return t == track._id;
+                            })) {
+                            vm.love = true;
+                        }
                     }
                 }, function (err) {
                     vm.error = "Error loading track data";

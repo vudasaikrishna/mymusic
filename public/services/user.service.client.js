@@ -23,9 +23,24 @@
             "currentUser": currentUser,
             "addTrack": addTrack,
             "removeTrack": removeTrack,
-            "getFavorites": getFavorites
+            "getFavorites": getFavorites,
+            "updateCurrentUser": updateCurrentUser
         };
         return api;
+
+        function updateCurrentUser(currUser) {
+            if(currUser._id){
+                currentUser.username = currUser.username;
+                currentUser.firstName = currUser.firstName;
+                currentUser._id = currUser._id;
+                currentUser.photo = currUser.photo;
+            } else {
+                currentUser.username = null;
+                currentUser.firstName = null;
+                currentUser._id = null;
+                currentUser.photo = null;
+            }
+        }
 
         function getFavorites() {
             return $http.post('/api/user/favorite')

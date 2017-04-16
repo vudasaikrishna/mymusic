@@ -11,12 +11,9 @@
             //vm.currentUser = currUser;
             //console.log(vm.currentUser);
             vm.test = "initialized";
-            if(currUser){
-                UserService.currentUser.username = currUser.username;
-                UserService.currentUser.firstName = currUser.firstName;
-                UserService.currentUser._id = currUser._id;
-                UserService.currentUser.photo = currUser.photo;
-            }
+            // Saving user data for Header
+            UserService.updateCurrentUser(currUser);
+
             //vm.tracks = MusicService.tracks;
             if(MusicService.searchKey)
                 /*searchTracks();*/
