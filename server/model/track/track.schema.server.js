@@ -8,7 +8,10 @@ module.exports = function () {
         artist: {type: mongoose.Schema.Types.ObjectId, ref: 'MymusicUser'},
         image: String,
         loves: [{type: mongoose.Schema.Types.ObjectId, ref: 'MymusicUser'}],
-        comments: [{comment: String, user: {type: mongoose.Schema.Types.ObjectId, ref: 'MymusicUser'}}],
+        comments: [{
+            comment: String,
+            user: {type: mongoose.Schema.Types.ObjectId, ref: 'MymusicUser'},
+            dateCreated: {type: Date, default: Date.now}}],
         dateCreated: {type: Date, default: Date.now}
     }, {collection: 'mymusic.track'});
 

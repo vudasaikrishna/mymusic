@@ -4,10 +4,13 @@
     <div ng-show="model.success" class="alert alert-success">{{model.success}}</div>
     <div ng-show="model.error" class="alert alert-danger">{{model.error}}</div>
 
+    <img ng-show="!model.track._id" src="../../uploads/loading.gif" class="img-fluid">
+
+    <div ng-show="model.track._id">
     <img class="card-img img-fluid float-right" src="{{model.getImage(model.track)}}"
          alt="{{model.track.name}}">
 
-    <div>
+
     <div class="card-block">
         <h4 class="card-title">
             {{model.track.name}}
@@ -30,11 +33,11 @@
         </div>
 
         <!--Love-->
-        <div class="my-2">
+        <!--<div class="my-2">
             <button ng-click="model.toggleLove()" class="btn" role="button" ng-class="model.love?'btn-outline-danger':'btn-danger'">
                 {{model.love?'UnLove':'Love'}}
             </button>
-        </div>
+        </div>-->
         <!--Comments-->
 
         <!--Wiki-->
@@ -43,8 +46,8 @@
                 type="button">{{model.showWiki?'Hide Wiki':'Show Wiki'}}</button>
     </div>
         <div ng-show="model.showWiki" class="card-block">
-            <h6 class="card-title" ng-bind-html="model.doYouTrustHTML(model.track.wiki.summary)"></h6>
-            <p class="card-text" ng-bind-html="model.doYouTrustHTML(model.track.wiki.content)"></p>
+            <h6 class="card-title text-justify" ng-bind-html="model.doYouTrustHTML(model.track.wiki.summary)"></h6>
+            <p class="card-text text-justify" ng-bind-html="model.doYouTrustHTML(model.track.wiki.content)"></p>
             <p class="card-text"><small class="text-muted">Published: {{model.track.wiki.published}}</small></p>
         </div>
     </div>
