@@ -139,6 +139,15 @@ a:not([href]):not([tabindex]) {
     color: white;
 }
 
+.comment-font {
+    font-size: 1rem;
+    padding: 0rem 0.5rem;
+}
+
+.comment-font>p {
+    margin-bottom: 0rem;
+}
+
 .love {
     color: #ce1139;
 }

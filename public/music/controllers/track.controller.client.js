@@ -30,9 +30,10 @@
                     vm.error = "Error loading track data";
                 })
                 .then(function (track) {
-                    console.log("fetching track id...");
-                    console.log(track._id);
+                    console.log("fetching track from our server");
+                    console.log(track);
                     vm.track._id = track._id;
+                    vm.track.comments = track.comments;
                     if (vm.currentUser._id) {
                         if(vm.currentUser.favorites.find(function (t) {
                                 return t == track._id;
@@ -51,6 +52,35 @@
         vm.doYouTrustHTML = doYouTrustHTML;
         vm.wikiToggle = wikiToggle;
         vm.toggleLove = toggleLove;
+        vm.addComment = addComment;
+
+        function addComment() {
+            if(!vm.comment) {
+                return;
+            } else if (!vm.currentUser._id) {
+                vm.error = "Please login to use this feature.";
+            }
+            else {
+                var comment = {
+                    comment: vm.comment,
+                    user: currentUser._id,
+                    createdDate: Date.now()
+                }
+                MusicService
+                    .addComment(comment, vm.track._id)
+                    .then(function (success) {
+                        comment.user = {
+                            _id: currentUser._id,
+                            firstName: currentUser.firstName
+                        }
+                        vm.track.comments.push(comment);
+                        vm.comment = "";
+                        console.log("Comment Successful");
+                    }, function (err) {
+                        vm.error = "Unable to add comment. Please try again after sometime";
+                    })
+            }
+        }
 
         function toggleLove() {
             if(vm.currentUser._id){
@@ -122,7 +152,7 @@
         function getImage(track) {
             if(!track.name)
                 return '../../uploads/default_track.png';
-            return track.album.image[3]['#text']?track.album.image[3]['#text']:'../../uploads/default_track.png';
+            return track.album.image[2]['#text']?track.album.image[2]['#text']:'../../uploads/default_track.png';
         }
 
         function doYouTrustHTML(text) {

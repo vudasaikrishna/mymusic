@@ -25,12 +25,10 @@
             "searchTracks": searchTracks,
             "getMoods": getMoods,
             "topTracks": topTracks,
-            /*"setTracks": setTracks,
-            "getTracks": getTracks,
-            "tracks": tracks*/
             "searchKey": searchKey,
             "findTrackById":findTrackById,
-            "getTrackInfo": getTrackInfo
+            "getTrackInfo": getTrackInfo,
+            "addComment": addComment
         };
         return api;
 
@@ -38,6 +36,13 @@
         * http://ws.audioscrobbler.com/2.0/?method=tag.gettoptracks&tag=disco&api_key=YOUR_API_KEY&format=json
         * mood based top charts
         * */
+
+        function addComment(comment, trackId) {
+            return $http.post('/api/track/'+trackId+'/addComment',comment)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
 
         function getTrackInfo(track) {
             track = {
@@ -47,7 +52,7 @@
                 url: track.url,
                 image: track.album.image[3]['#text']
             }
-            console.log(track);
+            //console.log(track);
             return $http.post('/api/track',track)
                 .then(function (response) {
                     return response.data;
@@ -76,7 +81,7 @@
 
         function searchTracks(searchTerm, page) {
             //console.log(urlBase);
-            console.log(page);
+            //console.log(page);
             var method = "track.search";
             var params = "track="+searchTerm+"&page="+page;
             var url = urlBase

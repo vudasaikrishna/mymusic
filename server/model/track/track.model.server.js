@@ -9,9 +9,25 @@ module.exports = function (model) {
 
     var api = {
         getTrackInfo: getTrackInfo,
-        createTrack: createTrack
+        createTrack: createTrack,
+        addComment: addComment
     };
     return api;
+
+    function addComment(trackId, comment) {
+        var deferred = q.defer();
+        trackModel
+            .findById(trackId, function (err, track) {
+                if (err) {
+                    deferred.reject(err);
+                } else{
+                    track.comments.push(comment);
+                    track.save();
+                    deferred.resolve(track);
+                }
+            });
+        return deferred.promise;
+    }
 
     function createTrack(track) {
         var deferred = q.defer();
@@ -25,10 +41,26 @@ module.exports = function (model) {
             });
         return deferred.promise;
     }
-    function getTrackInfo(mbid) {
+
+    function getTrack(mbid) {
         var deferred = q.defer();
         trackModel
             .findOne({mbid: mbid}, function (err, track) {
+                if(err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(track);
+                }
+            });
+        return deferred.promise;
+    }
+
+    function getTrackInfo(mbid) {
+        var deferred = q.defer();
+        trackModel
+            .findOne({mbid: mbid})
+            .populate({path:'comments.user', select: 'firstName'})
+            .exec(function (err, track) {
                 if(err) {
                     deferred.reject(err);
                 } else {
