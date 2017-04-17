@@ -42,39 +42,62 @@
             </button>-->
 
         <!--Comments-->
-        <div class="my-6">
-
-        <h4>Comments</h4>
-            <div class="input-group mr-sm-2">
-                <input type="text"
-                       ng-model="model.comment"
-                       class="form-control"
-                       id="newComment"
-                       placeholder="Add Comment">
-                <div ng-click="model.addComment()" class="input-group-addon" role="button">
-                    <span class="fa fa-check"></span> </div>
-            </div>
-        </div>
+        <div id="accordion" role="tablist" aria-multiselectable="true">
             <div class="card">
-                <blockquote class="blockquote comment-font" ng-repeat="comment in model.track.comments | orderBy: dateCreated:true">
-                    <p>{{comment.user.firstName}}
-                        <small class="text-muted"> {{comment.dateCreated | date:'MMM dd, yyyy h:mm a'}}</small>
-                        <!--<span class="fa fa-remove float-right"></span>-->
-                        <br>
-                        <small>{{comment.comment}}</small>
-                    </p>
-                </blockquote>
+                <div class="alert-info" role="tab" id="headingTwo">
+                    <h5 class="mb-0">
+                        <a class="alert-link collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            Summary
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="card-block">
+                        <h6 class="card-text text-justify" ng-bind-html="model.doYouTrustHTML(model.track.wiki.summary)"></h6>
+                        <!--<p class="card-text text-justify" ng-bind-html="model.doYouTrustHTML(model.track.wiki.content)"></p>-->
+                        <p class="card-text"><small class="text-muted">Published: {{model.track.wiki.published}}</small></p>
+                    </div>
+                </div>
             </div>
-        <!--Wiki-->
-        <button ng-click="model.wikiToggle()"
-                class="btn btn-outline-info my-4" role="button"
-                type="button">{{model.showWiki?'Hide Wiki':'Show Wiki'}}</button>
-    </div>
-        <div ng-show="model.showWiki" class="card-block">
-            <h6 class="card-title text-justify" ng-bind-html="model.doYouTrustHTML(model.track.wiki.summary)"></h6>
-            <p class="card-text text-justify" ng-bind-html="model.doYouTrustHTML(model.track.wiki.content)"></p>
-            <p class="card-text"><small class="text-muted">Published: {{model.track.wiki.published}}</small></p>
+            <div class="card">
+                <div class="alert-success" role="tab" id="headingOne">
+                    <h5 class="mb-0">
+                        <a class="alert-link" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne"
+                                aria-expanded="false" aria-controls="collapseOne">
+                            Comments
+                        </a>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="my-2">
+                        <div class="input-group mr-sm-2">
+                            <input type="text"
+                                   ng-model="model.comment"
+                                   class="form-control"
+                                   id="newComment"
+                                   placeholder="Add Comment">
+                            <div ng-click="model.addComment()" class="input-group-addon" role="button">
+                                <span class="fa fa-check"></span> </div>
+                        </div>
+                        <!--<div class="card">-->
+                            <blockquote class="blockquote comment-font" ng-repeat="comment in model.track.comments | orderBy: dateCreated:true">
+                                <p>{{comment.user.firstName}}
+                                    <small class="text-muted"> {{comment.dateCreated | date:'MMM dd, yyyy h:mm a'}}</small>
+                                    <!--<span class="fa fa-remove float-right"></span>-->
+                                    <br>
+                                    <small>{{comment.comment}}</small>
+                                </p>
+                            </blockquote>
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+    </div>
     </div>
 
 

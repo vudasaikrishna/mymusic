@@ -5,6 +5,9 @@ input, textarea {
 body {
     /*padding-top: 50px;*/
     padding-bottom: 60px;
+    background-image: url("../images/background2.jpg");
+    background-repeat: no-repeat;
+    /*background-size: contain;*/
     overflow-x: hidden;
     height: 100%;
     width: 100%;
@@ -20,6 +23,12 @@ body {
     width: 25px;
     height: 25px;
 }
+
+.transparent {
+    background-color: transparent;
+    background: transparent;
+}
+
 @media (max-width: 576px) {
     .full-width {
         width: 100%;
@@ -188,6 +197,7 @@ a:hover {
     /*background-color: #e52d27;*/
     /*border-bottom-color: #337ab7;*/
     background-color: #ce1139;
+    /*background-color: black;*/
     border-bottom-color: gray;
     /*margin-top: -60px;*/
     margin: 0px;

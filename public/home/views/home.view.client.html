@@ -5,7 +5,7 @@
             <img class="card-img-top card-img-cus" src="{{model.getImage(track)}}"
              alt="{{track.name}}">
         </a>
-        <div class="card-block">
+        <div class="card-block transparent">
             <h4 class="card-title">{{track.name}}</h4>
             <p class="card-text"><a href="{{track.artist.url}}" target="_blank"> {{track.artist.name}} </a></p>
             <a ng-show="{{track.streamable.fulltrack}}" href="{{track.streamable['#text']}}" class="btn btn-primary">Play</a>
