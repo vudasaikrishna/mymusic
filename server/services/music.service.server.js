@@ -5,18 +5,24 @@ module.exports = function (app, model) {
     app.put('/api/page/:pageId', updatePage);
     app.delete('/api/page/:pageId', deletePage);
 */
-    app.get('/api/track/:trackId', findTrackById);
+    // app.get('/api/track/:trackId', findTrackById);
+    app.post('/api/track/:trackId/addComment', addComment);
     app.post('/api/track', getTrackInfo);
 
     var userModel = model.userModel;
     var trackModel = model.trackModel;
 
-    // API KEy and Secret
-    var key = /*process.env.API_KEY ||*/ "82d41887eded3508556137889b65f14e";
-    var secret = /*process.env.API_SECRET// ||*/ "fb228a0b77eec1eed2c24ff9a6f5cee8";
-    var urlBase = "http://ws.audioscrobbler.com/2.0/?method=METHOD&PARAMS&api_key=API_KEY&format=json";
-
     // TODO: Track crud functions
+
+    function addComment(req, res) {
+        trackModel
+            .addComment(req.params.trackId, req.body)
+            .then(function (track) {
+                res.json(track);
+            }, function (err) {
+                res.sendStatus(500).send(err);
+            })
+    }
 
     function getTrackInfo(req, res) {
         trackModel
@@ -116,15 +122,5 @@ module.exports = function (app, model) {
                 console.log(err);
                 res.sendStatus(500).send(err);
             })
-    }
-    function findTrackById(req, res) {
-        var trackId = req.params.trackId;
-        var method = "track.getInfo";
-        var params = "mbid="+trackId;
-        var url = urlBase
-            .replace("API_KEY", key)
-            .replace("METHOD", method)
-            .replace("PARAMS", params);
-
     }
 };
