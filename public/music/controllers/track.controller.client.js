@@ -34,6 +34,7 @@
                     console.log(track);
                     vm.track._id = track._id;
                     vm.track.comments = track.comments;
+                    vm.track.loves = track.loves;
                     if (vm.currentUser._id) {
                         if(vm.currentUser.favorites.find(function (t) {
                                 return t == track._id;
@@ -89,6 +90,13 @@
                         .removeTrack(vm.track._id)
                         .then(function (success) {
                             vm.success = "Removed from your favorites";
+                            for(var u in vm.track.loves) {
+                                if (vm.track.loves[u] == vm.currentUser._id) {
+                                    console.log("removeLover");
+                                    vm.track.loves.splice(u,1);
+                                    vm.track.save();
+                                }
+                            }
                             vm.love = false;
                         }, function (err) {
                             vm.error = "Unable to remove from favorites. Please try after sometime";
@@ -98,6 +106,7 @@
                         .addTrack(vm.track._id)
                         .then(function (success) {
                             vm.success = "Added to your favorites";
+                            vm.track.loves.push(vm.currentUser._id);
                             vm.love = true;
                         }, function (err) {
                             vm.error = "Unable to add to favorites. Please try after sometime";

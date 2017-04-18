@@ -26,29 +26,32 @@
                 vm.error = "Passwords do not match";
                 return;
             }
-
-            console.log(user);
-           /* var promise = UserService
+            if(user.firstName==null) {
+                vm.error = "First Name is required";
+                return;
+            }
+            //console.log(user);
+            var promise = UserService
                 .findUserByUsername(user.username);
             promise
                 .success(function (u) {
                     vm.error = "Username already taken";
                 })
-                .error(function (u) {*/
+                .error(function (u) {
                     UserService
                         .register(user)
                         .then(function (u) {
                             console.log("recevied success!");
                             if (u){
                                 vm.message = "Registered Successfully";
-                                $location.url("/profile");
+                                $location.url("/favorite");
                             } else{
                                 vm.error = "Unable to Register";
                             }
                     }, function (err) {
                             vm.error = err;
                         });
-               /* });*/
+                });
         }
     }
 })();

@@ -10,9 +10,47 @@ module.exports = function (model) {
     var api = {
         getTrackInfo: getTrackInfo,
         createTrack: createTrack,
-        addComment: addComment
+        addComment: addComment,
+        addLover: addLover,
+        removeLover: removeLover
     };
     return api;
+
+    function removeLover(userId, trackId) {
+        var deferred = q.defer();
+        trackModel
+            .findById(trackId, function (err, track) {
+                if (err) {
+                    deferred.reject(err);
+                } else{
+                    for(var u in track.loves) {
+                        if (track.loves[u] == userId) {
+                            console.log("removeLover");
+                            track.loves.splice(u,1);
+                            track.save();
+                        }
+                    }
+                    deferred.resolve(track);
+                }
+            });
+        return deferred.promise;
+    }
+
+    function addLover(userId, trackId) {
+        var deferred = q.defer();
+        trackModel
+            .findById(trackId, function (err, track) {
+                if (err) {
+                    deferred.reject(err);
+                } else{
+                    console.log("addLover");
+                    track.loves.push(userId);
+                    track.save();
+                    deferred.resolve(track);
+                }
+            });
+        return deferred.promise;
+    }
 
     function addComment(trackId, comment) {
         var deferred = q.defer();

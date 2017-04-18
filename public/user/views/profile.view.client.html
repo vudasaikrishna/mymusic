@@ -13,7 +13,33 @@
 </nav>-->
 
 <div class="container-fluid col-lg-5 col-md-7">
-    <h1 class="text-center mb-sm-2">Profile</h1>
+    <div class="card-block">
+    <h1 class="text-center">Profile</h1>
+
+        <form name="uploadForm" action="/api/upload" method="post" enctype="multipart/form-data">
+        <label class="btn btn-default btn-file mb-sm-2 float-right" role="button">
+            <img class="card-img img-fluid" width="150" height="150" src="{{model.user.photo||'../../uploads/default-profile.png'}}"
+                 alt="{{model.user.firstName}}">
+            <input type="file"
+                   id="upload"
+                   ng-model="model.upload"
+                   ng-change="model.uploadPhoto()"
+                   style="display: none;">
+        </label>
+            <label for="myFile">Upload</label>
+            <input ng-model="model.widget.upload"
+                   id="myFile"
+                   name="myFile"
+                   class="form-control"
+                   type="file"
+                   accept=".jpg,.jpeg,.png"
+                   placeholder="Header Text"/>
+            <button type="submit" class="btn btn-primary btn-block">
+                Upload Image</button>
+
+        </form>
+        <p class="gray-text">{{uploadForm}}</p>
+
 
     <a ng-if="model.currentUser.role=='ADMIN'" href="#/admin" class="btn btn-danger mb-sm-2 float-right">
         Manage
@@ -29,7 +55,7 @@
 
     <label class="sr-only" for="username">Username</label>
     <div class="input-group mb-2 mr-sm-2 mb-sm-2">
-        <div class="input-group-addon"><span class="fa fa-user"></span> </div>
+        <div class="input-group-addon">Username</div>
         <input ng-model="model.user.username"
                id="username"
                class="form-control"
@@ -38,32 +64,29 @@
 
     <label class="sr-only" for="fname">First Name</label>
     <div class="input-group mb-2 mr-sm-2 mb-sm-2">
-        <div class="input-group-addon"><span class="fa fa-user"></span> </div>
+        <div class="input-group-addon">First Name </div>
         <input type="text"
                ng-model="model.user.firstName"
                class="form-control"
-               id="fname"
-               placeholder="First Name">
+               id="fname">
     </div>
 
     <label class="sr-only" for="lname">Last Name</label>
     <div class="input-group mb-2 mr-sm-2 mb-sm-2">
-        <div class="input-group-addon"><span class="fa fa-user"></span> </div>
+        <div class="input-group-addon">Last Name</div>
         <input type="text"
                ng-model="model.user.lastName"
                class="form-control"
-               id="lname"
-               placeholder="Last Name">
+               id="lname">
     </div>
 
     <label class="sr-only" for="email">Email</label>
     <div class="input-group mb-2 mr-sm-2 mb-sm-2">
-        <div class="input-group-addon">@</div>
+        <div class="input-group-addon">Email</div>
         <input type="email"
                ng-model="model.user.email"
                class="form-control"
-               id="email"
-               placeholder="john@wick.com">
+               id="email">
     </div>
 
     <label class="sr-only" for="userRole">UserType</label>
@@ -78,4 +101,5 @@
 
     <a ng-click="model.updateProfile(model.user)" class="btn btn-primary vsk-ngclick-a">Update</a>
     <!--<a ng-click="model.logout()" class="btn btn-danger vsk-ngclick-a">Logout</a>-->
+</div>
 </div>

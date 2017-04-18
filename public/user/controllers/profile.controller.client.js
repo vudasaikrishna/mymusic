@@ -11,6 +11,7 @@
         vm.deleteUser = deleteUser;
         vm.logout = logout;
         vm.getPhoto = getPhoto;
+        vm.uploadPhoto = uploadPhoto;
 
         function init() {
             /*var promise = UserService.findUserById(userId);
@@ -23,6 +24,11 @@
         }
         init();
 
+
+        function uploadPhoto() {
+            console.log("ngChange called");
+            console.log(vm.upload);
+        }
         function getPhoto() {
             if (vm.user){
                 return vm.user.photo;

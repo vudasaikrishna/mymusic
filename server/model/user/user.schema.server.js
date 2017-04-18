@@ -2,9 +2,9 @@ module.exports = function () {
     var mongoose = require('mongoose');
 
     var userSchema = mongoose.Schema({
-        username: String,
+        username: {type: String, unique: true},
         password: String,
-        firstName: String,
+        firstName: {type: String},
         lastName: String,
         screenName: {type: String, unique: true, sparse: true},
         external: Boolean,

@@ -27,12 +27,12 @@
                 title: "Artists",
                 url: "#/artist",
                 current: false
-            },
+            }/*,
             {
                 title: "Logout",
                 url: "#/logout",
                 current: false
-            },];
+            }*/];
         vm.guestMenu = [
             {
                 title: "Home",
@@ -48,12 +48,12 @@
                 title: "Artists",
                 url: "#/artist",
                 current: false
-            },
+            }/*,
             {
                 title: "Login",
                 url: "#/login",
                 current: false
-            },];
+            }*/];
 
         // m in {true: model.userMenu, false:model.guestMenu}[model.currentUser._id]
 

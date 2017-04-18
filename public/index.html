@@ -67,7 +67,6 @@
     <script src="services/music.service.client.js"></script>
 
 
-
 </head>
 <body ng-controller="HeaderController as model">
 <nav class="navbar navbar-toggleable-sm navbar-inverse navbar-default">
@@ -78,11 +77,11 @@
         <ul class="navbar-nav mr-auto">
             <!--User Menu-->
             <li ng-if="model.currentUser._id" class="nav-item" ng-repeat="m in model.userMenu" ng-class="m.current?'active':''">
-                <a class="nav-link" href="{{m.url}}">{{m.title}}</a>
+                <a class="nav-link" href="{{m.url}}"><h5>{{m.title}}</h5></a>
             </li>
             <!--Guest Menu-->
             <li ng-if="!model.currentUser._id" class="nav-item" ng-repeat="m in model.guestMenu" ng-class="m.current?'active':''">
-                <a class="nav-link" href="{{m.url}}">{{m.title}}</a>
+                <a class="nav-link" href="{{m.url}}"><h5>{{m.title}}</h5></a>
             </li>
         </ul>
     </div>
@@ -91,7 +90,7 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link" href="#/profile">
-                    <strong>{{model.currentUser.firstName || model.currentUser.username}}</strong>
+                    <strong class="gray-text">{{model.currentUser.firstName || model.currentUser.username}}</strong>
                 </a>
             </li>
             <!--<li class="nav-item">
@@ -103,9 +102,20 @@
     </div>
     <div class="navbar no-padding">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#/profile">
+            <li ng-if="model.currentUser._id" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" role="button" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="img-prof-large" src="{{model.currentUser.photo||'uploads/default-profile.png'}}" />
+                </a>
+                <div class="dropdown-menu dropdown-menu-right z-top gray" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">Change Photo</a>
+                    <a class="dropdown-item" href="#/profile">Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#/logout">Logout</a>
+                </div>
+            </li>
+            <li ng-if="!model.currentUser._id">
+                <a class="nav-link" href="#/login">
+                    <img class="img-prof-large" src="uploads/default-profile.png" />
                 </a>
             </li>
         </ul>
@@ -114,7 +124,9 @@
 
 <nav class="navbar  navbar-default navbar-inverse sticky-top">
     <div class="row row-margin">
-        <a class="navbar-brand d-flex mr-auto hidden-sm-down" href="#">MyMusic</a>
+        <a class="navbar-brand d-flex ml-2 mr-auto hidden-sm-down" href="#">
+            <img src="music.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            <h4>MyMusic</h4></a>
         <label class="sr-only" for="search">Search</label>
         <div class="input-group mb-2 mr-sm-2 mb-sm-2 full-width mx-auto">
             <input type="text"
@@ -128,10 +140,8 @@
     </div>
 
 </nav>
-<div class="container-fluid">
-    <div ng-view>
+<div class="container-fluid" ng-view>
 
-    </div>
 
 </div>
 

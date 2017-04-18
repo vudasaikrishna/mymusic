@@ -3,6 +3,7 @@ module.exports = function (app, model) {
     //var userModel = require('./../model/user/user.model.server')();
 
     var userModel = model.userModel;
+    var trackModel = model.trackModel;
     var bcrypt = require("bcrypt-nodejs");
 
 
@@ -23,7 +24,8 @@ module.exports = function (app, model) {
     app.post('/api/logout', logout);
     app.post('/api/isAdmin', isAdmin);
     app.post("/api/register", register);
-    app.get("/api/user", findAllUsers);
+    app.get("/api/user/all", findAllUsers);
+    app.get("/api/user", findUserByUsername);
     app.get("/api/user/:userId", findUserById);
     app.put("/api/profile/:userId", updateProfile);
     app.put("/api/user/:userId", updateUser);
@@ -158,7 +160,13 @@ module.exports = function (app, model) {
             userModel
                 .addTrack(req.user._id, req.params.trackId)
                 .then(function (success) {
-                    res.sendStatus(200);
+                    trackModel
+                        .addLover(req.user._id, req.params.trackId)
+                        .then(function (success) {
+                            res.sendStatus(200);
+                        }, function (err) {
+                            res.sendStatus(500).send(err);
+                        })
                 }, function (err) {
                     res.sendStatus(500).send(err);
                 });
@@ -175,7 +183,13 @@ module.exports = function (app, model) {
                 .removeTrack(req.user._id, req.params.trackId)
                 .then(function (success) {
                     //console.log(success);
-                    res.sendStatus(200);
+                    trackModel
+                        .removeLover(req.user._id, req.params.trackId)
+                        .then(function (success) {
+                            res.sendStatus(200);
+                        }, function (err) {
+                            res.sendStatus(500).send(err);
+                        })
                 }, function (err) {
                     console.log(err);
                     res.sendStatus(500).send(err);

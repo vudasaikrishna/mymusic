@@ -34,11 +34,13 @@
                 currentUser.firstName = currUser.firstName;
                 currentUser._id = currUser._id;
                 currentUser.photo = currUser.photo;
+                currentUser.role = currUser.role;
             } else {
                 currentUser.username = null;
                 currentUser.firstName = null;
                 currentUser._id = null;
                 currentUser.photo = null;
+                currentUser.role = null;
             }
         }
 
@@ -85,7 +87,7 @@
         }
 
         function findAllUsers() {
-            return $http.get('/api/user')
+            return $http.get('/api/user/all')
                 .then(function (response) {
                     return response.data;
                 });

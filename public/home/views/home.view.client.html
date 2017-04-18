@@ -1,16 +1,16 @@
 <div class="card-columns my-4">
-    {{model.searchTerm}}
-    <div class="card" ng-repeat="track in model.tracks" ng-if="track.mbid!=''">
+    <!--{{model.searchTerm}}-->
+    <div class="card transparent" ng-repeat="track in model.tracks" ng-if="track.mbid!=''">
         <a href="#/track/{{track.mbid}}">
             <img class="card-img-top card-img-cus" src="{{model.getImage(track)}}"
              alt="{{track.name}}">
         </a>
-        <div class="card-block transparent">
-            <h4 class="card-title">{{track.name}}</h4>
+        <div class="card-block">
+            <h5 class="card-title gray-text">{{track.name}}</h5>
             <p class="card-text"><a href="{{track.artist.url}}" target="_blank"> {{track.artist.name}} </a></p>
             <a ng-show="{{track.streamable.fulltrack}}" href="{{track.streamable['#text']}}" class="btn btn-primary">Play</a>
             <!--<a ng-hide="{{track.streamable.fulltrack}}" href="{{track.url}}" target="_blank" class="btn btn-primary">Get</a>-->
-            <a href="#/track/{{track.mbid}}" class="btn btn-primary mb-2 float-right">View</a>
+            <!--<a href="#/track/{{track.mbid}}" class="btn btn-primary mb-2 float-right">View</a>-->
         </div>
     </div>
 </div>

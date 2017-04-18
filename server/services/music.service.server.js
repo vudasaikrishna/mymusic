@@ -39,6 +39,107 @@ module.exports = function (app, model) {
                     // check if the aritst already exists
                     userModel
                         .findUserByScreenName(req.body.artist)
+                        // Create or Fetch Artist
+                        // ----------------------
+                        .then(function (user) {
+                            if(user){
+                                // artist exists. just create the track
+                                console.log("Artist exists!");
+                                // returning a promise for the next call.
+                                return userModel.findUserByScreenName(user.screenName)
+                            } else {
+                                // create a new user with the artist details
+                                user = {
+                                    screenName: req.body.artist,
+                                    username: req.body.artist+"@lastfm",
+                                    external: true,
+                                    role: 'ARTIST'
+                                };
+                                console.log("Creating Artist");
+                                return userModel
+                                    .createUser(user)
+                            }
+                        })
+                        // Create Track
+                        // ------------
+                        .then(function (user) {
+                            req.body.artist = user._id;
+                            return trackModel
+                                .createTrack(req.body)
+                        }, function (err) {
+                            console.log(err);
+                            res.sendStatus(500).send(err);
+                        })
+                        // Respond
+                        // -------
+                        .then(function (track) {
+                            console.log("Track added now.");
+                            //console.log(track);
+                            res.json(track);
+                        }, function (err) {
+                            console.log(err);
+                            res.sendStatus(500).send(err);
+                        })
+                }
+            }, function (err) {
+                res.sendStatus(500).send(err);
+            })
+    }
+
+    function createTrack(track) {
+        userModel
+            .findUserByScreenName(track.artist)
+            .then(function (user) {
+                if(user){
+                    console.log("Artist exists!");
+                    // returning a promise for the next call.
+                    return userModel.findUserByScreenName(user.screenName)
+                } else {
+                    user = {
+                        screenName: track.artist,
+                        firstName: track.artist,
+                        external: true,
+                        role: 'ARTIST'
+                    };
+                    console.log("Creating Artist");
+                    return userModel
+                        .createUser(user)
+                }
+            })
+            .then(function (user) {
+                track.artist = user._id;
+                return trackModel
+                    .createTrack(track)
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500).send(err);
+            })
+            .then(function (track) {
+                console.log("Track added now.");
+                console.log(track);
+                res.json(track);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500).send(err);
+            })
+    }
+
+    function getTrackInfoOld(req, res) {
+        trackModel
+            .getTrackInfo(req.body.mbid)
+            .then(function (track) {
+                if(track) {
+                    // track already exists. send it back
+                    console.log("Track already exists");
+                    res.json(track);
+
+                } else {
+                    // track doesn't exist, so add one
+                    console.log("Track doesn't exist");
+                    // check if the aritst already exists
+                    console.log(req.body.artist);
+                    return userModel
+                        .findUserByScreenName(req.body.artist)
                 }
             }, function (err) {
                 res.sendStatus(500).send(err);
@@ -79,44 +180,6 @@ module.exports = function (app, model) {
             .then(function (track) {
                 console.log("Track added now.");
                 //console.log(track);
-                res.json(track);
-            }, function (err) {
-                console.log(err);
-                res.sendStatus(500).send(err);
-            })
-    }
-
-    function createTrack(track) {
-        userModel
-            .findUserByScreenName(track.artist)
-            .then(function (user) {
-                if(user){
-                    console.log("Artist exists!");
-                    // returning a promise for the next call.
-                    return userModel.findUserByScreenName(user.screenName)
-                } else {
-                    user = {
-                        screenName: track.artist,
-                        firstName: track.artist,
-                        external: true,
-                        role: 'ARTIST'
-                    };
-                    console.log("Creating Artist");
-                    return userModel
-                        .createUser(user)
-                }
-            })
-            .then(function (user) {
-                track.artist = user._id;
-                return trackModel
-                    .createTrack(track)
-            }, function (err) {
-                console.log(err);
-                res.sendStatus(500).send(err);
-            })
-            .then(function (track) {
-                console.log("Track added now.");
-                console.log(track);
                 res.json(track);
             }, function (err) {
                 console.log(err);
