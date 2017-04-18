@@ -13,6 +13,8 @@
             vm.test = "initialized";
             // Saving user data for Header
             UserService.updateCurrentUser(currUser);
+            UserService.currentMenu.active = "Home";
+            console.log(UserService.currentMenu);
 
             //vm.tracks = MusicService.tracks;
             if(MusicService.searchKey)

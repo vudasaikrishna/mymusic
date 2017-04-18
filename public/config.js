@@ -84,6 +84,14 @@
                  currentUser: checkUser
                  }
             })
+            .when("/share/:tid", {
+                templateUrl: "music/views/share.view.client.html",
+                controller: "ShareController",
+                controllerAs: "model",
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
+            })
             .otherwise({
                 redirectTo: "/home"
             })

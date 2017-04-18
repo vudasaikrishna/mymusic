@@ -12,6 +12,7 @@
         function init() {
             vm.currentUser = currentUser;
             console.log(vm.currentUser);
+            UserService.currentMenu.active = "Favorites";
             UserService
                 .getFavorites()
                 .then(function (favorites) {

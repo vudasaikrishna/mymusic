@@ -6,6 +6,7 @@
     function userService($http) {
 
         var currentUser = {};
+        var currentMenu = {};
 
         var api = {
             "findUserByCredentials": findUserByCredentials,
@@ -21,6 +22,7 @@
             "findAllUsers": findAllUsers,
             "updateUser": updateUser,
             "currentUser": currentUser,
+            "currentMenu": currentMenu,
             "addTrack": addTrack,
             "removeTrack": removeTrack,
             "getFavorites": getFavorites,

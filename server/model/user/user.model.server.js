@@ -135,8 +135,12 @@ module.exports = function (model) {
     }
 
     function updateProfile(user) {
+        console.log("updating profile")
         return userModel.update({_id: user._id},
-            {$set: {firstName: user.firstName}});
+            {$set: {firstName: user.firstName,
+                lastName: user.lastName,
+            photo: user.photo,
+            email: user.email}});
     }
 
     function updateUser(user) {

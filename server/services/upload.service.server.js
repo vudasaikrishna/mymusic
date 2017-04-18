@@ -25,15 +25,16 @@ module.exports = function (app, model) {
             .findUserById(userId)
             .then(function (user) {
                 user.photo = '/uploads/'+filename;
-                //console.log(widget);
+                console.log(user);
 
                 return userModel
-                    .updateProfile(userId, user);
+                    .updateProfile(user);
             })
             .then(function (user) {
                 // var callbackUrl   = "#/profile";
-                res.sendStatus(204);
-                // res.redirect(callbackUrl);
+                console.log("IMage added");
+                // res.sendStatus(204);
+                res.redirect('back');
             }, function (err) {
                 res.sendStatus(500).send(err);
             });

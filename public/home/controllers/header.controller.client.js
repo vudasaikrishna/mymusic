@@ -7,26 +7,27 @@
         var vm = this;
         // vm.test = "hello world";
         vm.currentUser = UserService.currentUser;
+        vm.currentMenu = UserService.currentMenu;
         vm.userMenu = [
             {
                 title: "Home",
                 url: "#/home",
-                current: true
+                current: vm.currentMenu.active == "Home"
             },
             {
                 title: "Favorites",
                 url: "#/favorite",
-                current: false
+                current: vm.currentMenu.active == "Favorites"
             },
             {
                 title: "Trending",
                 url: "#/trending",
-                current: false
+                current: vm.currentMenu.active == "Trending"
             },
             {
                 title: "Artists",
                 url: "#/artist",
-                current: false
+                current: vm.currentMenu.active == "Artists"
             }/*,
             {
                 title: "Logout",
@@ -37,17 +38,17 @@
             {
                 title: "Home",
                 url: "#/home",
-                current: true
+                current: vm.currentMenu.active == "Home"
             },
             {
                 title: "Trending",
                 url: "#/trending",
-                current: false
+                current: vm.currentMenu.active == "Trending"
             },
             {
                 title: "Artists",
                 url: "#/artist",
-                current: false
+                current: vm.currentMenu.active == "Artists"
             }/*,
             {
                 title: "Login",
@@ -57,11 +58,12 @@
 
         // m in {true: model.userMenu, false:model.guestMenu}[model.currentUser._id]
 
-        console.log(vm.currentUser);
+        //console.log(vm.currentUser);
         vm.menu = vm.currentUser._id?vm.userMenu:vm.guestMenu;
 
         function init() {
 
+//            UserService.currentMenu.active = $location.path();
             //vm.test = "initialized";
         }
         init();

@@ -76,11 +76,13 @@
     <div class="navbar-collapse collapse dual-collapse">
         <ul class="navbar-nav mr-auto">
             <!--User Menu-->
-            <li ng-if="model.currentUser._id" class="nav-item" ng-repeat="m in model.userMenu" ng-class="m.current?'active':''">
+            <li ng-if="model.currentUser._id" class="nav-item" ng-repeat="m in model.userMenu"
+                ng-class="model.currentMenu.active==m.title?'active':''">
                 <a class="nav-link" href="{{m.url}}"><h5>{{m.title}}</h5></a>
             </li>
             <!--Guest Menu-->
-            <li ng-if="!model.currentUser._id" class="nav-item" ng-repeat="m in model.guestMenu" ng-class="m.current?'active':''">
+            <li ng-if="!model.currentUser._id" class="nav-item" ng-repeat="m in model.guestMenu"
+                ng-class="model.currentMenu.active==m.title?'active':''">
                 <a class="nav-link" href="{{m.url}}"><h5>{{m.title}}</h5></a>
             </li>
         </ul>
@@ -100,14 +102,14 @@
             </li>-->
         </ul>
     </div>
-    <div class="navbar no-padding">
-        <ul class="navbar-nav ml-auto">
+    <div class="navbar ml-auto">
+        <ul class="navbar-nav">
             <li ng-if="model.currentUser._id" class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" role="button" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="img-prof-large" src="{{model.currentUser.photo||'uploads/default-profile.png'}}" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-right z-top gray" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Change Photo</a>
+                    <!--<a class="dropdown-item" href="#">Change Photo</a>-->
                     <a class="dropdown-item" href="#/profile">Profile</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#/logout">Logout</a>
