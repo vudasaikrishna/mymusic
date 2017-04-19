@@ -41,7 +41,7 @@
                     Date
                 </a>
             </div>
-            <div ng-repeat="m in model.messages"
+            <div ng-repeat="m in model.messages | orderBy: dateCreated:true"
                role="button"
                  ng-click="model.viewMessage(m)"
                class="list-group-item list-group-item-action"

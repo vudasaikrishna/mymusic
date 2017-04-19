@@ -45,14 +45,14 @@ module.exports = function (model) {
     }
 
     function removeMessage(userId, message) {
-        console.log(message);
+        //console.log(message);
         var deferred = q.defer();
         userModel
             .findById(userId, function (err, user) {
                 if(err)
                     deferred.reject(err);
                 else {
-                    console.log(userId);
+                    //console.log(userId);
                     for(var m in user.messages) {
                         if ((user.messages[m].user == message.user._id) &&
                             (user.messages[m].track == message.track._id)){
