@@ -8,6 +8,7 @@
         // vm.test = "hello world";
         vm.currentUser = UserService.currentUser;
         vm.currentMenu = UserService.currentMenu;
+        vm.messageCount = UserService.messageCount; // count of unread messages .filter(function(m){return m.read;})
         vm.userMenu = [
             {
                 title: "Home",

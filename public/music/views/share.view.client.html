@@ -1,105 +1,52 @@
 <div class="my-4 col-lg-8 mx-auto">
-    <!--{{model.details}}-->
 
     <div ng-show="model.success" class="alert alert-success">{{model.success}}</div>
     <div ng-show="model.error" class="alert alert-danger">{{model.error}}</div>
 
-    <img ng-show="!model.track._id" src="../../uploads/loading.gif" class="img-fluid">
+    <!--<img ng-show="!model.track._id" src="../../uploads/loading.gif" class="img-fluid">-->
 
-    <div class="card" ng-show="model.track._id">
+    <!--<div class="card">-->
 
     <div class="card-block">
-        <!--<div class="card-header">-->
-        <img class="card-img img-fluid float-right" src="{{model.getImage(model.track)}}"
-             alt="{{model.track.name}}">
-        <h4 class="card-title">
-            {{model.track.name}}
-            <a ng-click="model.toggleLove()" role="button">
-                <span class="fa love ml-4" ng-class="model.love?'fa-heart':'fa-heart-o'"></span>
+        <label class="sr-only" for="search">Search</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-2 mx-auto">
+            <input type="text"
+                   ng-model="model.searchTerm"
+                   class="form-control"
+                   id="search"
+                   placeholder="Search users">
+            <div ng-click="model.searchUsers()" class="input-group-addon mr-2" role="button">
+                <span class="fa fa-search"></span> </div>
+        </div>
+
+        <div class="list-group col-lg-6 mx-auto" ng-show="model.users">
+            <a class="list-group-item active">
+                Users
             </a>
-            {{model.track.loves.length}}
-            <a href="#/share/{{model.track._id}}" role="button">
-                <span class="fa fa-share-square-o ml-2"></span>
-            </a>
-        </h4>
-        <p class="card-text"><a href="{{model.track.artist.url}}" target="_blank"> {{model.track.artist.name}} </a></p>
-        <a ng-show="{{model.track.streamable.fulltrack}}" href="{{model.track.streamable['#text']}}" class="btn btn-primary">Play</a>
-        <a ng-hide="{{model.track.streamable.fulltrack}}" href="{{model.track.url}}" target="_blank" class="btn btn-primary">View on Last.Fm</a>
-        <!--<a href="#/track/{{track.mbid}}" class="btn btn-primary float-right">View</a>-->
-        <div class="my-2">
-        <span class="badge badge-default">Listeners: {{model.track.listeners | number}}</span>
-        <span class="badge badge-default">PlayCount: {{model.track.playcount | number}}</span>
+            <a ng-repeat="user in model.users"
+               role="button"
+               ng-click="model.shareWithUser(user)"
+               class="list-group-item list-group-item-action gray"
+               ng-if="user._id!=model.currentUser._id">
+                {{user.firstName+" "+user.lastName}}</a>
         </div>
-        <div class="mb-4">
-            Tags:
-        <span ng-repeat="tag in model.track.toptags.tag"
-              class="badge badge-default mr-2">{{tag.name}}</span>
-        </div>
-        <!--</div>-->
-        <!--Love-->
 
-            <!--<button ng-click="model.toggleLove()" class="btn" role="button" ng-class="model.love?'btn-outline-danger':'btn-danger'">
-                {{model.love?'UnLove':'Love'}}
-            </button>-->
+        <!--<ul class="list-group col-lg-6 mx-auto" ng-show="model.users">
+            <li class="list-group-item active">
+                Users
+            </li>
+            <li ng-repeat="user in model.users" class="list-group-item list-group-item-action"
+                ng-if="user._id!=model.currentUser._id">
+               <a ng-click="model.shareWithUser(user)">
+                   {{user.firstName}} {{user.lastName}}</a>
 
-        <!--Comments-->
-        <div id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="card">
-                <div class="alert-info" role="tab" id="headingTwo">
-                    <h5 class="mb-0">
-                        <a class="alert-link collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                           data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                            Summary
-                        </a>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo">
-                    <div class="card-block">
-                        <h6 class="card-text text-justify" ng-bind-html="model.doYouTrustHTML(model.track.wiki.summary)"></h6>
-                        <!--<p class="card-text text-justify" ng-bind-html="model.doYouTrustHTML(model.track.wiki.content)"></p>-->
-                        <p class="card-text"><small class="text-muted">Published: {{model.track.wiki.published}}</small></p>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="alert-success" role="tab" id="headingOne">
-                    <h5 class="mb-0">
-                        <a class="alert-link" role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne"
-                                aria-expanded="false" aria-controls="collapseOne">
-                            Comments
-                        </a>
-                    </h5>
-                </div>
+            </li>
+        </ul>-->
 
-                <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="my-2">
-                        <div class="input-group mr-sm-2">
-                            <input type="text"
-                                   ng-model="model.comment"
-                                   class="form-control"
-                                   id="newComment"
-                                   placeholder="Add Comment">
-                            <div ng-click="model.addComment()" class="input-group-addon" role="button">
-                                <span class="fa fa-check"></span> </div>
-                        </div>
-                        <!--<div class="card">-->
-                            <blockquote class="blockquote comment-font" ng-repeat="comment in model.track.comments | orderBy: dateCreated:true">
-                                <p>{{comment.user.firstName}}
-                                    <small class="text-muted"> {{comment.dateCreated | date:'MMM dd, yyyy h:mm a'}}</small>
-                                    <!--<span class="fa fa-remove float-right"></span>-->
-                                    <br>
-                                    <small>{{comment.comment}}</small>
-                                </p>
-                            </blockquote>
-                        <!--</div>-->
-                    </div>
-                </div>
-            </div>
 
         </div>
 
-    </div>
-    </div>
+    <!--</div>-->
 
 
 

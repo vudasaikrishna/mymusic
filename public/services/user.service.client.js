@@ -5,8 +5,9 @@
 
     function userService($http) {
 
-        var currentUser = {};
+        var currentUser = {messages:[]};
         var currentMenu = {};
+        var messageCount = {};
 
         var api = {
             "findUserByCredentials": findUserByCredentials,
@@ -23,12 +24,45 @@
             "updateUser": updateUser,
             "currentUser": currentUser,
             "currentMenu": currentMenu,
+            "messageCount": messageCount,
             "addTrack": addTrack,
             "removeTrack": removeTrack,
             "getFavorites": getFavorites,
-            "updateCurrentUser": updateCurrentUser
+            "updateCurrentUser": updateCurrentUser,
+            "searchUsers": searchUsers,
+            "addMessage": addMessage,
+            "removeMessage": removeMessage,
+            "getMessages": getMessages
         };
         return api;
+
+        function getMessages() {
+            return $http.post('/api/user/message')
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function removeMessage(userId, message) {
+            return $http.post('/api/user/'+userId+'/removeMessage', message)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function addMessage(userId, message) {
+            return $http.post('/api/user/'+userId+'/addMessage', message)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function searchUsers(searchTerm) {
+            return $http.post('/api/user/search?key='+searchTerm)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
 
         function updateCurrentUser(currUser) {
             if(currUser._id){
@@ -37,12 +71,16 @@
                 currentUser._id = currUser._id;
                 currentUser.photo = currUser.photo;
                 currentUser.role = currUser.role;
+                currentUser.messages = currUser.messages;
+                messageCount.value = currentUser.messages.filter(function(m){return !m.read;}).length;
             } else {
                 currentUser.username = null;
                 currentUser.firstName = null;
                 currentUser._id = null;
                 currentUser.photo = null;
                 currentUser.role = null;
+                currentUser.messages = null;
+                messageCount.value = null;
             }
         }
 

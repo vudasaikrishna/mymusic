@@ -92,6 +92,14 @@
                     currentUser: checkLoggedIn
                 }
             })
+            .when("/message", {
+                templateUrl: "music/views/message.view.client.html",
+                controller: "MessageController",
+                controllerAs: "model",
+                resolve: {
+                 currentUser: checkLoggedIn
+                 }
+            })
             .otherwise({
                 redirectTo: "/home"
             })
@@ -135,7 +143,7 @@
         UserService
             .loggedin()
             .then(function (user) {
-                console.log(user);
+                //console.log(user);
                 defer.resolve(user);
             });
         return defer.promise;

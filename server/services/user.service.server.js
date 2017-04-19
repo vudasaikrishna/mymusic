@@ -18,9 +18,13 @@ module.exports = function (app, model) {
 
     app.post('/api/login', passport.authenticate('local'), login);
     app.post('/api/loggedin', loggedin);
+    app.post('/api/user/search', searchUsers);
     app.post('/api/user/favorite', getFavorites);
+    app.post('/api/user/message', getMessages);
     app.post('/api/user/addtrack/:trackId', addTrack);
     app.post('/api/user/removetrack/:trackId', removeTrack);
+    app.post('/api/user/:userId/addMessage', addMessage);
+    app.post('/api/user/:userId/removeMessage', removeMessage);
     app.post('/api/logout', logout);
     app.post('/api/isAdmin', isAdmin);
     app.post("/api/register", register);
@@ -147,6 +151,67 @@ module.exports = function (app, model) {
                 .getFavorites(req.user._id)
                 .then(function (favorites) {
                     res.json(favorites);
+                }, function (err) {
+                    res.sendStatus(500).send(err);
+                });
+        } else {
+            res.sendStatus(401);
+        }
+    }
+
+    function getMessages(req, res) {
+        if(req.isAuthenticated()) {
+            userModel
+                .getMessages(req.user._id)
+                .then(function (messages) {
+                    //console.log(messages);
+                    res.json(messages);
+                }, function (err) {
+                    res.sendStatus(500).send(err);
+                });
+        } else {
+            res.sendStatus(401);
+        }
+    }
+
+    function searchUsers(req, res) {
+        if(req.isAuthenticated()) {
+            userModel
+                .searchUsers(req.query.key)
+                .then(function (users) {
+                    if (users)
+                        res.json(users);
+                    else
+                        res.sendStatus(500);
+                }, function (err) {
+                    res.sendStatus(500).send(err);
+                });
+        } else {
+            res.sendStatus(401);
+        }
+    }
+
+    function addMessage(req, res) {
+        console.log("Adding Message. Service");
+        if(req.isAuthenticated()) {
+            userModel
+                .addMessage(req.params.userId, req.body)
+                .then(function (success) {
+                    res.sendStatus(200);
+                }, function (err) {
+                    res.sendStatus(500).send(err);
+                });
+        } else {
+            res.sendStatus(401);
+        }
+    }
+
+    function removeMessage(req, res) {
+        if(req.isAuthenticated()) {
+            userModel
+                .removeMessage(req.params.userId, req.body)
+                .then(function (success) {
+                    res.sendStatus(200);
                 }, function (err) {
                     res.sendStatus(500).send(err);
                 });

@@ -15,15 +15,73 @@ module.exports = function (model) {
         findUserByCredentials: findUserByCredentials,
         updateProfile: updateProfile,
         deleteUser: deleteUser,
-        addWebsite: addWebsite,
-        removeWebsite: removeWebsite,
         findUserByGoogleId: findUserByGoogleId,
         findAllUsers: findAllUsers,
         addTrack: addTrack,
         removeTrack: removeTrack,
-        getFavorites: getFavorites
+        getFavorites: getFavorites,
+        searchUsers: searchUsers,
+        addMessage: addMessage,
+        removeMessage: removeMessage,
+        getMessages: getMessages
     };
     return api;
+
+    function addMessage(userId, message) {
+        var deferred = q.defer();
+        userModel
+            .findById(userId, function (err, user) {
+                if(err)
+                    deferred.reject(err);
+                else {
+                    // add it
+                    console.log("addMessage");
+                    user.messages.push(message);
+                    user.save();
+                    deferred.resolve(user);
+                }
+            });
+        return deferred.promise;
+    }
+
+    function removeMessage(userId, message) {
+        console.log(message);
+        var deferred = q.defer();
+        userModel
+            .findById(userId, function (err, user) {
+                if(err)
+                    deferred.reject(err);
+                else {
+                    console.log(userId);
+                    for(var m in user.messages) {
+                        if ((user.messages[m].user == message.user._id) &&
+                            (user.messages[m].track == message.track._id)){
+                            console.log("removeMessage");
+                            user.messages[m].read = true;
+                            user.save();
+                        }
+                    }
+                    deferred.resolve(user);
+                }
+            });
+        return deferred.promise;
+    }
+
+    function getMessages(userId) {
+        var deferred = q.defer();
+        userModel
+            .findOne(userId)
+            .populate({path:'messages.user messages.track',
+                select:'firstName lastName title mbid'})
+            .exec(function (err, user) {
+                if(err)
+                    deferred.reject(err);
+                else {
+                    deferred.resolve(user.messages);
+                }
+            });
+        return deferred.promise;
+    }
 
     function getFavorites(userId) {
         var deferred = q.defer();
@@ -88,34 +146,18 @@ module.exports = function (model) {
         });
     }
 
-    function removeWebsite(websiteId) {
+    function searchUsers(searchTerm) {
         var deferred = q.defer();
         userModel
-            .find({websites: websiteId}, function (err, users) {
+            .find({$or:[ {username: { "$regex": searchTerm, "$options": "i" }},
+                    {firstName: { "$regex": searchTerm, "$options": "i" }},
+                    {lastName: { "$regex": searchTerm, "$options": "i" },} ],
+                role: 'USER'},
+                function (err, users) {
                 if(err){
                     deferred.abort(err);
                 } else {
-                    //console.log(users);
-                    for(var u in users) {
-                        var ind = users[u].websites.indexOf(websiteId);
-                        users[u].websites.splice(ind,1);
-                        users[u].save();
-                    }
                     deferred.resolve(users);
-                }
-            });
-        return deferred.promise;
-    }
-    function addWebsite(userId, websiteId) {
-        var deferred = q.defer();
-        userModel
-            .findById(userId, function (err, user) {
-                if(err) {
-                    deferred.reject(err);
-                } else {
-                    user.websites.push(websiteId);
-                    user.save();
-                    deferred.resolve(user);
                 }
             });
         return deferred.promise;
@@ -135,7 +177,7 @@ module.exports = function (model) {
     }
 
     function updateProfile(user) {
-        console.log("updating profile")
+        //console.log("updating profile")
         return userModel.update({_id: user._id},
             {$set: {firstName: user.firstName,
                 lastName: user.lastName,

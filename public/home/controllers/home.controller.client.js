@@ -14,7 +14,7 @@
             // Saving user data for Header
             UserService.updateCurrentUser(currUser);
             UserService.currentMenu.active = "Home";
-            console.log(UserService.currentMenu);
+            console.log(UserService.currentUser);
 
             //vm.tracks = MusicService.tracks;
             if(MusicService.searchKey)

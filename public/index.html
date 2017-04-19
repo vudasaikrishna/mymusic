@@ -55,6 +55,8 @@
     <script src="music/controllers/track.controller.client.js"></script>
     <script src="music/controllers/track-list.controller.client.js"></script>
     <script src="music/controllers/favorite.controller.client.js"></script>
+    <script src="music/controllers/share.controller.client.js"></script>
+    <script src="music/controllers/message.controller.client.js"></script>
     <!--User Controllers-->
     <script src="user/controllers/login.controller.client.js"></script>
     <script src="user/controllers/register.controller.client.js"></script>
@@ -104,12 +106,20 @@
     </div>
     <div class="navbar ml-auto">
         <ul class="navbar-nav">
+           <!-- <li ng-if="model.currentUser._id">
+                <a class="nav-link" href="#/profile" role="button">
+                    <strong class="gray-text">{{model.messageCount.value}}</strong>
+                </a>
+            </li>-->
             <li ng-if="model.currentUser._id" class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" role="button" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="d-inline-block">
+                    <strong class=" red-text text-box em d-inline">{{model.messageCount.value}}</strong>
                     <img class="img-prof-large" src="{{model.currentUser.photo||'uploads/default-profile.png'}}" />
+                    </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right z-top gray" aria-labelledby="navbarDropdownMenuLink">
-                    <!--<a class="dropdown-item" href="#">Change Photo</a>-->
+                    <a class="dropdown-item" href="#/message">Messages</a>
                     <a class="dropdown-item" href="#/profile">Profile</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#/logout">Logout</a>
