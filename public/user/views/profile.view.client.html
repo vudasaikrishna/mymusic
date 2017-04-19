@@ -17,16 +17,17 @@
     <h1 class="text-center">Profile</h1>
 
         <form name="uploadForm" action="/api/upload" method="post" enctype="multipart/form-data">
-        <label class="btn btn-default btn-file mb-sm-2 float-right" role="button">
-            <img class="card-img img-fluid" width="150" height="150" src="{{model.user.photo||'../../uploads/default-profile.png'}}"
+        <!--<label class="btn btn-default btn-file mb-sm-2 float-right" role="button">-->
+            <img class="card-img img-fluid mb-sm-2 float-right"
+                 width="150" height="150" src="{{model.user.photo||'../../uploads/default-profile.png'}}"
                  alt="{{model.user.firstName}}">
-            <input type="file"
+            <!--<input type="file"
                    id="upload"
                    ng-model="model.upload"
                    ng-change="model.uploadPhoto()"
                    style="display: none;">
-        </label>
-            <label for="myFile">Upload</label>
+        </label>-->
+            <!--<label for="myFile">Upload</label>-->
             <input ng-model="model.widget.upload"
                    id="myFile"
                    name="myFile"
@@ -34,8 +35,8 @@
                    type="file"
                    accept=".jpg,.jpeg,.png"
                    placeholder="Header Text"/>
-            <button type="submit" class="btn btn-primary btn-block">
-                Upload Image</button>
+            <button type="submit" class="btn btn-primary btn-block mb-2">
+                Change Image</button>
 
         </form>
         <!--<p class="gray-text">{{uploadForm}}</p>-->
