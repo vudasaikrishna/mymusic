@@ -12,9 +12,9 @@
         <div class="card-block">
             <h4 class="card-title">{{track.title}}</h4>
             <p class="card-text">{{track.artist.screenName}}</p>
-            <a href="{{track.url}}"
-               class="btn btn-primary mr-2">Play</a>
-            <a href="#/track/{{track._id}}" class="btn btn-primary mb-2 float-right">View</a>
+            <!--<a href="{{track.url}}"
+               class="btn btn-primary mr-2">Play</a>-->
+            <a href="#/track/{{track.mbid?track.mbid:track._id}}" class="btn btn-primary mb-2 float-right">View</a>
         </div>
     </div>
 </div>
