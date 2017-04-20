@@ -1,9 +1,9 @@
 (function(){
     angular
         .module("MyMusic")
-        .controller("TrackController", TrackController);
+        .controller("TrackNewController", TrackNewController);
 
-    function TrackController(MusicService, UserService, currentUser, $routeParams, $sce) {
+    function TrackNewController(MusicService, UserService, currentUser, $routeParams, $sce) {
         var vm = this;
         vm.test = "hello world";
         vm.track = {};
@@ -14,52 +14,7 @@
             console.log(vm.currentUser);
             UserService.updateCurrentUser(currentUser);
 
-            var trackId = $routeParams.tid;
-            vm.showWiki = false;
-            //console.log(trackId);
-            MusicService
-                .findTrackById(trackId)
-                .then(function (track) {
-                    //console.log(track);
-                    return MusicService
-                        .findTrackById(trackId);
-                }, function (err) {
-                    //vm.error = "error loading track from our server.";
-                    //console.log(vm.error);
-                    return MusicService
-                        .findTrackBymbid(trackId)
-                        .then(function (response) {
-                            data = response.data;
-                            vm.track = data.track;
-                            //console.log(vm.track);
-                            console.log("track from api.");
-                            return MusicService
-                                .getTrackInfo(vm.track)
-                        }, function (err) {
-                            vm.error = "Error loading track from API.";
-                            //console.log(vm.error);
-                        })
-                })
-                .then(function (track) {
-                    console.log("fetching track from our server");
-                    //console.log(track);
-                    vm.track._id = track._id;
-                    vm.track.comments = track.comments;
-                    vm.track.loves = track.loves;
-                    if(track.title) {
-                        vm.track.name = track.title;
-                        vm.track.image = track.image;
-                    }
-                    if (vm.currentUser._id) {
-                        if(vm.currentUser.favorites.find(function (t) {
-                                return t == track._id;
-                            })) {
-                            vm.love = true;
-                        }
-                    }
-                }, function (err) {
-                    vm.error = "Error loading track data finally.";
-                })
+
         }
         init();
 
@@ -68,32 +23,24 @@
         vm.doYouTrustHTML = doYouTrustHTML;
         vm.wikiToggle = wikiToggle;
         vm.toggleLove = toggleLove;
-        vm.addComment = addComment;
+        vm.addTrack = addTrack;
 
-        function addComment() {
-            if(!vm.comment) {
+        function addTrack() {
+            if(!vm.track.title) {
+                vm.error = "Track Title required.";
                 return;
-            } else if (!vm.currentUser._id) {
-                vm.error = "Please login to use this feature.";
+            } else if (!vm.track.url) {
+                vm.error = "Please upload a track or enter an external url.";
             }
             else {
-                var comment = {
-                    comment: vm.comment,
-                    user: currentUser._id,
-                    createdDate: Date.now()
-                }
+                track.artist = vm.currentUser.screenName;
                 MusicService
-                    .addComment(comment, vm.track._id)
+                    .addTrack(vm.track)
                     .then(function (success) {
-                        comment.user = {
-                            _id: currentUser._id,
-                            firstName: currentUser.firstName
-                        }
-                        vm.track.comments.push(comment);
-                        vm.comment = "";
-                        console.log("Comment Successful");
+                        console.log("track added Successfully");
+                        vm.success = "Track successfully added.";
                     }, function (err) {
-                        vm.error = "Unable to add comment. Please try again after sometime";
+                        vm.error = "Unable to add track. Please try again after sometime";
                     })
             }
         }
@@ -176,9 +123,6 @@
         function getImage(track) {
             if(!track.name)
                 return '../../uploads/default_track.png';
-            //console.log(track);
-            if(track.image)
-                return track.image;
             return track.album.image[2]['#text']?track.album.image[2]['#text']:'../../uploads/default_track.png';
         }
 

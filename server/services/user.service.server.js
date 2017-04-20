@@ -27,6 +27,7 @@ module.exports = function (app, model) {
     app.post('/api/user/:userId/removeMessage', removeMessage);
     app.post('/api/logout', logout);
     app.post('/api/isAdmin', isAdmin);
+    app.post('/api/isArtist', isArtist);
     app.post("/api/register", register);
     app.get("/api/user/all", findAllUsers);
     app.get("/api/user", findUserByUsername);
@@ -267,6 +268,14 @@ module.exports = function (app, model) {
 
     function isAdmin(req, res) {
         if(req.isAuthenticated() && req.user.role == 'ADMIN') {
+            res.json(req.user);
+        } else {
+            res.send('0');
+        }
+    }
+
+    function isArtist(req, res) {
+        if(req.isAuthenticated() && req.user.role == 'ARTIST') {
             res.json(req.user);
         } else {
             res.send('0');

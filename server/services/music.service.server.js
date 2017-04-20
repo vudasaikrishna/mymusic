@@ -8,11 +8,39 @@ module.exports = function (app, model) {
     // app.get('/api/track/:trackId', findTrackById);
     app.post('/api/track/:trackId/addComment', addComment);
     app.post('/api/track', getTrackInfo);
+    app.get('/api/track/:trackId', findTrackById);
+    app.post('/api/artistTrack', findTrackByArtist);
 
     var userModel = model.userModel;
     var trackModel = model.trackModel;
 
     // TODO: Track crud functions
+
+    function findTrackById(req, res) {
+        trackModel
+            .findTrackById(req.params.trackId)
+            .then(function (track) {
+                //console.log(track);
+                res.json(track);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            })
+    }
+
+    function findTrackByArtist(req, res) {
+        if(req.isAuthenticated()) {
+            trackModel
+                .findTrackByArtist(req.user._id)
+                .then(function (tracks) {
+                    res.json(tracks);
+                }, function (err) {
+                    res.sendStatus(500).send(err);
+                })
+        } else {
+            res.sendStatus(401);
+        }
+    }
 
     function addComment(req, res) {
         trackModel

@@ -76,13 +76,29 @@
                  currentUser: checkUser
                  }*/
             })
+            .when("/mytracks", {
+                templateUrl: "music/views/artist-track-list.view.client.html",
+                controller: "ArtistTrackController",
+                controllerAs: "model",
+                resolve: {
+                 currentUser: checkArtist
+                 }
+            })
+            .when("/track/new", {
+                templateUrl: "music/views/track-new.view.client.html",
+                controller: "TrackNewController",
+                controllerAs: "model",
+                resolve: {
+                 currentUser: checkArtist
+                 }
+            })
             .when("/track/:tid", {
                 templateUrl: "music/views/track.view.client.html",
                 controller: "TrackController",
                 controllerAs: "model",
                 resolve: {
-                 currentUser: checkUser
-                 }
+                    currentUser: checkUser
+                }
             })
             .when("/share/:tid", {
                 templateUrl: "music/views/share.view.client.html",
@@ -149,12 +165,29 @@
         return defer.promise;
     }
 
+    function checkArtist($q, UserService, $location) {
+        var defer = $q.defer();
+        UserService
+            .isArtist()
+            .then(function (user) {
+                if(user != '0') {
+                    UserService.updateCurrentUser(user);
+                    defer.resolve(user);
+                } else {
+                    defer.reject();
+                    $location.url('/user/'+user._id);
+                }
+            });
+        return defer.promise;
+    }
+
     function checkAdmin($q, UserService, $location) {
         var defer = $q.defer();
         UserService
             .isAdmin()
             .then(function (user) {
                 if(user != '0') {
+                    UserService.updateCurrentUser(user);
                     defer.resolve(user);
                 } else {
                     defer.reject();

@@ -54,6 +54,8 @@
     <!--Music Controllers-->
     <script src="music/controllers/track.controller.client.js"></script>
     <script src="music/controllers/track-list.controller.client.js"></script>
+    <script src="music/controllers/artist-track-list.controller.client.js"></script>
+    <script src="music/controllers/track-new.controller.client.js"></script>
     <script src="music/controllers/favorite.controller.client.js"></script>
     <script src="music/controllers/share.controller.client.js"></script>
     <script src="music/controllers/message.controller.client.js"></script>
@@ -79,6 +81,7 @@
         <ul class="navbar-nav mr-auto">
             <!--User Menu-->
             <li ng-if="model.currentUser._id" class="nav-item" ng-repeat="m in model.userMenu"
+                *ngIf="m.show"
                 ng-class="model.currentMenu.active==m.title?'active':''">
                 <a class="nav-link" href="{{m.url}}"><h5>{{m.title}}</h5></a>
             </li>

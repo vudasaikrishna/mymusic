@@ -20,6 +20,7 @@
             "loggedin": loggedin,
             "logout": logout,
             "isAdmin": isAdmin,
+            "isArtist": isArtist,
             "findAllUsers": findAllUsers,
             "updateUser": updateUser,
             "currentUser": currentUser,
@@ -135,6 +136,13 @@
 
         function isAdmin() {
             return $http.post('/api/isAdmin')
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function isArtist() {
+            return $http.post('/api/isArtist')
                 .then(function (response) {
                     return response.data;
                 });

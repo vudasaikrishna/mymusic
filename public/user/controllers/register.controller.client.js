@@ -30,6 +30,10 @@
                 vm.error = "First Name is required";
                 return;
             }
+            if(user.role=='ARTIST' && user.screenName == null) {
+                vm.error = "Screen Name is required";
+                return;
+            }
             //console.log(user);
             var promise = UserService
                 .findUserByUsername(user.username);

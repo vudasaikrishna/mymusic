@@ -26,7 +26,10 @@
                 .login(user)
                 .then(function (user) {
                     if(user) {
-                    $location.url("/favorite");
+                        if(user.role == 'ARTIST')
+                            $location.url("/mytracks");
+                        else
+                            $location.url("/favorite");
                 } else {
                     vm.error = "Username or Password is invalid";
                 }

@@ -4,7 +4,7 @@ module.exports = function () {
     var trackSchema = mongoose.Schema({
         title: String,
         url: String,
-        mbid: {type: String, unique: true},
+        mbid: {type: String, unique: true, sparse: true},
         artist: {type: mongoose.Schema.Types.ObjectId, ref: 'MymusicUser'},
         image: String,
         loves: [{type: mongoose.Schema.Types.ObjectId, ref: 'MymusicUser'}],

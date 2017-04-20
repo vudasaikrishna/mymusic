@@ -1,0 +1,20 @@
+<div class="alert alert-success" role="alert">
+    <a href="#/track/new">Add new tracks</a>
+</div>
+
+<div class="row my-4">
+    <div class="card mr-4" ng-repeat="track in model.tracks" ng-if="track._id!=''">
+        <a href="#/track/{{track._id}}">
+            <img class="card-img-top img-fit"
+                 src="{{track.image}}"
+             alt="{{track.title}}">
+        </a>
+        <div class="card-block">
+            <h4 class="card-title">{{track.title}}</h4>
+            <p class="card-text">{{track.artist.screenName}}</p>
+            <a href="{{track.url}}"
+               class="btn btn-primary mr-2">Play</a>
+            <a href="#/track/{{track._id}}" class="btn btn-primary mb-2 float-right">View</a>
+        </div>
+    </div>
+</div>

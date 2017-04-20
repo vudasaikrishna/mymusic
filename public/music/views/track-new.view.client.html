@@ -1,0 +1,61 @@
+<div class="my-4 col-lg-8 mx-auto">
+    <!--{{model.details}}-->
+
+    <div ng-show="model.success" class="alert alert-success">{{model.success}}</div>
+    <div ng-show="model.error" class="alert alert-danger">{{model.error}}</div>
+
+    <div class="card">
+
+    <div class="card-block">
+
+        <form name="uploadForm" action="/api/upload/track"
+              method="post" enctype="multipart/form-data">
+
+        <label class="sr-only" for="title">Title</label>
+        <div class="input-group mb-2 mr-sm-2 mb-sm-2">
+            <input type="text"
+                   ng-model="model.track.title"
+                   class="form-control"
+                   id="title"
+                   name="title"
+                   required
+                   placeholder="Title*">
+        </div>
+
+        <!--<form name="uploadForm" action="/api/upload/track"
+              class="input-group mb-2"
+              method="post" enctype="multipart/form-data">-->
+            <input
+                   id="albumArt"
+                   name="myFile"
+                   class="form-control mr-2"
+                   type="file"
+                   accept=".jpg,.png,.jpeg"
+                   required
+                   placeholder="File"/>
+           <!-- <button type="submit" class="btn btn-primary" role="button">
+                Upload track image</button>-->
+
+
+            <input ng-model="model.track.upload"
+                   id="myFile"
+                   name="myFile"
+                   class="form-control mr-2"
+                   type="file"
+                   accept=".mp3"
+                   required
+                   placeholder="File"/>
+           <!-- <button type="submit" class="btn btn-primary" role="button">
+                Upload Track</button>-->
+
+        <!--</form>-->
+
+        <button type="submit" class="btn btn-primary my-4" role="button">
+            Submit Track</button>
+        </form>
+    </div>
+    </div>
+
+
+
+</div>

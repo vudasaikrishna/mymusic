@@ -12,9 +12,44 @@ module.exports = function (model) {
         createTrack: createTrack,
         addComment: addComment,
         addLover: addLover,
-        removeLover: removeLover
+        removeLover: removeLover,
+        findTrackByArtist: findTrackByArtist,
+        findTrackById: findTrackById
     };
     return api;
+
+    function findTrackById(trackId) {
+        console.log(trackId);
+        var deferred = q.defer();
+        trackModel
+            .findOne({_id: trackId})
+            .populate({path:'comments.user', select: 'firstName'})
+            .exec(function (err, track) {
+                if(err) {
+                    console.log(err);
+                    deferred.reject(err);
+                } else {
+                    console.log(track);
+                    deferred.resolve(track);
+                }
+            });
+        return deferred.promise;
+    }
+
+    function findTrackByArtist(userId) {
+        var deferred = q.defer();
+        trackModel
+            .find({artist: userId})
+            .populate({path:'artist', select: 'screenName'})
+            .exec(function (err, tracks) {
+                if(err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(tracks);
+                }
+            });
+        return deferred.promise;
+    }
 
     function removeLover(userId, trackId) {
         var deferred = q.defer();
@@ -68,10 +103,12 @@ module.exports = function (model) {
     }
 
     function createTrack(track) {
+        console.log("Creating Track");
         var deferred = q.defer();
         trackModel
             .create(track, function (err, track) {
                 if (err) {
+                    console.log(err);
                     deferred.reject(err);
                 } else{
                     deferred.resolve(track);

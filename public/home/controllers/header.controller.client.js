@@ -13,21 +13,31 @@
             {
                 title: "Home",
                 url: "#/home",
+                show: true,
                 current: vm.currentMenu.active == "Home"
             },
             {
                 title: "Favorites",
                 url: "#/favorite",
+                show: true,
+                current: vm.currentMenu.active == "Favorites"
+            },
+            {
+                title: "MyTracks",
+                url: "#/mytracks",
+                show: UserService.currentUser.role == 'ARTIST',
                 current: vm.currentMenu.active == "Favorites"
             },
             {
                 title: "Trending",
                 url: "#/trending",
+                show: true,
                 current: vm.currentMenu.active == "Trending"
             },
             {
                 title: "Artists",
                 url: "#/artist",
+                show: true,
                 current: vm.currentMenu.active == "Artists"
             }/*,
             {
