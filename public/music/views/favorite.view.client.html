@@ -10,12 +10,12 @@
 
 <!--List of Favorites-->
 <div class="row my-4">
-    <div class="card mr-4" ng-repeat="track in model.favorites" ng-if="track.mbid!=''">
+    <div class="card transparent mr-4" ng-repeat="track in model.favorites" ng-if="track.mbid!=''">
         <img class="card-img-top card-img-cus" src="{{track.image}}"
              alt="{{track.title}}">
         <div class="card-block">
-            <h4 class="card-title">{{track.title}}</h4>
-            <p class="card-text">{{track.artist.screenName}}</p>
+            <h4 class="card-title gray-text">{{track.title}}</h4>
+            <p class="card-text text-white">{{track.artist.screenName}}</p>
             <!--<a ng-show="{{track.streamable.fulltrack}}" href="{{track.streamable['#text']}}" class="btn btn-primary">Play</a>-->
             <a ng-click="model.unLove(track._id)" class="btn btn-danger" role="button">Unlove</a>
             <a href="#/track/{{track.mbid}}" class="btn btn-primary float-right">View</a>

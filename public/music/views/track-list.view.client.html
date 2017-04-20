@@ -1,12 +1,12 @@
 <div class="card-columns my-4">
-    <div class="card" ng-repeat="track in model.tracks" ng-if="track.mbid!=''">
+    <div class="card transparent" ng-repeat="track in model.tracks" ng-if="track.mbid!=''">
         <a href="#/track/{{track.mbid}}">
             <img class="card-img-top card-img-cus" src="{{model.getImage(track)}}"
              alt="{{track.name}}">
         </a>
         <div class="card-block">
-            <h4 class="card-title">{{track.name}}</h4>
-            <p class="card-text">{{track.artist.name? track.artist.name: track.artist}}</p>
+            <h4 class="card-title gray-text">{{track.name}}</h4>
+            <p class="card-text text-white">{{track.artist.name? track.artist.name: track.artist}}</p>
             <a ng-show="{{track.streamable.fulltrack}}" href="{{track.streamable['#text']}}" class="btn btn-primary">Play</a>
             <!--<a ng-hide="{{track.streamable.fulltrack}}" href="{{track.url}}" target="_blank" class="btn btn-primary">Get</a>-->
             <a href="#/track/{{track.mbid}}" class="btn btn-primary mb-2 float-right">View</a>
