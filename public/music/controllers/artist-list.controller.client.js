@@ -10,7 +10,8 @@
 
         function init() {
 
-            console.log("Here");
+            UserService.currentMenu.active = "Artists";
+            // console.log("Here");
             UserService
                 .findAllArtists()
                 .then(function (artists) {
