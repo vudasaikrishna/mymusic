@@ -45,10 +45,16 @@
                     UserService
                         .register(user)
                         .then(function (u) {
-                            console.log("recevied success!");
+                            //console.log("recevied success!");
                             if (u){
                                 vm.message = "Registered Successfully";
-                                $location.url("/favorite");
+                                //console.log(u.data.role);
+                                if(u.data.role == 'ARTIST')
+                                    $location.url("/mytracks");
+                                else if (u.data.role == 'ADMIN')
+                                    $location.url("/admin");
+                                else
+                                    $location.url("/favorite");
                             } else{
                                 vm.error = "Unable to Register";
                             }

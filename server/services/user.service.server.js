@@ -332,7 +332,7 @@ module.exports = function (app, model) {
     }
 
     function register(req, res) {
-        console.log(req.body);
+        //console.log(req.body);
         req.body.password = bcrypt.hashSync(req.body.password);
         userModel
             .createUser(req.body)
@@ -341,7 +341,7 @@ module.exports = function (app, model) {
                     //console.log("Registered.. logging in.");
                     req.login(user, function (err) {
                         //console.log("Guess an error logging in.");
-                        console.log(user);
+                        //console.log(user);
                         res.json(user);
                     });
                 }
