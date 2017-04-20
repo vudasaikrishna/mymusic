@@ -3,7 +3,7 @@
 </div>
 
 <div class="row my-4">
-    <div class="card transparent mr-4 my-2" ng-repeat="track in model.tracks" ng-if="track._id!=''">
+    <div class="card transparent img-fit mr-4 my-2" ng-repeat="track in model.tracks" ng-if="track._id!=''">
         <a href="#/track/{{track._id}}">
             <img class="card-img-top img-fit"
                  src="{{track.image}}"
