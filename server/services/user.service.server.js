@@ -30,6 +30,7 @@ module.exports = function (app, model) {
     app.post('/api/isArtist', isArtist);
     app.post("/api/register", register);
     app.get("/api/user/all", findAllUsers);
+    app.get("/api/artist", findAllArtists);
     app.get("/api/user", findUserByUsername);
     app.get("/api/user/:userId", findUserById);
     app.put("/api/profile/:userId", updateProfile);
@@ -287,8 +288,18 @@ module.exports = function (app, model) {
         res.send(200);
     }
 
+    function findAllArtists(req, res) {
+        userModel
+            .findAllArtists()
+            .then(function (artists) {
+                res.json(artists);
+            }, function (err) {
+                res.sendStatus(404);
+            });
+    }
+
     function findAllUsers(req, res) {
-        console.log("trying to find");
+        //console.log("trying to find");
         if(req.user && req.user.role=='ADMIN') {
             console.log("finding users");
             userModel

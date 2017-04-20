@@ -9,7 +9,7 @@ module.exports = function (app, model) {
     app.post('/api/track/:trackId/addComment', addComment);
     app.post('/api/track', getTrackInfo);
     app.get('/api/track/:trackId', findTrackById);
-    app.post('/api/artistTrack', findTrackByArtist);
+    app.get('/api/artistTrack/:artistId', findTrackByArtist);
 
     var userModel = model.userModel;
     var trackModel = model.trackModel;
@@ -29,17 +29,13 @@ module.exports = function (app, model) {
     }
 
     function findTrackByArtist(req, res) {
-        if(req.isAuthenticated()) {
-            trackModel
-                .findTrackByArtist(req.user._id)
-                .then(function (tracks) {
-                    res.json(tracks);
-                }, function (err) {
-                    res.sendStatus(500).send(err);
-                })
-        } else {
-            res.sendStatus(401);
-        }
+        trackModel
+            .findTrackByArtist(req.params.artistId)
+            .then(function (tracks) {
+                res.json(tracks);
+            }, function (err) {
+                res.sendStatus(500).send(err);
+            })
     }
 
     function addComment(req, res) {

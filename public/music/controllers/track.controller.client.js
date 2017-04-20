@@ -19,10 +19,9 @@
             //console.log(trackId);
             MusicService
                 .findTrackById(trackId)
-                .then(function (track) {
+                .then(function (response) {
                     //console.log(track);
-                    return MusicService
-                        .findTrackById(trackId);
+                    return response.data;
                 }, function (err) {
                     //vm.error = "error loading track from our server.";
                     //console.log(vm.error);
@@ -42,13 +41,15 @@
                 })
                 .then(function (track) {
                     console.log("fetching track from our server");
-                    //console.log(track);
+                    console.log(track);
                     vm.track._id = track._id;
                     vm.track.comments = track.comments;
                     vm.track.loves = track.loves;
                     if(track.title) {
                         vm.track.name = track.title;
+                        vm.track.artist = {name: track.artist.screenName};
                         vm.track.image = track.image;
+                        vm.track.url = track.url;
                     }
                     if (vm.currentUser._id) {
                         if(vm.currentUser.favorites.find(function (t) {

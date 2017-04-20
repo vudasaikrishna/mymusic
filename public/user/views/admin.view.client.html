@@ -7,9 +7,16 @@
     <li ng-repeat="user in model.users" class="list-group-item">
         {{user.username}}
 
-        <input ng-model="user.role" class="mx-auto"/>
+        <!--<input ng-model="user.role" class="mx-auto"/>-->
+
+        <select class="custom-select mb-2 mr-sm-2 mb-sm-2 mx-auto" id="userRole" ng-model="user.role">
+            <option value="USER">User</option>
+            <option value="ARTIST">Artist</option>
+            <option value="ADMIN">Admin</option>
+        </select>
+
         <span ng-click="model.updateUser(user)"
-              class="fa fa-check mr-auto vsk-ngclick-a">
+              class="fa fa-check ml-auto mr-3" role="button">
         </span>
 
         <span ng-click="model.deleteUser(user._id)"

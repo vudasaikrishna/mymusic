@@ -3,17 +3,19 @@
         .module("MyMusic")
         .controller("ArtistTrackController", ArtistTrackController);
 
-    function ArtistTrackController(MusicService, UserService, $location) {
+    function ArtistTrackController(MusicService, UserService, $routeParams) {
         var vm = this;
         vm.tracks = [];
 
         function init() {
-            //vm.currentUser = currUser;
+            vm.currentUser = UserService.currentUser;
             //console.log(vm.currentUser);
             // topTracks();
             UserService.currentMenu.active = "MyTracks";
-
-            getTracks();
+            var artistId = $routeParams.artistId;
+            if(!artistId)
+                artistId = vm.currentUser._id;
+            getTracks(artistId);
         }
         init();
 
@@ -21,10 +23,10 @@
         vm.getTracks = getTracks;
         vm.getImage = getImage;
 
-        function getTracks() {
+        function getTracks(artistId) {
             vm.tracks = [];
                 MusicService
-                    .findTrackByArtist()
+                    .findTrackByArtist(artistId)
                     .then(function (tracks) {
                         vm.tracks = tracks;
                         console.log(tracks);

@@ -61,12 +61,14 @@
                 }
             })
             .when("/artist", {
-                templateUrl: "user/views/profile.view.client.html",
-                controller: "ProfileController",
-                controllerAs: "model",
-                resolve: {
-                    currentUser: checkLoggedIn
-                }
+                templateUrl: "music/views/artist-list.view.client.html",
+                controller: "ArtistListController",
+                controllerAs: "model"
+            })
+            .when("/artist/:artistId", {
+                templateUrl: "music/views/artist-track-list.view.client.html",
+                controller: "ArtistTrackController",
+                controllerAs: "model"
             })
             .when("/track", {
                 templateUrl: "music/views/track-list.view.client.html",

@@ -28,6 +28,8 @@
                     if(user) {
                         if(user.role == 'ARTIST')
                             $location.url("/mytracks");
+                        else if(user.role == 'ADMIN')
+                            $location.url("/admin");
                         else
                             $location.url("/favorite");
                 } else {

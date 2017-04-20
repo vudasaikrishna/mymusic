@@ -26,9 +26,16 @@
         </h4>
         <p class="card-text"><a href="{{model.track.artist.url}}" target="_blank"> {{model.track.artist.name}} </a></p>
         <a ng-show="{{model.track.streamable.fulltrack}}" href="{{model.track.streamable['#text']}}" class="btn btn-primary">Play</a>
-        <a ng-hide="{{model.track.streamable.fulltrack}}" href="{{model.track.url}}" target="_blank" class="btn btn-primary">View on Last.Fm</a>
+        <a ng-show="{{model.track.streamable}}" href="{{model.track.url}}" target="_blank" class="btn btn-primary">View on Last.Fm</a>
+
+        <!--<div ng-show="!model.track.mbid">
+            <audio controls class="col-centered">
+                <source src="{{model.track.url}}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>-->
         <!--<a href="#/track/{{track.mbid}}" class="btn btn-primary float-right">View</a>-->
-        <div class="my-2">
+        <div class="my-2" ng-show="model.track.listeners">
         <span class="badge badge-default">Listeners: {{model.track.listeners | number}}</span>
         <span class="badge badge-default">PlayCount: {{model.track.playcount | number}}</span>
         </div>

@@ -13,6 +13,7 @@
             "findUserByCredentials": findUserByCredentials,
             "findUserByUsername": findUserByUsername,
             "findUserById": findUserById,
+            "findAllArtists": findAllArtists,
             "updateProfile": updateProfile,
             "register": register,
             "deleteUser": deleteUser,
@@ -36,6 +37,10 @@
             "getMessages": getMessages
         };
         return api;
+
+        function findAllArtists() {
+            return $http.get('/api/artist');
+        }
 
         function getMessages() {
             return $http.post('/api/user/message')

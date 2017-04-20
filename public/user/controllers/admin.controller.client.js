@@ -10,6 +10,7 @@
         model.updateUser = updateUser;
 
         function init() {
+            UserService.currentMenu.active = "Manage";
             findAllUsers();
         }
         init();

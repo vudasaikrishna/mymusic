@@ -17,6 +17,7 @@ module.exports = function (model) {
         deleteUser: deleteUser,
         findUserByGoogleId: findUserByGoogleId,
         findAllUsers: findAllUsers,
+        findAllArtists: findAllArtists,
         addTrack: addTrack,
         removeTrack: removeTrack,
         getFavorites: getFavorites,
@@ -26,6 +27,19 @@ module.exports = function (model) {
         getMessages: getMessages
     };
     return api;
+
+    function findAllArtists() {
+        var deferred = q.defer();
+        userModel
+            .find({role: 'ARTIST'}, function (err, users) {
+                if(err)
+                    deferred.reject(err);
+                else {
+                    deferred.resolve(users);
+                }
+            });
+        return deferred.promise;
+    }
 
     function addMessage(userId, message) {
         var deferred = q.defer();

@@ -37,8 +37,8 @@
         }
 
 
-        function findTrackByArtist() {
-            return $http.post('/api/artistTrack')
+        function findTrackByArtist(artistId) {
+            return $http.get('/api/artistTrack/'+artistId)
                 .then(function (response) {
                     return response.data;
                 });

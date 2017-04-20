@@ -23,18 +23,6 @@
                 current: vm.currentMenu.active == "Favorites"
             },
             {
-                title: "MyTracks",
-                url: "#/mytracks",
-                show: UserService.currentUser.role == 'ARTIST',
-                current: vm.currentMenu.active == "Favorites"
-            },
-            {
-                title: "Trending",
-                url: "#/trending",
-                show: true,
-                current: vm.currentMenu.active == "Trending"
-            },
-            {
                 title: "Artists",
                 url: "#/artist",
                 show: true,
@@ -45,16 +33,54 @@
                 url: "#/logout",
                 current: false
             }*/];
-        vm.guestMenu = [
+        vm.adminMenu = [
             {
                 title: "Home",
                 url: "#/home",
                 current: vm.currentMenu.active == "Home"
             },
             {
-                title: "Trending",
-                url: "#/trending",
-                current: vm.currentMenu.active == "Trending"
+                title: "Favorites",
+                url: "#/favorite",
+                current: vm.currentMenu.active == "Favorites"
+            },
+            {
+                title: "Manage",
+                url: "#/admin",
+                current: vm.currentMenu.active == "Manage"
+            },
+            {
+                title: "Artists",
+                url: "#/artist",
+                show: true,
+                current: vm.currentMenu.active == "Artists"
+            }];
+        vm.artistMenu = [
+            {
+                title: "Home",
+                url: "#/home",
+                current: vm.currentMenu.active == "Home"
+            },
+            {
+                title: "Favorites",
+                url: "#/favorite",
+                current: vm.currentMenu.active == "Favorites"
+            },
+            {
+                title: "MyTracks",
+                url: "#/mytracks",
+                current: vm.currentMenu.active == "MyTracks"
+            },
+            {
+                title: "Artists",
+                url: "#/artist",
+                current: vm.currentMenu.active == "Artists"
+            }];
+        vm.guestMenu = [
+            {
+                title: "Home",
+                url: "#/home",
+                current: vm.currentMenu.active == "Home"
             },
             {
                 title: "Artists",

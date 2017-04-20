@@ -23,13 +23,13 @@ module.exports = function (model) {
         var deferred = q.defer();
         trackModel
             .findOne({_id: trackId})
-            .populate({path:'comments.user', select: 'firstName'})
+            .populate({path:'artist comments.user', select: 'screenName firstName'})
             .exec(function (err, track) {
                 if(err) {
-                    console.log(err);
+                    //console.log(err);
                     deferred.reject(err);
                 } else {
-                    console.log(track);
+                    //console.log(track);
                     deferred.resolve(track);
                 }
             });

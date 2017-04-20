@@ -54,6 +54,7 @@
     <!--Music Controllers-->
     <script src="music/controllers/track.controller.client.js"></script>
     <script src="music/controllers/track-list.controller.client.js"></script>
+    <script src="music/controllers/artist-list.controller.client.js"></script>
     <script src="music/controllers/artist-track-list.controller.client.js"></script>
     <script src="music/controllers/track-new.controller.client.js"></script>
     <script src="music/controllers/favorite.controller.client.js"></script>
@@ -80,8 +81,17 @@
     <div class="navbar-collapse collapse dual-collapse">
         <ul class="navbar-nav mr-auto">
             <!--User Menu-->
-            <li ng-if="model.currentUser._id" class="nav-item" ng-repeat="m in model.userMenu"
-                *ngIf="m.show"
+            <li ng-if="model.currentUser.role=='USER'" class="nav-item" ng-repeat="m in model.userMenu"
+                ng-class="model.currentMenu.active==m.title?'active':''">
+                <a class="nav-link" href="{{m.url}}"><h5>{{m.title}}</h5></a>
+            </li>
+            <!--Artist Menu-->
+            <li ng-if="model.currentUser.role=='ARTIST'" class="nav-item" ng-repeat="m in model.artistMenu"
+                ng-class="model.currentMenu.active==m.title?'active':''">
+                <a class="nav-link" href="{{m.url}}"><h5>{{m.title}}</h5></a>
+            </li>
+            <!--Admin Menu-->
+            <li ng-if="model.currentUser.role=='ADMIN'" class="nav-item" ng-repeat="m in model.adminMenu"
                 ng-class="model.currentMenu.active==m.title?'active':''">
                 <a class="nav-link" href="{{m.url}}"><h5>{{m.title}}</h5></a>
             </li>
