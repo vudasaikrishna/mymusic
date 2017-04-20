@@ -30,8 +30,11 @@
             UserService
                 .addMessage(user._id, message)
                 .then(function (success) {
-                    vm.success = "Track successfully shared with "+user.firstName+" "+user.lastName;
-                    vm.users = null;
+                    if (user.lastName)
+                        var name = user.firstName+" "+user.lastName;
+                    else
+                        var name = user.firstName;
+                    vm.success = "Track successfully shared with "+ name;                    vm.users = null;
                 }, function (err) {
                     vm.error = "Error sharing track. Please try after sometime."
                 })
