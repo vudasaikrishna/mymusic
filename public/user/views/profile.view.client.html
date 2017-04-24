@@ -1,50 +1,11 @@
-<!--<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-text pull-right">
-            <span ng-click="model.deleteUser()"
-                  class="glyphicon glyphicon-remove vsk-ngclick-a vsk-glyphicon-pad"></span>
-            <span ng-click="model.updateProfile(model.user)"
-                  class="glyphicon glyphicon-ok vsk-ngclick-a vsk-glyphicon-pad"></span>
-        </div>
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#/user/{{model.user._id}}">Profile</a>
-        </div>
-    </div>
-</nav>-->
 
-<div class="container-fluid col-lg-5 col-md-7">
+<div class="container-fluid col-lg-8 col-md-7">
     <div class="card-block">
     <h1 class="text-center">Profile</h1>
 
-        <form name="uploadForm" action="/api/upload" method="post" enctype="multipart/form-data">
-        <!--<label class="btn btn-default btn-file mb-sm-2 float-right" role="button">-->
-            <img class="card-img img-fluid mb-sm-2 float-right"
-                 width="150" height="150" src="{{model.user.photo||'../../uploads/default-profile.png'}}"
-                 alt="{{model.user.firstName}}">
-            <!--<input type="file"
-                   id="upload"
-                   ng-model="model.upload"
-                   ng-change="model.uploadPhoto()"
-                   style="display: none;">
-        </label>-->
-            <!--<label for="myFile">Upload</label>-->
-            <input ng-model="model.widget.upload"
-                   id="myFile"
-                   name="myFile"
-                   class="form-control"
-                   type="file"
-                   accept=".jpg,.jpeg,.png"
-                   placeholder="Header Text"/>
-            <button type="submit" class="btn btn-primary btn-block mb-2">
-                Change Image</button>
-
-        </form>
-        <!--<p class="gray-text">{{uploadForm}}</p>-->
-
-
-    <!--<a ng-if="model.currentUser.role=='ADMIN'" href="#/admin" class="btn btn-danger mb-sm-2 float-right">
-        Manage
-    </a>-->
+        <img class="img-fluid mb-sm-2"
+             width="150" height="150" src="{{model.user.photo||'../../uploads/default-profile.png'}}"
+             alt="{{model.user.firstName}}">
 
     <div class="alert alert-danger" ng-show="model.error">
         {{model.error}}
@@ -54,53 +15,68 @@
         {{model.message}}
     </div>
 
-    <label class="sr-only" for="username">Username</label>
-    <div class="input-group mb-2 mr-sm-2 mb-sm-2">
-        <div class="input-group-addon">Username</div>
+        <div class="card">
+            <form name="uploadForm" action="/api/upload" method="post" enctype="multipart/form-data">
+                <div class="input-group mb-2 mr-sm-2 my-2 mb-sm-2">
+                <input ng-model="model.widget.upload"
+                       id="myFile"
+                       name="myFile"
+                       class="form-control mr-2 ml-2"
+                       type="file"
+                       accept=".jpg,.jpeg,.png"
+                       placeholder="Header Text"/>
+                <button type="submit" class="btn btn-primary mr-2">
+                    Change Image</button>
+                </div>
+            </form>
+
+            <div class="input-group mb-2 mr-sm-2 mb-sm-2">
+        <p class="col-3">Username</p>
         <input ng-model="model.user.username"
                id="username"
-               class="form-control"
+               class="form-control mr-2"
                placeholder="username" readonly/>
     </div>
 
-    <label class="sr-only" for="fname">First Name</label>
+
     <div class="input-group mb-2 mr-sm-2 mb-sm-2">
-        <div class="input-group-addon">First Name </div>
+        <p class="col-3">First Name </p>
         <input type="text"
                ng-model="model.user.firstName"
-               class="form-control"
+               class="form-control mr-2"
                id="fname">
     </div>
 
-    <label class="sr-only" for="lname">Last Name</label>
+
     <div class="input-group mb-2 mr-sm-2 mb-sm-2">
-        <div class="input-group-addon">Last Name</div>
+        <p class="col-3">Last Name</p>
         <input type="text"
                ng-model="model.user.lastName"
-               class="form-control"
+               class="form-control mr-2"
                id="lname">
     </div>
 
-    <label class="sr-only" for="email">Email</label>
+
     <div class="input-group mb-2 mr-sm-2 mb-sm-2">
-        <div class="input-group-addon">Email</div>
+        <p class="col-3">Email</p>
         <input type="email"
                ng-model="model.user.email"
-               class="form-control"
+               class="form-control mr-2"
                id="email">
     </div>
 
-    <label class="sr-only" for="userRole">UserType</label>
-    <div class="input-group mb-2 mr-sm-2 mb-sm-2">
-        <div class="input-group-addon">UserType</div>
+
+    <div class="input-group mb-2 mr-sm-2 mb-sm-2" ng-show="model.user.role!='USER'">
+        <p class="col-3">User Role</p>
         <input type="text"
                ng-model="model.user.role"
-               class="form-control"
+               class="form-control mr-2"
                id="userRole"
                placeholder="Last Name" readonly>
     </div>
 
-    <a ng-click="model.updateProfile(model.user)" class="btn btn-primary vsk-ngclick-a">Update</a>
-    <!--<a ng-click="model.logout()" class="btn btn-danger vsk-ngclick-a">Logout</a>-->
+    <a ng-click="model.updateProfile(model.user)"
+       class="btn btn-primary mb-2" role="button">Update</a>
+        </div>
 </div>
 </div>

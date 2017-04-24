@@ -1,5 +1,11 @@
-<div class="card-columns my-4">
-    <div class="card transparent" ng-repeat="track in model.tracks" ng-if="track.mbid!=''">
+<img ng-show="model.loading" src="../../images/loading.png"
+     class="img-fit col-centered my-4">
+
+<div ng-show="model.error" class="alert alert-danger text-center">
+    {{model.error}}</div>
+
+<div class="card-columns my-4" ng-show="model.tracks.length!=0">
+    <div class="card black" ng-repeat="track in model.tracks" ng-if="track.mbid!=''">
         <a href="#/track/{{track.mbid}}">
             <img class="card-img-top card-img-cus" src="{{model.getImage(track)}}"
              alt="{{track.name}}">

@@ -19,11 +19,12 @@
             "getMoods": getMoods,
             "topTracks": topTracks,
             "searchKey": searchKey,
-            "findTrackBymbid": findTrackBymbid,
+            "findTrackBymbidAPI": findTrackBymbidAPI,
             "findTrackById":findTrackById,
             "getTrackInfo": getTrackInfo,
             "addComment": addComment,
-            findTrackByArtist: findTrackByArtist
+            "findTrackByArtist": findTrackByArtist,
+            "findTrackBymbid": findTrackBymbid
         };
         return api;
 
@@ -52,21 +53,46 @@
         }
 
         function getTrackInfo(track) {
+            var tags = [];
+            // console.log(track.toptags.tag);
+            for(var i in track.toptags.tag) {
+                //console.log(track.toptags.tag[i].name);
+                tags.push(track.toptags.tag[i].name);
+            }
+            var wiki;
+            if(track.wiki) {
+                wiki = {
+                    summary: track.wiki.summary,
+                    published: track.wiki.published
+                }
+            }
+            // console.log(tags);
             track = {
                 mbid: track.mbid,
                 title: track.name,
                 artist: track.artist.name,
                 url: track.url,
-                image: track.album.image[3]['#text']
-            }
-
+                image: track.album.image[3]['#text'],
+                tags: tags,
+                playCount: track.playcount,
+                listenersCount: track.listeners,
+                wiki: wiki
+            };
+            //console.log(track);
             return $http.post('/api/track',track)
                 .then(function (response) {
                     return response.data;
                 });
         }
 
-        function findTrackBymbid(trackId) {
+        function findTrackBymbid(mbid) {
+            return $http.get('/api/track/mbid='+mbid)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function findTrackBymbidAPI(trackId) {
             var method = "track.getInfo";
             var params = "mbid="+trackId;
             var url = urlBase
@@ -97,7 +123,6 @@
                 .replace("PARAMS", params);
             return $http.get(url);
         }
-
 
     }
 })();

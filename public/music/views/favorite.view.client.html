@@ -10,9 +10,11 @@
 
 <!--List of Favorites-->
 <div class="row my-4">
-    <div class="card transparent mr-4" ng-repeat="track in model.favorites" ng-if="track.mbid!=''">
+    <div class="card black mr-4" ng-repeat="track in model.favorites" ng-if="track.mbid!=''">
+        <a href="#/track/{{track.mbid}}" role="button">
         <img class="card-img-top card-img-cus" src="{{track.image}}"
              alt="{{track.title}}">
+        </a>
         <div class="card-block">
             <h4 class="card-title gray-text">{{track.title}}</h4>
             <p class="card-text text-white">{{track.artist.screenName}}</p>

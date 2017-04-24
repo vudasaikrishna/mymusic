@@ -14,7 +14,6 @@
             console.log(vm.currentUser);
             UserService.updateCurrentUser(currentUser);
 
-
         }
         init();
 

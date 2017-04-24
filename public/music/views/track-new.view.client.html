@@ -1,5 +1,4 @@
-<div class="my-4 col-lg-8 mx-auto">
-    <!--{{model.details}}-->
+<div class="my-4 col-lg-8 mx-auto transparent-light">
 
     <div ng-show="model.success" class="alert alert-success">{{model.success}}</div>
     <div ng-show="model.error" class="alert alert-danger">{{model.error}}</div>
@@ -11,20 +10,19 @@
         <form name="uploadForm" action="/api/upload/track"
               method="post" enctype="multipart/form-data">
 
-        <label class="sr-only" for="title">Title</label>
-        <div class="input-group mb-2 mr-sm-2 mb-sm-2">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-2">
+              <p class="col-3">  Title</p>
             <input type="text"
                    ng-model="model.track.title"
-                   class="form-control"
+                   class="form-control mr-2"
                    id="title"
                    name="title"
                    required
                    placeholder="Title*">
-        </div>
+            </div>
 
-        <!--<form name="uploadForm" action="/api/upload/track"
-              class="input-group mb-2"
-              method="post" enctype="multipart/form-data">-->
+            <div class="input-group mb-2 mr-sm-2 mb-sm-2">
+                <p class="col-3">  Image</p>
             <input
                    id="albumArt"
                    name="myFile"
@@ -33,10 +31,10 @@
                    accept=".jpg,.png,.jpeg"
                    required
                    placeholder="File"/>
-           <!-- <button type="submit" class="btn btn-primary" role="button">
-                Upload track image</button>-->
+            </div>
 
-
+            <div class="input-group mb-2 mr-sm-2 mb-sm-2">
+                <p class="col-3">  Track</p>
             <input ng-model="model.track.upload"
                    id="myFile"
                    name="myFile"
@@ -45,13 +43,19 @@
                    accept=".mp3"
                    required
                    placeholder="File"/>
-           <!-- <button type="submit" class="btn btn-primary" role="button">
-                Upload Track</button>-->
+            </div>
 
-        <!--</form>-->
+            <div class="input-group mb-2 mr-sm-2 mb-sm-2">
+                <p class="col-3">  Summary</p>
+                <textarea
+                       id="summary"
+                       name="summary"
+                       class="form-control mr-2"
+                       placeholder="Summary"></textarea>
+            </div>
 
         <button type="submit" class="btn btn-primary my-4" role="button">
-            Submit Track</button>
+            Add Track</button>
         </form>
     </div>
     </div>

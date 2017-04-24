@@ -19,8 +19,8 @@ module.exports = function (app, model) {
     app.post('/api/login', passport.authenticate('local'), login);
     app.post('/api/loggedin', loggedin);
     app.post('/api/user/search', searchUsers);
-    app.post('/api/user/favorite', getFavorites);
-    app.post('/api/user/message', getMessages);
+    app.get('/api/user/favorite', getFavorites);
+    app.get('/api/user/message', getMessages);
     app.post('/api/user/addtrack/:trackId', addTrack);
     app.post('/api/user/removetrack/:trackId', removeTrack);
     app.post('/api/user/:userId/addMessage', addMessage);
@@ -31,7 +31,7 @@ module.exports = function (app, model) {
     app.post("/api/register", register);
     app.get("/api/user/all", findAllUsers);
     app.get("/api/artist", findAllArtists);
-    app.get("/api/user", findUserByUsername);
+    app.get("/api/user", findUser);
     app.get("/api/user/:userId", findUserById);
     app.put("/api/profile/:userId", updateProfile);
     app.put("/api/user/:userId", updateUser);
@@ -99,7 +99,7 @@ module.exports = function (app, model) {
             .findUserByUsername(username)
             .then(
                 function(user) {
-                    console.log('db success');
+                    //console.log('db success');
                     //console.log(user);
                     if (!user) {
                         //console.log('no user found');
@@ -108,10 +108,10 @@ module.exports = function (app, model) {
                     //console.log('[2]');
                     //console.log(user);
                     if (bcrypt.compareSync(password, user.password)) {
-                        console.log("Success")
+                        //console.log("Success")
                         return done(null, user);
                     } else {
-                        console.log("Error");
+                        //console.log("Error");
                         return done(null, false);
                     }
                 },
@@ -194,7 +194,7 @@ module.exports = function (app, model) {
     }
 
     function addMessage(req, res) {
-        console.log("Adding Message. Service");
+        //console.log("Adding Message. Service");
         if(req.isAuthenticated()) {
             userModel
                 .addMessage(req.params.userId, req.body)
@@ -243,13 +243,13 @@ module.exports = function (app, model) {
     }
 
     function removeTrack(req, res) {
-        console.log(req.user);
-        console.log(req.params.trackId);
+        console.log(req.user.favorites);
+        //console.log(req.params.trackId);
         if(req.isAuthenticated()) {
             userModel
                 .removeTrack(req.user._id, req.params.trackId)
                 .then(function (success) {
-                    //console.log(success);
+                    console.log(success.favorites);
                     trackModel
                         .removeLover(req.user._id, req.params.trackId)
                         .then(function (success) {
@@ -262,7 +262,7 @@ module.exports = function (app, model) {
                     res.sendStatus(500).send(err);
                 });
         } else {
-            console.log("error 401");
+            //console.log("error 401");
             res.sendStatus(401);
         }
     }
@@ -301,7 +301,7 @@ module.exports = function (app, model) {
     function findAllUsers(req, res) {
         //console.log("trying to find");
         if(req.user && req.user.role=='ADMIN') {
-            console.log("finding users");
+            //console.log("finding users");
             userModel
                 .findAllUsers()
                 .then(function (users) {
@@ -390,21 +390,29 @@ module.exports = function (app, model) {
             }, function (err) {
                 res.sendStatus(500).send(err);
             });
-        /*
-        var user = users.find(function (u) {
-            return u._id == userId;
-        });
-        res.json(user);*/
     }
 
     function findUser(req, res) {
         var username = req.query.username;
-        var password = req.query.password;
-        if(username && password) {
-            findUserByCredentials(req, res);
+        var screenName = req.query.screenName;
+        if(screenName) {
+            findUserByScreenName(req, res);
         } else if(username) {
             findUserByUsername(req, res);
         }
+    }
+
+    function findUserByScreenName(req, res) {
+        userModel
+            .findUserByScreenName(req.query.screenName)
+            .then(function (user) {
+                if (user)
+                    res.json(user);
+                else
+                    res.sendStatus(500);
+            }, function (err) {
+                res.sendStatus(500).send(err);
+            });
     }
 
     function findUserByUsername(req, res) {

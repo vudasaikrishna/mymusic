@@ -31,13 +31,16 @@ module.exports = function (app, model) {
             title: req.body.title,
             artist: req.user._id,
             url: '/uploads/'+trackname,
-            image: '/uploads/'+imagename
+            image: '/uploads/'+imagename,
+            wiki: {
+                summary: req.body.summary
+            }
         };
         //res.sendStatus(200);
         trackModel
             .createTrack(track)
             .then(function (track) {
-                console.log(track);
+                //console.log(track);
                 res.redirect('/#/mytracks');
             }, function (err) {
                 res.sendStatus(500).send(err);
@@ -73,19 +76,19 @@ module.exports = function (app, model) {
         var size          = myFile.size;
         var mimetype      = myFile.mimetype;
 
-        console.log(userId);
+        //console.log(userId);
         userModel
             .findUserById(userId)
             .then(function (user) {
                 user.photo = '/uploads/'+filename;
-                console.log(user);
+                //console.log(user);
 
                 return userModel
                     .updateProfile(user);
             })
             .then(function (user) {
                 // var callbackUrl   = "#/profile";
-                console.log("IMage added");
+                //console.log("IMage added");
                 // res.sendStatus(204);
                 res.redirect('/#/profile');
             }, function (err) {

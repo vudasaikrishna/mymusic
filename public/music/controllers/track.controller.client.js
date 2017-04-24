@@ -11,7 +11,7 @@
 
         function init() {
             vm.currentUser = currentUser;
-            console.log(vm.currentUser);
+            //console.log(vm.currentUser);
             UserService.updateCurrentUser(currentUser);
 
             var trackId = $routeParams.tid;
@@ -26,12 +26,12 @@
                     //vm.error = "error loading track from our server.";
                     //console.log(vm.error);
                     return MusicService
-                        .findTrackBymbid(trackId)
+                        .findTrackBymbidAPI(trackId)
                         .then(function (response) {
                             data = response.data;
                             vm.track = data.track;
                             //console.log(vm.track);
-                            console.log("track from api.");
+                            //console.log("track from api.");
                             return MusicService
                                 .getTrackInfo(vm.track)
                         }, function (err) {
@@ -41,10 +41,14 @@
                 })
                 .then(function (track) {
                     console.log("fetching track from our server");
-                    console.log(track);
-                    vm.track._id = track._id;
+                    //console.log(track);
+                    /*vm.track._id = track._id;
                     vm.track.comments = track.comments;
                     vm.track.loves = track.loves;
+                    vm.track.tags = track.tags;
+                    vm.track.wiki = track.wiki;
+                    */
+                    vm.track = track;
                     if(track.title) {
                         vm.track.name = track.title;
                         vm.track.artist = {name: track.artist.screenName};
@@ -92,7 +96,7 @@
                         }
                         vm.track.comments.push(comment);
                         vm.comment = "";
-                        console.log("Comment Successful");
+                        //console.log("Comment Successful");
                     }, function (err) {
                         vm.error = "Unable to add comment. Please try again after sometime";
                     })
@@ -102,15 +106,15 @@
         function toggleLove() {
             if(vm.currentUser._id){
                 if(vm.love) {
+                    console.log(vm.track._id);
                     UserService
                         .removeTrack(vm.track._id)
                         .then(function (success) {
                             vm.success = "Removed from your favorites";
                             for(var u in vm.track.loves) {
                                 if (vm.track.loves[u] == vm.currentUser._id) {
-                                    console.log("removeLover");
+                                    //console.log("removeLover");
                                     vm.track.loves.splice(u,1);
-                                    vm.track.save();
                                 }
                             }
                             vm.love = false;

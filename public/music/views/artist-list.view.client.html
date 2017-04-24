@@ -1,8 +1,9 @@
-<img ng-show="!model.artists" src="../../uploads/loading.gif" class="img-fluid">
+<img ng-show="!model.artists" src="../../images/loading.png"
+     class="img-fluid col-centered my-4">
 
 <div ng-show="model.artists">
 <div class="row my-4">
-    <div class="card transparent mr-2 mb-2" ng-repeat="artist in model.artists" ng-if="!artist.external">
+    <div class="card black mr-2 mb-2" ng-repeat="artist in model.artists" ng-if="!artist.external">
         <a href="#/artist/{{artist._id}}">
             <img class="card-img-top img-fit" src="{{artist.photo||'/uploads/default-profile.png'}}"
              alt="{{artist.screenName}}">
@@ -21,7 +22,7 @@
 </div>
 
 <div class="row my-4">
-    <div class="card transparent mr-2 mb-2" ng-repeat="artist in model.artists" ng-if="artist.external">
+    <div class="card black mr-2 mb-2" ng-repeat="artist in model.artists" ng-if="artist.external">
         <a href="#/artist/{{artist._id}}">
             <img class="card-img-top img-fit" src="{{artist.photo||'/uploads/default-profile.png'}}"
                  alt="{{artist.screenName}}">

@@ -4,28 +4,6 @@
     <div ng-show="model.error" class="alert alert-danger">{{model.error}}</div>
 
     <div class="card-block">
-        <!--<label class="sr-only" for="search">Search</label>
-        <div class="input-group mb-2 mr-sm-2 mb-sm-2 mx-auto">
-            <input type="text"
-                   ng-model="model.searchTerm"
-                   class="form-control"
-                   id="search"
-                   placeholder="Search users">
-            <div ng-click="model.searchUsers()" class="input-group-addon mr-2" role="button">
-                <span class="fa fa-search"></span> </div>
-        </div>-->
-
-        <!--<div class="list-group col-lg-6 mx-auto" ng-show="model.messages">
-            <a class="list-group-item active">
-                Users
-            </a>
-            <a ng-repeat="user in model.users"
-               role="button"
-               ng-click="model.shareWithUser(user)"
-               class="list-group-item list-group-item-action gray"
-               ng-if="user._id!=model.currentUser._id">
-                {{user.firstName}} {{user.lastName}}</a>
-        </div>-->
         <div ng-show="model.messages.length==0" class="alert alert-success">
             You don't have any messages</div>
 

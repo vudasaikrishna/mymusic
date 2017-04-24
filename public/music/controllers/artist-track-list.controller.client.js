@@ -8,9 +8,13 @@
         vm.tracks = [];
 
         function init() {
+            vm.loading = true;
             vm.currentUser = UserService.currentUser;
+            vm.artist = vm.currentUser.role=="ARTIST";
             //console.log(vm.currentUser);
             // topTracks();
+            if(!vm.currentUser.role=='ARTIST')
+                UserService.currentMenu.active = "Artists";
             UserService.currentMenu.active = "MyTracks";
             var artistId = $routeParams.artistId;
             if(!artistId)
@@ -29,9 +33,11 @@
                     .findTrackByArtist(artistId)
                     .then(function (tracks) {
                         vm.tracks = tracks;
-                        console.log(tracks);
+                        // console.log(tracks);
+                        vm.loading = false;
                     }, function (err) {
                         vm.error = "Error loading tracks";
+                        vm.loading = false;
                     });
         }
 

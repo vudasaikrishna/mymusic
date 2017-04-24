@@ -3,7 +3,7 @@
         .module("MyMusic")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController(UserService, MusicService, $location, $route) {
+    function HeaderController(UserService, MusicService, $location, $window, $route) {
         var vm = this;
         // vm.test = "hello world";
         vm.currentUser = UserService.currentUser;
@@ -108,6 +108,48 @@
         //event handlers
         vm.searchTracks = searchTracks;
         vm.updateUser = updateUser;
+        vm.backButton = backButton
+
+        function backButton() {
+            /*$window.history.back();
+            return;*/
+            var path = $location.path();
+            switch (path) {
+                case '/track':
+                    $location.url('/home');
+                    break;
+                case '/artist':
+                    $location.url('/home');
+                    break;
+                case '/favorite':
+                    $location.url('/home');
+                    break;
+                case '/mytracks':
+                    $location.url('/home');
+                    break;
+                case '/admin':
+                    $location.url('/home');
+                    break;
+                case '/track/':
+                    $location.url('/track');
+                    break;
+                case '/artist/':
+                    $location.url('/artist');
+                    break;
+                case '/login':
+                    $location.url('/home');
+                    break;
+                case '/register':
+                    $location.url('/login');
+                    break;
+                case '/messages':
+                    $location.url('/home');
+                    break;
+                default:
+                    $location.url('/home');
+                    break;
+            }
+        }
 
         function updateUser() {
             console.log(vm.currentUser);

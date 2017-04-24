@@ -1,4 +1,4 @@
 (function () {
     angular
-        .module("MyMusic", ["ngRoute", "wbdvDirectives"]);
+        .module("MyMusic", ["ngRoute"]);
 })();

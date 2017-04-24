@@ -12,6 +12,7 @@
         var api = {
             "findUserByCredentials": findUserByCredentials,
             "findUserByUsername": findUserByUsername,
+            "findUserByScreenName": findUserByScreenName,
             "findUserById": findUserById,
             "findAllArtists": findAllArtists,
             "updateProfile": updateProfile,
@@ -38,12 +39,21 @@
         };
         return api;
 
+        function findUserByScreenName(screenName) {
+                return $http.get("/api/user?screenName="+screenName)
+                    .then(function (response) {
+                        return response.data;
+                    }, function (err) {
+                        console.log(err);
+                    })
+        }
+
         function findAllArtists() {
             return $http.get('/api/artist');
         }
 
         function getMessages() {
-            return $http.post('/api/user/message')
+            return $http.get('/api/user/message')
                 .then(function (response) {
                     return response.data;
                 });
@@ -91,7 +101,7 @@
         }
 
         function getFavorites() {
-            return $http.post('/api/user/favorite')
+            return $http.get('/api/user/favorite')
                 .then(function (response) {
                     return response.data;
                 });

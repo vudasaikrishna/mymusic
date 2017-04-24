@@ -137,13 +137,13 @@
     }
 
     function checkLoggedIn($q, UserService, $location) {
-        console.log("Checking login...");
+        //console.log("Checking login...");
         var defer = $q.defer();
         UserService
             .loggedin()
             .then(function (user) {
                 if(user != '0') {
-                    console.log("LoggedIn");
+                    //console.log("LoggedIn");
                     //console.log(user);
                     defer.resolve(user);
                 } else {
@@ -156,7 +156,7 @@
     }
 
     function checkUser($q, UserService) {
-        console.log("Checking User...");
+        //console.log("Checking User...");
         var defer = $q.defer();
         UserService
             .loggedin()

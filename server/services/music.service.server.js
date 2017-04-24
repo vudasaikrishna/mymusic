@@ -9,12 +9,25 @@ module.exports = function (app, model) {
     app.post('/api/track/:trackId/addComment', addComment);
     app.post('/api/track', getTrackInfo);
     app.get('/api/track/:trackId', findTrackById);
+    app.get('/api/track', findTrackBymbid);
     app.get('/api/artistTrack/:artistId', findTrackByArtist);
 
     var userModel = model.userModel;
     var trackModel = model.trackModel;
 
     // TODO: Track crud functions
+
+    function findTrackBymbid(req, res) {
+        trackModel
+            .findTrackBymbid(req.query.mbid)
+            .then(function (track) {
+                //console.log(track);
+                res.json(track);
+            }, function (err) {
+                console.log(err);
+                res.sendStatus(500);
+            })
+    }
 
     function findTrackById(req, res) {
         trackModel
@@ -23,7 +36,7 @@ module.exports = function (app, model) {
                 //console.log(track);
                 res.json(track);
             }, function (err) {
-                console.log(err);
+                //console.log(err);
                 res.sendStatus(500);
             })
     }
@@ -54,12 +67,12 @@ module.exports = function (app, model) {
             .then(function (track) {
                 if(track) {
                     // track already exists. send it back
-                    console.log("Track already exists");
+                    //console.log("Track already exists");
                     res.json(track);
 
                 } else {
                     // track doesn't exist, so add one
-                    console.log("Track doesn't exist");
+                    //console.log("Track doesn't exist");
                     // check if the aritst already exists
                     userModel
                         .findUserByScreenName(req.body.artist)
@@ -68,7 +81,7 @@ module.exports = function (app, model) {
                         .then(function (user) {
                             if(user){
                                 // artist exists. just create the track
-                                console.log("Artist exists!");
+                                //console.log("Artist exists!");
                                 // returning a promise for the next call.
                                 return userModel.findUserByScreenName(user.screenName)
                             } else {
@@ -79,7 +92,7 @@ module.exports = function (app, model) {
                                     external: true,
                                     role: 'ARTIST'
                                 };
-                                console.log("Creating Artist");
+                                //console.log("Creating Artist");
                                 return userModel
                                     .createUser(user)
                             }
@@ -97,7 +110,7 @@ module.exports = function (app, model) {
                         // Respond
                         // -------
                         .then(function (track) {
-                            console.log("Track added now.");
+                            //console.log("Track added now.");
                             //console.log(track);
                             res.json(track);
                         }, function (err) {
@@ -115,7 +128,7 @@ module.exports = function (app, model) {
             .findUserByScreenName(track.artist)
             .then(function (user) {
                 if(user){
-                    console.log("Artist exists!");
+                    //console.log("Artist exists!");
                     // returning a promise for the next call.
                     return userModel.findUserByScreenName(user.screenName)
                 } else {
@@ -125,7 +138,7 @@ module.exports = function (app, model) {
                         external: true,
                         role: 'ARTIST'
                     };
-                    console.log("Creating Artist");
+                    //console.log("Creating Artist");
                     return userModel
                         .createUser(user)
                 }
@@ -139,8 +152,8 @@ module.exports = function (app, model) {
                 res.sendStatus(500).send(err);
             })
             .then(function (track) {
-                console.log("Track added now.");
-                console.log(track);
+                //console.log("Track added now.");
+                //console.log(track);
                 res.json(track);
             }, function (err) {
                 console.log(err);
@@ -154,14 +167,14 @@ module.exports = function (app, model) {
             .then(function (track) {
                 if(track) {
                     // track already exists. send it back
-                    console.log("Track already exists");
+                    //console.log("Track already exists");
                     res.json(track);
 
                 } else {
                     // track doesn't exist, so add one
-                    console.log("Track doesn't exist");
+                    //console.log("Track doesn't exist");
                     // check if the aritst already exists
-                    console.log(req.body.artist);
+                    //console.log(req.body.artist);
                     return userModel
                         .findUserByScreenName(req.body.artist)
                 }
@@ -173,7 +186,7 @@ module.exports = function (app, model) {
             .then(function (user) {
                 if(user){
                     // artist exists. just create the track
-                    console.log("Artist exists!");
+                    //console.log("Artist exists!");
                     // returning a promise for the next call.
                     return userModel.findUserByScreenName(user.screenName)
                 } else {
@@ -184,7 +197,7 @@ module.exports = function (app, model) {
                         external: true,
                         role: 'ARTIST'
                     };
-                    console.log("Creating Artist");
+                    //console.log("Creating Artist");
                     return userModel
                         .createUser(user)
                 }
@@ -202,7 +215,7 @@ module.exports = function (app, model) {
             // Respond
             // -------
             .then(function (track) {
-                console.log("Track added now.");
+                //console.log("Track added now.");
                 //console.log(track);
                 res.json(track);
             }, function (err) {

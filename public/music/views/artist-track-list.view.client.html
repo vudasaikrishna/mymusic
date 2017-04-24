@@ -1,9 +1,12 @@
-<div class="alert alert-success" role="alert" ng-if="model.currentUser._id">
+<div class="alert alert-success" role="alert" ng-if="model.artist">
     <a href="#/track/new">Add new tracks</a>
 </div>
 
-<div class="row my-4">
-    <div class="card transparent img-fit mr-4 my-2" ng-repeat="track in model.tracks" ng-if="track._id!=''">
+<img ng-show="model.loading" src="../../images/loading.png"
+     class="img-fluid col-centered my-4">
+
+<div class="row my-4" ng-show="model.tracks.length!=0">
+    <div class="card black img-fit mr-4 my-2" ng-repeat="track in model.tracks" ng-if="track._id!=''">
         <a href="#/track/{{track._id}}">
             <img class="card-img-top img-fit"
                  src="{{track.image}}"
@@ -14,7 +17,7 @@
             <p class="card-text text-white">{{track.artist.screenName}}</p>
             <!--<a href="{{track.url}}"
                class="btn btn-primary mr-2">Play</a>-->
-            <a href="#/track/{{track.mbid?track.mbid:track._id}}" class="btn btn-primary mb-2 float-right">View</a>
+            <!--<a href="#/track/{{track.mbid?track.mbid:track._id}}" class="btn btn-primary mb-2 float-right">View</a>-->
         </div>
     </div>
 </div>

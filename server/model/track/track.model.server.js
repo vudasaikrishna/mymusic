@@ -14,15 +14,31 @@ module.exports = function (model) {
         addLover: addLover,
         removeLover: removeLover,
         findTrackByArtist: findTrackByArtist,
-        findTrackById: findTrackById
+        findTrackById: findTrackById,
+        findTrackBymbid: findTrackBymbid
     };
     return api;
+
+    function findTrackBymbid(mbid) {
+        var deferred = q.defer();
+        trackModel
+            .findOne({mbid: mbid}, function (err, track) {
+                if(err) {
+                    //console.log(err);
+                    deferred.reject(err);
+                } else {
+                    //console.log(track);
+                    deferred.resolve(track);
+                }
+            });
+        return deferred.promise;
+    }
 
     function findTrackById(trackId) {
         console.log(trackId);
         var deferred = q.defer();
         trackModel
-            .findOne({_id: trackId})
+            .findById(trackId)
             .populate({path:'artist comments.user', select: 'screenName firstName'})
             .exec(function (err, track) {
                 if(err) {
@@ -52,17 +68,25 @@ module.exports = function (model) {
     }
 
     function removeLover(userId, trackId) {
+        console.log(userId,trackId);
         var deferred = q.defer();
         trackModel
             .findById(trackId, function (err, track) {
                 if (err) {
                     deferred.reject(err);
                 } else{
+                    console.log("removing lover");
+                    console.log(track.loves);
+                    /*track.loves = track.loves.filter(function (u) {
+                        return !u.equals(userId);
+                    });*/
+                    //console.log(track.loves.length);
                     for(var u in track.loves) {
-                        if (track.loves[u] == userId) {
+                        if (track.loves[u].equals(userId)) {
                             console.log("removeLover");
                             track.loves.splice(u,1);
                             track.save();
+                            break;
                         }
                     }
                     deferred.resolve(track);

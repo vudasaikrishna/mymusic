@@ -16,9 +16,6 @@
     <!--<link href="css/bootstrap.min.css" rel="stylesheet" />-->
     <link href="css/bootstrap4/bootstrap.min.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet"/>
-    <link href="css/profile-picture.css" rel="stylesheet"/>
-
-    <!--<link href="css/textAngular.css" rel="stylesheet"/>-->
 
     <!--// JQuery-->
     <!--<script src="https://code.jquery.com/jquery-3.1.1.js"></script>-->
@@ -38,12 +35,7 @@
     <!--<script src="js/angular.min.js"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
     <!--<script src="js/angular-route.js"></script>-->
-    <!--Text Angular Scripts-->
-    <script src="js/textAngular-rangy.min.js"></script>
-    <script src="js/textAngular-sanitize.min.js"></script>
-    <script src="js/textAngular.min.js"></script>
 
-    <script src="directives/wbdv-sortable.js"></script>
     <script src="app.js"></script>
     <script src="config.js"></script>
 
@@ -110,20 +102,11 @@
                     <strong class="gray-text">{{model.currentUser.firstName || model.currentUser.username}}</strong>
                 </a>
             </li>
-            <!--<li class="nav-item">
-                <a class="nav-link" href="#/profile">
-                    <img class="img-prof" src="{{model.currentUser.photo||'uploads/default-profile.png'}}" />
-                </a>
-            </li>-->
         </ul>
     </div>
     <div class="navbar ml-auto">
         <ul class="navbar-nav">
-           <!-- <li ng-if="model.currentUser._id">
-                <a class="nav-link" href="#/profile" role="button">
-                    <strong class="gray-text">{{model.messageCount.value}}</strong>
-                </a>
-            </li>-->
+
             <li ng-if="model.currentUser._id" class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" role="button" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="d-inline-block">
@@ -149,11 +132,14 @@
 
 <nav class="navbar  navbar-default navbar-inverse sticky-top">
     <div class="row row-margin">
+        <h4><a ng-click="model.backButton()" role="button"
+               ng-show="model.currentMenu.active!='Home'">
+            <span class="fa fa-arrow-left ml-2 mr-1 my-1"></span></a></h4>
         <a class="navbar-brand d-flex ml-2 mr-auto hidden-sm-down" href="#">
             <img src="music.png" width="30" height="30" class="d-inline-block align-top" alt="">
             <h4>MyMusic</h4></a>
         <label class="sr-only" for="search">Search</label>
-        <div class="input-group mb-2 mr-sm-2 mb-sm-2 full-width mx-auto">
+        <div class="input-group transparent mb-2 mr-sm-2 mb-sm-2 full-width mx-auto">
             <input type="text"
                    ng-model="model.searchTerm"
                    class="form-control"
@@ -170,19 +156,5 @@
 
 </div>
 
-<!--<nav class="navbar navbar-default navbar-inverse fixed-bottom">
-    &lt;!&ndash;Menu on the navbar&ndash;&gt;
-    &lt;!&ndash;Menu in the body&ndash;&gt;
-    &lt;!&ndash;<button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>&ndash;&gt;
-    &lt;!&ndash;<a class="navbar-brand" href="#">MyMusic</a>&ndash;&gt;
-    &lt;!&ndash;<div class="d-inline-block text-center"> <span class="fa fa-play"></span></div>&ndash;&gt;
-
-    <audio controls class="col-centered">
-        <source src="uploads/flute.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-</nav>-->
 </body>
 </html>
