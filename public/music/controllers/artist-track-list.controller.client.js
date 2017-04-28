@@ -11,6 +11,7 @@
             vm.loading = true;
             vm.currentUser = UserService.currentUser;
             vm.artist = vm.currentUser.role=="ARTIST";
+            console.log(vm.artist);
             //console.log(vm.currentUser);
             // topTracks();
             if(!vm.currentUser.role=='ARTIST')

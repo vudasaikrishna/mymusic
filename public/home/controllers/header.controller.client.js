@@ -114,7 +114,17 @@
             /*$window.history.back();
             return;*/
             var path = $location.path();
-            switch (path) {
+            if(path == '/register') {
+                $location.url('/login');
+            } else if(path.indexOf('/artist/')!=-1) {
+                $location.url('/artist');
+            } else if(path.indexOf('/track/')!=-1) {
+                $location.url('/track');
+            } else {
+                $location.url('/home');
+            }
+
+            /*switch (path) {
                 case '/track':
                     $location.url('/home');
                     break;
@@ -148,7 +158,7 @@
                 default:
                     $location.url('/home');
                     break;
-            }
+            }*/
         }
 
         function updateUser() {

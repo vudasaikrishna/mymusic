@@ -5,6 +5,10 @@
 <img ng-show="model.loading" src="../../images/loading.png"
      class="img-fluid col-centered my-4">
 
+<div class="alert alert-success" role="alert" ng-show="!model.loading && model.tracks.length==0">
+    This Artist has no tracks yet.
+</div>
+
 <div class="row my-4" ng-show="model.tracks.length!=0">
     <div class="card black img-fit mr-4 my-2" ng-repeat="track in model.tracks" ng-if="track._id!=''">
         <a href="#/track/{{track._id}}">

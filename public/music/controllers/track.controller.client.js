@@ -13,6 +13,7 @@
             vm.currentUser = currentUser;
             //console.log(vm.currentUser);
             UserService.updateCurrentUser(currentUser);
+            UserService.currentMenu.active = "Track";
 
             var trackId = $routeParams.tid;
             vm.showWiki = false;
